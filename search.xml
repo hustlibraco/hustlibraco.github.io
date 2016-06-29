@@ -4,27 +4,10 @@
   
     
     <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>http://yoursite.com/2016/06/29/hello-world/</url>
-      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p> 人的一切痛苦，本质上就是对自己的无能的愤怒。</p>
-<p><strong>王小波</strong></p>
-</blockquote>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[python实现rsa的几种方案]]></title>
       <url>http://yoursite.com/2015/12/09/python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
       <content type="html"><![CDATA[<h2 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a><a href="https://pypi.python.org/pypi/rsa" target="_blank" rel="external">rsa</a></h2><p>这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。</p>
+<a id="more"></a>
 <p><strong> 解密性能: 70ms左右 </strong></p>
 <blockquote>
 <p>Python-RSA is a pure-Python RSA implementation. It supports encryption and decryption, signing and verifying signatures, and key generation according to PKCS#1 version 1.5. It can be used as a Python library as well as on the commandline. The code was mostly written by Sybren A. Stüvel.</p>
@@ -55,8 +38,7 @@
     <entry>
       <title><![CDATA[利用supervisor部署多个tornado服务/]]></title>
       <url>http://yoursite.com/2015/12/09/%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
-      <content type="html"><![CDATA[<p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。</p>
-<p><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
+      <content type="html"><![CDATA[<p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。<br><a id="more"></a><br><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
 <h2 id="安装Supervisor"><a href="#安装Supervisor" class="headerlink" title="安装Supervisor"></a>安装Supervisor</h2><p>官网上介绍了多种安装方法，这里使用pip进行安装:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install supervisor</span><br></pre></td></tr></table></figure>
 <p>安装完毕之后在/usr/bin目录会生成一个echo_supervisord_conf文件，它的作用是打印默认的Supervisor配置。接下来我们执行:</p>
@@ -98,6 +80,7 @@
       <url>http://yoursite.com/2015/12/03/Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
       <content type="html"><![CDATA[<h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comma separated list of ip addresses to listen on (all local ips by default)</span></span><br><span class="line"><span class="built_in">bind</span>_ip = 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port number (27017 by default)</span></span><br><span class="line"><span class="comment">#port = 27017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fork server process (false by default)</span></span><br><span class="line">fork = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Full path to pidfile (if not set, no pidfile is created)</span></span><br><span class="line">pidfilepath = /var/run/mongodb/mongod.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath = /var/<span class="built_in">log</span>/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative directory for UNIX domain sockets (defaults to /tmp)</span></span><br><span class="line">unixSocketPrefix = /var/run/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory for datafiles (defaults to /data/db/)</span></span><br><span class="line">dbpath = /var/lib/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable journaling (journaling is on by default for 64 bit)</span></span><br><span class="line"><span class="comment">#journal = true</span></span><br><span class="line"><span class="comment">#nojournal = true</span></span><br></pre></td></tr></table></figure>
 <p>默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。</p>
@@ -118,7 +101,7 @@
     <entry>
       <title><![CDATA[Nginx配置多域名反向代理]]></title>
       <url>http://yoursite.com/2015/12/03/Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
+      <content type="html"><![CDATA[<p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。<br><a id="more"></a></p>
 <h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
 <p>打开nginx的配置文件/etc/nginx/nginx.conf，长这样:</p>

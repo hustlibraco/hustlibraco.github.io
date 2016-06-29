@@ -104,22 +104,16 @@
 
 
 
-<meta name="description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。
-Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。
-安装Supervisor官网上介绍了多种安装方法，这里使">
+<meta name="description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用supervisor部署多个tornado服务/">
 <meta property="og:url" content="http://yoursite.com/2015/12/09/利用supervisor部署多个tornado服务/index.html">
 <meta property="og:site_name" content="依山观澜">
-<meta property="og:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。
-Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。
-安装Supervisor官网上介绍了多种安装方法，这里使">
-<meta property="og:updated_time" content="2016-06-29T13:26:13.921Z">
+<meta property="og:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。">
+<meta property="og:updated_time" content="2016-06-29T13:40:04.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用supervisor部署多个tornado服务/">
-<meta name="twitter:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。
-Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。
-安装Supervisor官网上介绍了多种安装方法，这里使">
+<meta name="twitter:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。">
 
 
 
@@ -351,8 +345,7 @@ Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于�
       
 
       
-        <p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。</p>
-<p><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
+        <p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。<br><a id="more"></a><br><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
 <h2 id="安装Supervisor"><a href="#安装Supervisor" class="headerlink" title="安装Supervisor"></a>安装Supervisor</h2><p>官网上介绍了多种安装方法，这里使用pip进行安装:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install supervisor</span><br></pre></td></tr></table></figure>
 <p>安装完毕之后在/usr/bin目录会生成一个echo_supervisord_conf文件，它的作用是打印默认的Supervisor配置。接下来我们执行:</p>
@@ -521,7 +514,7 @@ Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

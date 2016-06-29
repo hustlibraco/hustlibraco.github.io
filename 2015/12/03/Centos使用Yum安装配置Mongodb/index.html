@@ -105,24 +105,18 @@
 
 
 <meta name="description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server
-yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：
-# Comma separated list of ip addresses to listen on (all local ips by def">
+yum install mongodb mongodb-server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos使用Yum安装配置Mongodb">
 <meta property="og:url" content="http://yoursite.com/2015/12/03/Centos使用Yum安装配置Mongodb/index.html">
 <meta property="og:site_name" content="依山观澜">
 <meta property="og:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server
-yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：
-# Comma separated list of ip addresses to listen on (all local ips by def">
-<meta property="og:updated_time" content="2016-06-29T12:53:06.947Z">
+yum install mongodb mongodb-server">
+<meta property="og:updated_time" content="2016-06-29T13:41:11.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos使用Yum安装配置Mongodb">
 <meta name="twitter:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server
-yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：
-# Comma separated list of ip addresses to listen on (all local ips by def">
+yum install mongodb mongodb-server">
 
 
 
@@ -356,6 +350,7 @@ yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文�
       
         <h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comma separated list of ip addresses to listen on (all local ips by default)</span></span><br><span class="line"><span class="built_in">bind</span>_ip = 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port number (27017 by default)</span></span><br><span class="line"><span class="comment">#port = 27017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fork server process (false by default)</span></span><br><span class="line">fork = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Full path to pidfile (if not set, no pidfile is created)</span></span><br><span class="line">pidfilepath = /var/run/mongodb/mongod.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath = /var/<span class="built_in">log</span>/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative directory for UNIX domain sockets (defaults to /tmp)</span></span><br><span class="line">unixSocketPrefix = /var/run/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory for datafiles (defaults to /data/db/)</span></span><br><span class="line">dbpath = /var/lib/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable journaling (journaling is on by default for 64 bit)</span></span><br><span class="line"><span class="comment">#journal = true</span></span><br><span class="line"><span class="comment">#nojournal = true</span></span><br></pre></td></tr></table></figure>
 <p>默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。</p>
@@ -503,7 +498,7 @@ yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
