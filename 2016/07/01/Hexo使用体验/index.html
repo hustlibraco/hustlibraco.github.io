@@ -88,7 +88,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,Mongodb," />
+  <meta name="keywords" content="Hexo,Next,Blog," />
 
 
 
@@ -104,19 +104,22 @@
 
 
 
-<meta name="description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server">
+<meta name="description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。
+Why Hexo其实我很早知道hexo，在github上面stars的数量也很">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos使用Yum安装配置Mongodb">
-<meta property="og:url" content="/2015/12/03/Centos使用Yum安装配置Mongodb/index.html">
+<meta property="og:title" content="Hexo使用体验">
+<meta property="og:url" content="/2016/07/01/Hexo使用体验/index.html">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server">
-<meta property="og:updated_time" content="2016-06-29T13:41:11.757Z">
+<meta property="og:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。
+Why Hexo其实我很早知道hexo，在github上面stars的数量也很">
+<meta property="og:updated_time" content="2016-07-01T12:39:58.173Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos使用Yum安装配置Mongodb">
-<meta name="twitter:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
-yum install mongodb mongodb-server">
+<meta name="twitter:title" content="Hexo使用体验">
+<meta name="twitter:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。
+Why Hexo其实我很早知道hexo，在github上面stars的数量也很">
 
 
 
@@ -137,9 +140,9 @@ yum install mongodb mongodb-server">
 
 
 
-  <link rel="canonical" href="/2015/12/03/Centos使用Yum安装配置Mongodb/"/>
+  <link rel="canonical" href="/2016/07/01/Hexo使用体验/"/>
 
-  <title> Centos使用Yum安装配置Mongodb | 倚山观澜 </title>
+  <title> Hexo使用体验 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +295,7 @@ yum install mongodb mongodb-server">
             
             
               
-                Centos使用Yum安装配置Mongodb
+                Hexo使用体验
               
             
           </h1>
@@ -304,8 +307,8 @@ yum install mongodb mongodb-server">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-03T20:46:31+08:00" content="2015-12-03">
-              2015-12-03
+            <time itemprop="dateCreated" datetime="2016-07-01T19:07:07+08:00" content="2016-07-01">
+              2016-07-01
             </time>
           </span>
 
@@ -315,8 +318,8 @@ yum install mongodb mongodb-server">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/03/Centos使用Yum安装配置Mongodb/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Centos使用Yum安装配置Mongodb/" itemprop="commentsCount"></span>
+                <a href="/2016/07/01/Hexo使用体验/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/Hexo使用体验/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -326,7 +329,7 @@ yum install mongodb mongodb-server">
 
           
           
-             <span id="/2015/12/03/Centos使用Yum安装配置Mongodb/" class="leancloud_visitors" data-flag-title="Centos使用Yum安装配置Mongodb">
+             <span id="/2016/07/01/Hexo使用体验/" class="leancloud_visitors" data-flag-title="Hexo使用体验">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -348,23 +351,80 @@ yum install mongodb mongodb-server">
       
 
       
-        <h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comma separated list of ip addresses to listen on (all local ips by default)</span></span><br><span class="line"><span class="built_in">bind</span>_ip = 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port number (27017 by default)</span></span><br><span class="line"><span class="comment">#port = 27017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fork server process (false by default)</span></span><br><span class="line">fork = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Full path to pidfile (if not set, no pidfile is created)</span></span><br><span class="line">pidfilepath = /var/run/mongodb/mongod.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath = /var/<span class="built_in">log</span>/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative directory for UNIX domain sockets (defaults to /tmp)</span></span><br><span class="line">unixSocketPrefix = /var/run/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory for datafiles (defaults to /data/db/)</span></span><br><span class="line">dbpath = /var/lib/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable journaling (journaling is on by default for 64 bit)</span></span><br><span class="line"><span class="comment">#journal = true</span></span><br><span class="line"><span class="comment">#nojournal = true</span></span><br></pre></td></tr></table></figure>
-<p>默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。</p>
-<h2 id="配置开机自启动"><a href="#配置开机自启动" class="headerlink" title="配置开机自启动"></a>配置开机自启动</h2><p>打开/etc/rc.d/rc.local文件，追加/usr/bin/mongod –config /etc/mongod.conf至行尾，保存即可。</p>
-<h2 id="尝试启动"><a href="#尝试启动" class="headerlink" title="尝试启动"></a>尝试启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service mongod start</span><br></pre></td></tr></table></figure>
-<p>结果失败了，提示我使用指令systemctl status mongodb查看原因，指令输出类似这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mongodb.service - High-performance, schema-free document-oriented database</span><br><span class="line">        Loaded: loaded (/usr/lib/systemd/system/mongodb.service; enabled)</span><br><span class="line">        Active: failed (Result: <span class="built_in">exit</span>-code) since Mi 2013-04-03 15:48:01 EEST; 3min 13s ago</span><br><span class="line">        Process: 1756 ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf (code=exited, status=14)</span><br><span class="line"></span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libstdc++.so.6(_ZNSt6localeC1EPKc+0x71b) [0x7f60471c952b]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem4path7codecvtEv+0x4f) [0x7f6047adfb6f]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZNK5boost10filesystem4path14root_directoryEv+0x114) [0x7f6047ae1344]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem8absoluteERKNS0_4pathES3_+0x3e) [0x7f6047add16e]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(_ZN5mongo27initializeServerGlobalStateEb+0xf3) [0x94<span class="built_in">fc</span>73]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(main+0x234) [0x7591f4]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libc.so.6(__libc_start_main+0xf5) [0x7f60468b7a15]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod() [0x76bcd5]</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: mongodb.service: main process exited, code=exited, status=14/n/a</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: Unit mongodb.service entered failed state</span><br></pre></td></tr></table></figure>
-<p>仍然看不出哪里有问题，直到google到了这样的字眼sudo chown -R mongodb: /var/{lib,log}/mongodb，恍然大悟。</p>
-<p>使用Yum安装Mongodb会默认创建mongo用户,该用户的家目录是/var/lib/mongodb, 但是日志文件/var/log/mongodb/mongod.log和进程ID文件/var/run/mongodb/mongod.pid在其他的目录下面，这些目录属主不是mongodb用户，所以写入的时候会报权限问题。</p>
-<p>修改目录/var/log/mongodb和/var/run/mongodb属主为monodb即可。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Yum安装软件十分简单，但是由于Mongodb的安装包忽略了权限问题，而且出错日志十分不明显，导致我花费数十分钟才解决。</p>
-<p>其实Linux下权限问题十分常见，发生问题不知道原因的时候都可以往这方面尝试一下。</p>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>后来想了一下，应该不是安装包的问题，这问题未免也太低级了。</p>
-<p>极有可能是我安装好的时候使用自己的帐号运行过服务，所以产生的配置文件及目录的属主是我平常用的帐号，因此mongodb这个用户没有写入和执行权限。</p>
+        <p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
+<p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。</p>
+<h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">工具</th>
+<th style="text-align:center">文章生成速度</th>
+<th style="text-align:center">配置部署</th>
+<th style="text-align:center">主题</th>
+<th style="text-align:center">开发者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Ruby/Pelican</td>
+<td style="text-align:center">慢</td>
+<td style="text-align:center">简单</td>
+<td style="text-align:center">多</td>
+<td style="text-align:center">外国人</td>
+</tr>
+<tr>
+<td style="text-align:center">Hugo</td>
+<td style="text-align:center">快</td>
+<td style="text-align:center">麻烦(go的很多代码被墙了)</td>
+<td style="text-align:center">较少</td>
+<td style="text-align:center">外国人</td>
+</tr>
+<tr>
+<td style="text-align:center">Hexo</td>
+<td style="text-align:center">快</td>
+<td style="text-align:center">简单</td>
+<td style="text-align:center">很多很好看（js毕竟是前端程序员的主力武器）</td>
+<td style="text-align:center">台湾</td>
+</tr>
+</tbody>
+</table>
+<p>所以我放弃Pelican的理由是太慢了，放弃Hugo的理由是因为找不到我想要的主题，而且本地化支持不是很好。<br>Hexo部署简单，性能也还不错，但是仅仅如此是不够。最重要的是因为<strong>Next</strong>。</p>
+<h2 id="Why-Next"><a href="#Why-Next" class="headerlink" title="Why Next"></a>Why Next</h2><p>Next是Github上面starts数最多的Hexo主题，最重要的是她是国人开发的，有着对本地化最完美的支持。</p>
+<p>比如我们使用多说评论框，在Hugo上要去改写测试layouts文件，很容易出错，但是在Next里你只需要把你的duoshuoID配置在_config.yaml文件里就可以了。  </p>
+<p>此外她有丰富的国人编写的插件及简洁优美的外观，配合Nginx和国内JS、CSS的CDN，性能表现近乎完美。<br>具体的介绍可以参考<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next主页</a>。</p>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>Hexo是用Node开发的，所以我们需要先安装Node。  </p>
+<p>安装方式有：</p>
+<ol>
+<li><code>yum install nodejs</code>  </li>
+<li>nvm安装</li>
+<li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">官网</a> 安装</li>
+</ol>
+<p>推荐第一种，因为hexo对node没有特殊要求，采用最方便的方式安装即可。</p>
+<p>node的包管理工具叫做npm，hexo就是用它安装，但是默认配置的npm是国外的，速度不稳定，所以建议修改为国内源:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.profile</span><br></pre></td></tr></table></figure>
+<p>添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br></pre></td></tr></table></figure>
+<p>到文件尾，然后执行<code>source ~/.profile</code>使配置生效。</p>
+<p>然后安装hexo，一行搞定:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<h2 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h2><p>设置你的博客<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure></p>
+<p>安装Next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<p>启用主题，打开blog/_config.yaml， 找到 theme 字段，并将其值更改为 next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<p>开启服务<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"><span class="comment"># 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)</span></span><br><span class="line">$ hexo server -i `yourip or domain`</span><br></pre></td></tr></table></figure></p>
+<p>这个时候访问localhost:4000就能看到博客默认的样子了，不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。</p>
+<p>其他命令：</p>
+<ul>
+<li><p>创建文章</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"Hello Hexo"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成静态文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分发静态文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。</p>
+<p>当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^</p>
 
       
     </div>
@@ -386,9 +446,11 @@ yum install mongodb mongodb-server">
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
+            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
           
-            <a href="/tags/Mongodb/" rel="tag">#Mongodb</a>
+            <a href="/tags/Next/" rel="tag">#Next</a>
+          
+            <a href="/tags/Blog/" rel="tag">#Blog</a>
           
         </div>
       
@@ -397,17 +459,13 @@ yum install mongodb mongodb-server">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/03/Nginx配置多域名反向代理/" rel="next" title="Nginx配置多域名反向代理">
-                <i class="fa fa-chevron-left"></i> Nginx配置多域名反向代理
+              <a href="/2016/06/30/Nginx-lua-waf搭建步骤/" rel="next" title="Nginx_lua_waf搭建步骤">
+                <i class="fa fa-chevron-left"></i> Nginx_lua_waf搭建步骤
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/09/利用supervisor部署多个tornado服务/" rel="prev" title="利用supervisor部署多个tornado服务/">
-                利用supervisor部署多个tornado服务/ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,10 +480,10 @@ yum install mongodb mongodb-server">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/Centos使用Yum安装配置Mongodb/"
-     data-title="Centos使用Yum安装配置Mongodb"
+        <div class="ds-share flat" data-thread-key="2016/07/01/Hexo使用体验/"
+     data-title="Hexo使用体验"
      data-content=""
-     data-url="/2015/12/03/Centos使用Yum安装配置Mongodb/">
+     data-url="/2016/07/01/Hexo使用体验/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -452,8 +510,8 @@ yum install mongodb mongodb-server">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/03/Centos使用Yum安装配置Mongodb/"
-           data-title="Centos使用Yum安装配置Mongodb" data-url="/2015/12/03/Centos使用Yum安装配置Mongodb/">
+      <div class="ds-thread" data-thread-key="2016/07/01/Hexo使用体验/"
+           data-title="Hexo使用体验" data-url="/2016/07/01/Hexo使用体验/">
       </div>
     
   </div>
@@ -571,7 +629,7 @@ yum install mongodb mongodb-server">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Mongodb"><span class="nav-number">1.</span> <span class="nav-text">安装Mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">配置开机自启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试启动"><span class="nav-number">3.</span> <span class="nav-text">尝试启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Hexo"><span class="nav-number">1.</span> <span class="nav-text">Why Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Next"><span class="nav-number">2.</span> <span class="nav-text">Why Next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Hexo"><span class="nav-number">4.</span> <span class="nav-text">部署Hexo</span></a></li></ol></div>
             
           </div>
         </section>
