@@ -106,14 +106,14 @@
 
 <meta name="description" content="Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx_lua_waf搭建步骤">
-<meta property="og:url" content="/2016/06/30/Nginx-lua-waf搭建步骤/index.html">
+<meta property="og:title" content="Ngx_lua_waf搭建步骤">
+<meta property="og:url" content="/2016/06/30/Ngx-lua-waf搭建步骤/index.html">
 <meta property="og:site_name" content="倚山观澜">
 <meta property="og:description" content="Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。">
 <meta property="og:image" content="/images/waf-example.png">
-<meta property="og:updated_time" content="2016-06-30T12:26:09.026Z">
+<meta property="og:updated_time" content="2016-07-04T07:47:32.055Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx_lua_waf搭建步骤">
+<meta name="twitter:title" content="Ngx_lua_waf搭建步骤">
 <meta name="twitter:description" content="Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。">
 <meta name="twitter:image" content="/images/waf-example.png">
 
@@ -136,9 +136,9 @@
 
 
 
-  <link rel="canonical" href="/2016/06/30/Nginx-lua-waf搭建步骤/"/>
+  <link rel="canonical" href="/2016/06/30/Ngx-lua-waf搭建步骤/"/>
 
-  <title> Nginx_lua_waf搭建步骤 | 倚山观澜 </title>
+  <title> Ngx_lua_waf搭建步骤 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
             
             
               
-                Nginx_lua_waf搭建步骤
+                Ngx_lua_waf搭建步骤
               
             
           </h1>
@@ -314,8 +314,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/30/Nginx-lua-waf搭建步骤/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/30/Nginx-lua-waf搭建步骤/" itemprop="commentsCount"></span>
+                <a href="/2016/06/30/Ngx-lua-waf搭建步骤/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/30/Ngx-lua-waf搭建步骤/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -325,7 +325,7 @@
 
           
           
-             <span id="/2016/06/30/Nginx-lua-waf搭建步骤/" class="leancloud_visitors" data-flag-title="Nginx_lua_waf搭建步骤">
+             <span id="/2016/06/30/Ngx-lua-waf搭建步骤/" class="leancloud_visitors" data-flag-title="Ngx_lua_waf搭建步骤">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,7 +373,7 @@
 <li><p><strong>开启自启动</strong> systemctl enable nginx</p>
 </li>
 </ul>
-<h2 id="部署Nginx-lua-waf"><a href="#部署Nginx-lua-waf" class="headerlink" title="部署Nginx_lua_waf"></a>部署Nginx_lua_waf</h2><p>下载安装包到nginx配置目录，重命名为waf：</p>
+<h2 id="部署Ngx-lua-waf"><a href="#部署Ngx-lua-waf" class="headerlink" title="部署Ngx_lua_waf"></a>部署Ngx_lua_waf</h2><p>下载安装包到nginx配置目录，重命名为waf：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/openresty/nginx/conf</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/loveshell/ngx_lua_waf.git waf</span><br></pre></td></tr></table></figure>
 <p>然后修改Nginx.conf，在http下面增加以下waf配置：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_<span class="built_in">type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua包的路径</span></span><br><span class="line">    lua_package_path <span class="string">"/usr/local/openresty/nginx/conf/waf/?.lua"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua运行时最大内存</span></span><br><span class="line">    lua_shared_dict <span class="built_in">limit</span> 10m;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf启动脚本</span></span><br><span class="line">    init_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/init.lua;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf过滤逻辑脚本</span></span><br><span class="line">    access_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/waf.lua;</span><br><span class="line"></span><br><span class="line">    ···</span><br></pre></td></tr></table></figure>
@@ -458,10 +458,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/06/30/Nginx-lua-waf搭建步骤/"
-     data-title="Nginx_lua_waf搭建步骤"
+        <div class="ds-share flat" data-thread-key="2016/06/30/Ngx-lua-waf搭建步骤/"
+     data-title="Ngx_lua_waf搭建步骤"
      data-content=""
-     data-url="/2016/06/30/Nginx-lua-waf搭建步骤/">
+     data-url="/2016/06/30/Ngx-lua-waf搭建步骤/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -488,8 +488,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/30/Nginx-lua-waf搭建步骤/"
-           data-title="Nginx_lua_waf搭建步骤" data-url="/2016/06/30/Nginx-lua-waf搭建步骤/">
+      <div class="ds-thread" data-thread-key="2016/06/30/Ngx-lua-waf搭建步骤/"
+           data-title="Ngx_lua_waf搭建步骤" data-url="/2016/06/30/Ngx-lua-waf搭建步骤/">
       </div>
     
   </div>
@@ -607,7 +607,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装openresty平台"><span class="nav-number">1.</span> <span class="nav-text">安装openresty平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Nginx-lua-waf"><span class="nav-number">2.</span> <span class="nav-text">部署Nginx_lua_waf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则"><span class="nav-number">3.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装openresty平台"><span class="nav-number">1.</span> <span class="nav-text">安装openresty平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Ngx-lua-waf"><span class="nav-number">2.</span> <span class="nav-text">部署Ngx_lua_waf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则"><span class="nav-number">3.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li></ol></div>
             
           </div>
         </section>

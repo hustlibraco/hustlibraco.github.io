@@ -78,14 +78,13 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。</p>
-<p>当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^</p>
+<p>静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。<br>当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^</p>
 ]]></content>
     </entry>
     
     <entry>
-      <title><![CDATA[Nginx_lua_waf搭建步骤]]></title>
-      <url>/2016/06/30/Nginx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
+      <title><![CDATA[Ngx_lua_waf搭建步骤]]></title>
+      <url>/2016/06/30/Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
       <content type="html"><![CDATA[<p>Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。<br><a id="more"></a></p>
 <blockquote>
 <p><a href="https://github.com/loveshell/ngx_lua_waf" target="_blank" rel="external">ngx_lua_waf</a>是我刚入职趣游时候开发的一个基于ngx_lua的web应用防火墙。</p>
@@ -112,7 +111,7 @@
 <li><p><strong>开启自启动</strong> systemctl enable nginx</p>
 </li>
 </ul>
-<h2 id="部署Nginx-lua-waf"><a href="#部署Nginx-lua-waf" class="headerlink" title="部署Nginx_lua_waf"></a>部署Nginx_lua_waf</h2><p>下载安装包到nginx配置目录，重命名为waf：</p>
+<h2 id="部署Ngx-lua-waf"><a href="#部署Ngx-lua-waf" class="headerlink" title="部署Ngx_lua_waf"></a>部署Ngx_lua_waf</h2><p>下载安装包到nginx配置目录，重命名为waf：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/openresty/nginx/conf</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/loveshell/ngx_lua_waf.git waf</span><br></pre></td></tr></table></figure>
 <p>然后修改Nginx.conf，在http下面增加以下waf配置：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_<span class="built_in">type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua包的路径</span></span><br><span class="line">    lua_package_path <span class="string">"/usr/local/openresty/nginx/conf/waf/?.lua"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua运行时最大内存</span></span><br><span class="line">    lua_shared_dict <span class="built_in">limit</span> 10m;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf启动脚本</span></span><br><span class="line">    init_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/init.lua;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf过滤逻辑脚本</span></span><br><span class="line">    access_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/waf.lua;</span><br><span class="line"></span><br><span class="line">    ···</span><br></pre></td></tr></table></figure>
