@@ -96,7 +96,7 @@
 <p>至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行<code>hexo g -d</code>即可。</p>
 <h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置新电脑的sshkey到github，或者选择https方式clone</span></span><br><span class="line">$ git <span class="built_in">clone</span> git@github.com:xxxx/xxxx.github.io.git -b hexo blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项</span></span><br><span class="line"><span class="comment"># eg. npm install hexo-deployer-git --save</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
 <p>无须执行<code>hexo init</code>。</p>
-<h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><p>因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者<a href="http://git.oschina.net/" target="_blank" rel="external">开源中国</a>。</p>
+<h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><p>因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>。</p>
 ]]></content>
     </entry>
     
