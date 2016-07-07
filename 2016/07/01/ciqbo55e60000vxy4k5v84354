@@ -88,7 +88,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo,Next,Blog," />
 
 
 
@@ -104,15 +104,19 @@
 
 
 
-<meta name="description" content="莫问前程，不忘初心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="倚山观澜">
-<meta property="og:url" content="/tags/Next/index.html">
+<meta name="description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo使用体验">
+<meta property="og:url" content="/2016/07/01/ciqbo55e60000vxy4k5v84354">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="莫问前程，不忘初心。">
+<meta property="og:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。">
+<meta property="og:updated_time" content="2016-07-01T12:45:56.524Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="倚山观澜">
-<meta name="twitter:description" content="莫问前程，不忘初心。">
+<meta name="twitter:title" content="Hexo使用体验">
+<meta name="twitter:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
+于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。">
 
 
 
@@ -133,9 +137,9 @@
 
 
 
-  <link rel="canonical" href="/tags/Next/"/>
+  <link rel="canonical" href="/2016/07/01/ciqbo55e60000vxy4k5v84354"/>
 
-  <title> 标签: Next | 倚山观澜 </title>
+  <title> Hexo使用体验 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,7 +160,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,46 +271,232 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Next
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hexo使用体验
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-01T19:07:07+08:00" content="2016-07-01">
+              2016-07-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/01/ciqbo55e60000vxy4k5v84354#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/ciqbo55e60000vxy4k5v84354" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/01/ciqbo55e60000vxy4k5v84354" class="leancloud_visitors" data-flag-title="Hexo使用体验">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
+<p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。<br><a id="more"></a></p>
+<h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">工具</th>
+<th style="text-align:center">文章生成速度</th>
+<th style="text-align:center">配置部署</th>
+<th style="text-align:center">主题</th>
+<th style="text-align:center">开发者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Ruby/Pelican</td>
+<td style="text-align:center">慢</td>
+<td style="text-align:center">简单</td>
+<td style="text-align:center">多</td>
+<td style="text-align:center">外国人</td>
+</tr>
+<tr>
+<td style="text-align:center">Hugo</td>
+<td style="text-align:center">快</td>
+<td style="text-align:center">麻烦(go的很多代码被墙了)</td>
+<td style="text-align:center">较少</td>
+<td style="text-align:center">外国人</td>
+</tr>
+<tr>
+<td style="text-align:center">Hexo</td>
+<td style="text-align:center">快</td>
+<td style="text-align:center">简单</td>
+<td style="text-align:center">很多很好看（js毕竟是前端程序员的主力武器）</td>
+<td style="text-align:center">台湾</td>
+</tr>
+</tbody>
+</table>
+<p>所以我放弃Pelican的理由是太慢了，放弃Hugo的理由是因为找不到我想要的主题，而且本地化支持不是很好。<br>Hexo部署简单，性能也还不错，但是仅仅如此是不够。最重要的是因为<strong>Next</strong>。</p>
+<h2 id="Why-Next"><a href="#Why-Next" class="headerlink" title="Why Next"></a>Why Next</h2><p>Next是Github上面starts数最多的Hexo主题，最重要的是她是国人开发的，有着对本地化最完美的支持。</p>
+<p>比如我们使用多说评论框，在Hugo上要去改写测试layouts文件，很容易出错，但是在Next里你只需要把你的duoshuoID配置在_config.yaml文件里就可以了。  </p>
+<p>此外她有丰富的国人编写的插件及简洁优美的外观，配合Nginx和国内JS、CSS的CDN，性能表现近乎完美。<br>具体的介绍可以参考<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next主页</a>。</p>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>Hexo是用Node开发的，所以我们需要先安装Node。  </p>
+<p>安装方式有：</p>
+<ol>
+<li><code>yum install nodejs</code>  </li>
+<li>nvm安装</li>
+<li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">官网</a> 安装</li>
+</ol>
+<p>推荐第一种，因为hexo对node没有特殊要求，采用最方便的方式安装即可。</p>
+<p>node的包管理工具叫做npm，hexo就是用它安装，但是默认配置的npm是国外的，速度不稳定，所以建议修改为国内源:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.profile</span><br></pre></td></tr></table></figure>
+<p>添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br></pre></td></tr></table></figure>
+<p>到文件尾，然后执行<code>source ~/.profile</code>使配置生效。</p>
+<p>然后安装hexo，一行搞定:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<h2 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h2><p>设置你的博客<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure></p>
+<p>安装Next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<p>启用主题，打开blog/_config.yaml， 找到 theme 字段，并将其值更改为 next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<p>开启服务<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"><span class="comment"># 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)</span></span><br><span class="line">$ hexo server -i `yourip or domain`</span><br></pre></td></tr></table></figure></p>
+<p>这个时候访问localhost:4000就能看到博客默认的样子了，<strong>不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。</strong></p>
+<p>其他命令：</p>
+<ul>
+<li><p>创建文章</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"Hello Hexo"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成静态文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分发静态文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。<br>当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/01/ciqbo55e60000vxy4k5v84354" itemprop="url">
-              
-                <span itemprop="name">Hexo使用体验</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T19:07:07+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+          
+            <a href="/tags/Next/" rel="tag">#Next</a>
+          
+            <a href="/tags/Blog/" rel="tag">#Blog</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/30/ciqbnoixo0008sty4qsleagdo" rel="next" title="Ngx_lua_waf搭建步骤">
+                <i class="fa fa-chevron-left"></i> Ngx_lua_waf搭建步骤
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/01/ciqbo55e60000vxy4k5v84354"
+     data-title="Hexo使用体验"
+     data-content=""
+     data-url="/2016/07/01/ciqbo55e60000vxy4k5v84354">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -314,6 +504,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/01/ciqbo55e60000vxy4k5v84354"
+           data-title="Hexo使用体验" data-url="/2016/07/01/ciqbo55e60000vxy4k5v84354">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -333,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/lixiaoyao.jpg"
@@ -411,6 +618,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Hexo"><span class="nav-number">1.</span> <span class="nav-text">Why Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Next"><span class="nav-number">2.</span> <span class="nav-text">Why Next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Hexo"><span class="nav-number">4.</span> <span class="nav-text">部署Hexo</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -507,6 +725,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

@@ -88,7 +88,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python,RSA,密码学," />
 
 
 
@@ -104,15 +104,16 @@
 
 
 
-<meta name="description" content="莫问前程，不忘初心。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="倚山观澜">
-<meta property="og:url" content="/tags/Next/index.html">
+<meta name="description" content="rsa这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python实现rsa的几种方案">
+<meta property="og:url" content="/2015/12/09/ciqbnoixg0006sty4pawa0ean">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="莫问前程，不忘初心。">
+<meta property="og:description" content="rsa这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。">
+<meta property="og:updated_time" content="2016-06-29T13:39:55.865Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="倚山观澜">
-<meta name="twitter:description" content="莫问前程，不忘初心。">
+<meta name="twitter:title" content="python实现rsa的几种方案">
+<meta name="twitter:description" content="rsa这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。">
 
 
 
@@ -133,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="/tags/Next/"/>
+  <link rel="canonical" href="/2015/12/09/ciqbnoixg0006sty4pawa0ean"/>
 
-  <title> 标签: Next | 倚山观澜 </title>
+  <title> python实现rsa的几种方案 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,7 +157,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,46 +268,189 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Next
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python实现rsa的几种方案
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-09T21:26:47+08:00" content="2015-12-09">
+              2015-12-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/09/ciqbnoixg0006sty4pawa0ean#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/09/ciqbnoixg0006sty4pawa0ean" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/12/09/ciqbnoixg0006sty4pawa0ean" class="leancloud_visitors" data-flag-title="python实现rsa的几种方案">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a><a href="https://pypi.python.org/pypi/rsa" target="_blank" rel="external">rsa</a></h2><p>这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。</p>
+<a id="more"></a>
+<p><strong> 解密性能: 70ms左右 </strong></p>
+<blockquote>
+<p>Python-RSA is a pure-Python RSA implementation. It supports encryption and decryption, signing and verifying signatures, and key generation according to PKCS#1 version 1.5. It can be used as a Python library as well as on the commandline. The code was mostly written by Sybren A. Stüvel.</p>
+</blockquote>
+<h2 id="pycrypto"><a href="#pycrypto" class="headerlink" title="pycrypto"></a><a href="https://pypi.python.org/pypi/pycrypto" target="_blank" rel="external">pycrypto</a></h2><p>这个库应用的比较多，不局限于rsa，实现了大多数常用的加密算法。底层应该也是自己实现的，因为相比后面一个调用系统模块的库它的rsa算法要慢很多。</p>
+<p><strong> 解密性能: 40ms左右 </strong></p>
+<blockquote>
+<p>This is a collection of both secure hash functions (such as SHA256 and RIPEMD160), and various encryption algorithms (AES, DES, RSA, ElGamal, etc.). The package is structured to make adding new modules easy. This section is essentially complete, and the software interface will almost certainly not change in an incompatible way in the future; all that remains to be done is to fix any bugs that show up. If you encounter a bug, please report it in the Launchpad bug tracker at…</p>
+</blockquote>
+<h2 id="M2Crypto"><a href="#M2Crypto" class="headerlink" title="M2Crypto"></a><a href="https://pypi.python.org/pypi/M2Crypto" target="_blank" rel="external">M2Crypto</a></h2><p>这个库是对Openssl库接口的python封装，实际运算都是调用系统的libssl.so/libcryto.so，不过安装的时候比较麻烦，需要依赖swig等工具 (<a href="https://gitlab.com/m2crypto/m2crypto_demo" target="_blank" rel="external">demo</a>)。</p>
+<p><strong> 解密性能: 7ms左右 </strong></p>
+<h2 id="ctypes-openssl"><a href="#ctypes-openssl" class="headerlink" title="ctypes+openssl"></a>ctypes+openssl</h2><p>以上列举的几种方法都有一个问题，就是不能利用多核。当我调用解密接口比较集中的时候，接口耗时会成倍增加，即便是最快的M2Crypto，瞬时10个并发的时候最坏情况就会达到70ms左右。</p>
+<p>因此我尝试直接使用ctypes调用openssl库突破的GIL的限制，不过ctypes调用so文件有点麻烦的就是看不到so提供的函数名，反复查阅openssl的文档和参考c代码之后，最终调试成功。结果也非常令人满意，达到了1ms级，瞬时100个并发也能维持在毫秒级的性能。</p>
+<p><strong> 解密性能: 1ms左右 </strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">from</span> ctypes.util <span class="keyword">import</span> find_library</span><br><span class="line">_libcrypto = find_library(<span class="string">'crypto'</span>)</span><br><span class="line">sign = <span class="string">'iYzF0bn6kwUtsqLmTSx8fx...'</span></span><br><span class="line">cryptor = ctypes.cdll.LoadLibrary(_libcrypto)</span><br><span class="line">RSA_size                    = cryptor.RSA_size</span><br><span class="line">BIO_free                    = cryptor.BIO_free</span><br><span class="line">RSA_free                    = cryptor.RSA_free</span><br><span class="line">RSA_decrypt                 = cryptor.RSA_private_decrypt</span><br><span class="line">PEM_read_bio_RSAPrivateKey  = cryptor.PEM_read_bio_RSAPrivateKey</span><br><span class="line">privkey = <span class="string">'''-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----'''</span>    </span><br><span class="line">bio = cryptor.BIO_new_mem_buf(privkey, <span class="number">-1</span>)</span><br><span class="line">key = PEM_read_bio_RSAPrivateKey(bio, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">r = BIO_free(bio)</span><br><span class="line"><span class="keyword">if</span> r != <span class="number">1</span>:</span><br><span class="line">    <span class="comment"># break here</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'BIO_free error'</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">rsa_size = RSA_size(key)</span><br><span class="line">rsa = ctypes.create_string_buffer(rsa_size)</span><br><span class="line">ret = RSA_decrypt(rsa_size, sign, rsa, key, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>其中privkey是私钥，sign是我要解密的数据。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>加解密这一块，Linux下面能用openssl就用openssl，绝对比自己实现快。</p>
+</li>
+<li><p>python+ctypes可以让你享受python便利的同时还能拥有卓越的性能，不过ctypes创建的内存空间记得要自己释放，python垃圾收集机制对其无效。</p>
+</li>
+<li><p>一般情况下推荐用pycrypto库，文档比较全面。</p>
+</li>
+</ol>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/01/ciqbo55e60000vxy4k5v84354" itemprop="url">
-              
-                <span itemprop="name">Hexo使用体验</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T19:07:07+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/RSA/" rel="tag">#RSA</a>
+          
+            <a href="/tags/密码学/" rel="tag">#密码学</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/09/ciqbnoixa0005sty4hsq58v4r" rel="next" title="利用supervisor部署多个tornado服务">
+                <i class="fa fa-chevron-left"></i> 利用supervisor部署多个tornado服务
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/30/ciqbnoixo0008sty4qsleagdo" rel="prev" title="Ngx_lua_waf搭建步骤">
+                Ngx_lua_waf搭建步骤 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/12/09/ciqbnoixg0006sty4pawa0ean"
+     data-title="python实现rsa的几种方案"
+     data-content=""
+     data-url="/2015/12/09/ciqbnoixg0006sty4pawa0ean">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -314,6 +458,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/09/ciqbnoixg0006sty4pawa0ean"
+           data-title="python实现rsa的几种方案" data-url="/2015/12/09/ciqbnoixg0006sty4pawa0ean">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -333,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/lixiaoyao.jpg"
@@ -411,6 +572,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#rsa"><span class="nav-number">1.</span> <span class="nav-text">rsa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pycrypto"><span class="nav-number">2.</span> <span class="nav-text">pycrypto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#M2Crypto"><span class="nav-number">3.</span> <span class="nav-text">M2Crypto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ctypes-openssl"><span class="nav-number">4.</span> <span class="nav-text">ctypes+openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -507,6 +679,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
