@@ -16,7 +16,7 @@ tags: [Hexo, Next, Blog]
 
 | 工具      | 文章生成速度  | 配置部署 | 主题 | 开发者 |
 | :------: | :---: | :---: | :---: | :---:|
-| Ruby/Pelican  | 慢 |  简单    | 多 | 外国人 |
+| Jekyll/Pelican  | 慢 |  简单    | 多 | 外国人 |
 | Hugo    | 快   |  麻烦(go的很多代码被墙了) | 较少| 外国人|
 | Hexo     | 快   |  简单  | 很多很好看（js毕竟是前端程序员的主力武器）| 台湾
 
@@ -85,7 +85,7 @@ theme: next
 ```bash
 $ hexo server
 # 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)
-$ hexo server -i `yourip or domain`
+# eg. hexo server -i `xxx.com`
 ```
 这个时候访问localhost:4000就能看到博客默认的样子了，**不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。**
 
@@ -146,15 +146,13 @@ $ git remote add git@github.com:xxxx/xxxx.github.io.git
 $ git push origin hexo
 ```
 
-然后进入远端仓库`https://github.com/xxxx/xxxx.github.io`，进入`Settings` --> `Branches`，选择hexo为默认分支。
-
 至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行`hexo g -d`即可。
 
 ### 恢复
 
 如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:
 ```bash
-# 配置新电脑的sshkey到github，或者选择https方式clone
+# 配置新电脑的sshkey到github，否则选择https方式clone
 $ git clone git@github.com:xxxx/xxxx.github.io.git -b hexo blog
 $ cd blog
 # 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项
