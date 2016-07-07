@@ -108,3 +108,57 @@ $ hexo deploy
 
 静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。  
 当然，本博客就是用Hexo & Next搭建在Nginx之上 ^\_^
+
+## 同步Hexo
+
+如果你只在一台电脑上写博客，你就不需要看这一部分。但是如果你有在多机上写博客的需求，那么解决Hexo同步的问题就很必要了。
+
+Hexo的部署命令针对public里的静态文件，对于文章源文件和配置等没有同步功能，除非你每次写完博客都把源文件存储在一个公共的地方，要不然你没有办法接下来承接之前的文章继续写作。
+
+我在网路上搜索了一下，一般有这么几个解决方法：
+
+- 用DropBox同步源文件
+- 把源文件存放在服务器上
+- 使用[hexo-git-backup](https://github.com/coneycode/hexo-git-backup)
+- 使用git保存源代码(建议)
+
+我本身的源文件就是存放在服务器上，所以不方便使用云来存储代码，hexo-git-backup这个插件对于太新的node也不支持，所以我选择使用git保存源代码。
+
+使用git不仅能够解决同步问题，也可以解决回滚问题，而且也是作者建议的方式——如果你发现了目录里的.gitignore——你应该也会这么认为。
+
+### 备份
+
+假设你把网站搭建在github上面，那么master分支保存静态文件，可以新建hexo分支保存源文件。
+
+首先把本地代码提交到远端，确保远端仓库不存在hexo分支或者hexo分支为空。
+```bash
+$ cd blog
+# 新建本地仓库
+$ git init
+# 新建并切换到hexo分支
+$ git checkout -b hexo
+# 本地提交
+$ git add .
+$ git commit -m 'init'
+# 配置远端仓库地址
+$ git remote add git@github.com:xxxx/xxxx.github.io.git
+# 远端提交
+$ git push origin hexo
+```
+
+然后进入远端仓库https://github.com/xxxx/xxxx.github.io，进入`Settings` --> `Branches`，选择hexo为默认分支。
+
+至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行`hexo g -d`即可。
+
+### 恢复
+
+如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:
+```bash
+# 配置新电脑的sshkey到github，或者选择https方式clone
+$ git clone git@github.com:xxxx/xxxx.github.io.git blog
+$ cd blog
+# 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项
+# eg. npm install hexo-deployer-git --save
+$ npm install
+```
+**无须执行`hexo init`**。
