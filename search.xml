@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Hexo使用体验]]></title>
-      <url>/2016/07/01/Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
+      <url>/2016/07/01/6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
       <content type="html"><![CDATA[<p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
 <p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。<br><a id="more"></a></p>
 <h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
@@ -84,7 +84,7 @@
     
     <entry>
       <title><![CDATA[Ngx_lua_waf搭建步骤]]></title>
-      <url>/2016/06/30/Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
+      <url>/2016/06/30/5-Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
       <content type="html"><![CDATA[<p>Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。<br><a id="more"></a></p>
 <blockquote>
 <p><a href="https://github.com/loveshell/ngx_lua_waf" target="_blank" rel="external">ngx_lua_waf</a>是我刚入职趣游时候开发的一个基于ngx_lua的web应用防火墙。</p>
@@ -142,7 +142,7 @@
     
     <entry>
       <title><![CDATA[python实现rsa的几种方案]]></title>
-      <url>/2015/12/09/python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
+      <url>/2015/12/09/4-python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
       <content type="html"><![CDATA[<h2 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a><a href="https://pypi.python.org/pypi/rsa" target="_blank" rel="external">rsa</a></h2><p>这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。</p>
 <a id="more"></a>
 <p><strong> 解密性能: 70ms左右 </strong></p>
@@ -173,8 +173,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[利用supervisor部署多个tornado服务/]]></title>
-      <url>/2015/12/09/%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
+      <title><![CDATA[利用supervisor部署多个tornado服务]]></title>
+      <url>/2015/12/09/3-%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
       <content type="html"><![CDATA[<p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。<br><a id="more"></a><br><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
 <h2 id="安装Supervisor"><a href="#安装Supervisor" class="headerlink" title="安装Supervisor"></a>安装Supervisor</h2><p>官网上介绍了多种安装方法，这里使用pip进行安装:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install supervisor</span><br></pre></td></tr></table></figure>
@@ -209,12 +209,13 @@
 <blockquote>
 <p>If xheaders is True, we support the X-Real-Ip/X-Forwarded-For and X-Scheme/X-Forwarded-Proto headers, which override the remote IP and URI scheme/protocol for all requests. These headers are useful when running Tornado behind a reverse proxy or load balancer. The protocol argument can also be set to https if Tornado is run behind an SSL-decoding proxy that does not set one of the supported xheaders.<br>具体代码示例：</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">application = tornado.web.Application([</span><br><span class="line">    (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">])</span><br><span class="line">application.listen(options.port, <span class="string">'127.0.0.1'</span>, xheaders=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">application = tornado.web.Application([</span><br><span class="line">    (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">])</span><br><span class="line">application.listen(options.port, <span class="string">'127.0.0.1'</span>, xheaders=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[Centos使用Yum安装配置Mongodb]]></title>
-      <url>/2015/12/03/Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
+      <url>/2015/12/03/2-Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
       <content type="html"><![CDATA[<h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -237,7 +238,7 @@
     
     <entry>
       <title><![CDATA[Nginx配置多域名反向代理]]></title>
-      <url>/2015/12/03/Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
+      <url>/2015/12/03/1-Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
       <content type="html"><![CDATA[<p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。<a id="more"></a>与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
 <h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
