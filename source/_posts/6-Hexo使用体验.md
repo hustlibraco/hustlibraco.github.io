@@ -146,7 +146,7 @@ $ git remote add git@github.com:xxxx/xxxx.github.io.git
 $ git push origin hexo
 ```
 
-然后进入远端仓库https://github.com/xxxx/xxxx.github.io，进入`Settings` --> `Branches`，选择hexo为默认分支。
+然后进入远端仓库`https://github.com/xxxx/xxxx.github.io`，进入`Settings` --> `Branches`，选择hexo为默认分支。
 
 至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行`hexo g -d`即可。
 
