@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="倚山观澜">
 <meta property="og:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
 于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp;amp; Next。">
-<meta property="og:updated_time" content="2016-07-07T11:28:29.934Z">
+<meta property="og:updated_time" content="2016-07-07T16:47:35.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo使用体验">
 <meta name="twitter:description" content="最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。
@@ -363,7 +363,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">Ruby/Pelican</td>
+<td style="text-align:center">Jekyll/Pelican</td>
 <td style="text-align:center">慢</td>
 <td style="text-align:center">简单</td>
 <td style="text-align:center">多</td>
@@ -406,7 +406,7 @@
 <h2 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h2><p>设置你的博客<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure></p>
 <p>安装Next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
 <p>启用主题，打开blog/_config.yaml， 找到 theme 字段，并将其值更改为 next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
-<p>开启服务<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"><span class="comment"># 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)</span></span><br><span class="line">$ hexo server -i `yourip or domain`</span><br></pre></td></tr></table></figure></p>
+<p>开启服务<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"><span class="comment"># 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)</span></span><br><span class="line"><span class="comment"># eg. hexo server -i `xxx.com`</span></span><br></pre></td></tr></table></figure></p>
 <p>这个时候访问localhost:4000就能看到博客默认的样子了，<strong>不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。</strong></p>
 <p>其他命令：</p>
 <ul>
@@ -434,9 +434,8 @@
 <p>使用git不仅能够解决同步问题，也可以解决回滚问题，而且也是作者建议的方式——如果你发现了目录里的.gitignore——你应该也会这么认为。</p>
 <h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>假设你把网站搭建在github上面，那么master分支保存静态文件，可以新建hexo分支保存源文件。</p>
 <p>首先把本地代码提交到远端，确保远端仓库不存在hexo分支或者hexo分支为空。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 新建本地仓库</span></span><br><span class="line">$ git init</span><br><span class="line"><span class="comment"># 新建并切换到hexo分支</span></span><br><span class="line">$ git checkout -b hexo</span><br><span class="line"><span class="comment"># 本地提交</span></span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">'init'</span></span><br><span class="line"><span class="comment"># 配置远端仓库地址</span></span><br><span class="line">$ git remote add git@github.com:xxxx/xxxx.github.io.git</span><br><span class="line"><span class="comment"># 远端提交</span></span><br><span class="line">$ git push origin hexo</span><br></pre></td></tr></table></figure></p>
-<p>然后进入远端仓库<code>https://github.com/xxxx/xxxx.github.io</code>，进入<code>Settings</code> –&gt; <code>Branches</code>，选择hexo为默认分支。</p>
 <p>至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行<code>hexo g -d</code>即可。</p>
-<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置新电脑的sshkey到github，或者选择https方式clone</span></span><br><span class="line">$ git <span class="built_in">clone</span> git@github.com:xxxx/xxxx.github.io.git -b hexo blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项</span></span><br><span class="line"><span class="comment"># eg. npm install hexo-deployer-git --save</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置新电脑的sshkey到github，否则选择https方式clone</span></span><br><span class="line">$ git <span class="built_in">clone</span> git@github.com:xxxx/xxxx.github.io.git -b hexo blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项</span></span><br><span class="line"><span class="comment"># eg. npm install hexo-deployer-git --save</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
 <p>无须执行<code>hexo init</code>。</p>
 <h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><p>因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>。</p>
 
