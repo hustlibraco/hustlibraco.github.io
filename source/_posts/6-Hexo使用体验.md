@@ -165,4 +165,4 @@ $ npm install
 
 ### 弊端
 
-因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者[开源中国](http://git.oschina.net/)。
+因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者[码云](http://git.oschina.net/)。
