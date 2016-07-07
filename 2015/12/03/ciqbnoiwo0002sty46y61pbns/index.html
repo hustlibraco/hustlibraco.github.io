@@ -88,7 +88,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,Nginx," />
+  <meta name="keywords" content="Linux,Mongodb," />
 
 
 
@@ -104,16 +104,19 @@
 
 
 
-<meta name="description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
+<meta name="description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
+yum install mongodb mongodb-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx配置多域名反向代理">
-<meta property="og:url" content="/2015/12/03/ciqbnoiw60000sty4db339ygi">
+<meta property="og:title" content="Centos使用Yum安装配置Mongodb">
+<meta property="og:url" content="/2015/12/03/ciqbnoiwo0002sty46y61pbns/index.html">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
-<meta property="og:updated_time" content="2016-06-29T14:11:58.004Z">
+<meta property="og:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
+yum install mongodb mongodb-server">
+<meta property="og:updated_time" content="2016-06-29T13:41:11.757Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx配置多域名反向代理">
-<meta name="twitter:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
+<meta name="twitter:title" content="Centos使用Yum安装配置Mongodb">
+<meta name="twitter:description" content="安装Mongodb使用Yum，我们可以很方便的安装Mongodb:
+yum install mongodb mongodb-server">
 
 
 
@@ -134,9 +137,9 @@
 
 
 
-  <link rel="canonical" href="/2015/12/03/ciqbnoiw60000sty4db339ygi"/>
+  <link rel="canonical" href="/2015/12/03/ciqbnoiwo0002sty46y61pbns/"/>
 
-  <title> Nginx配置多域名反向代理 | 倚山观澜 </title>
+  <title> Centos使用Yum安装配置Mongodb | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +292,7 @@
             
             
               
-                Nginx配置多域名反向代理
+                Centos使用Yum安装配置Mongodb
               
             
           </h1>
@@ -301,7 +304,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-03T19:55:58+08:00" content="2015-12-03">
+            <time itemprop="dateCreated" datetime="2015-12-03T20:46:31+08:00" content="2015-12-03">
               2015-12-03
             </time>
           </span>
@@ -312,8 +315,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/03/ciqbnoiw60000sty4db339ygi#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/ciqbnoiw60000sty4db339ygi" itemprop="commentsCount"></span>
+                <a href="/2015/12/03/ciqbnoiwo0002sty46y61pbns/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/ciqbnoiwo0002sty46y61pbns/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -323,7 +326,7 @@
 
           
           
-             <span id="/2015/12/03/ciqbnoiw60000sty4db339ygi" class="leancloud_visitors" data-flag-title="Nginx配置多域名反向代理">
+             <span id="/2015/12/03/ciqbnoiwo0002sty46y61pbns/" class="leancloud_visitors" data-flag-title="Centos使用Yum安装配置Mongodb">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -345,45 +348,24 @@
       
 
       
-        <p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。<a id="more"></a>与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
-<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
-<p>打开nginx的配置文件/etc/nginx/nginx.conf，长这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">error_<span class="built_in">log</span> /var/<span class="built_in">log</span>/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	<span class="built_in">log</span>_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">						<span class="string">'$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">						<span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line"></span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">	sendfile            on;</span><br><span class="line">	tcp_nopush          on;</span><br><span class="line">	tcp_nodelay         on;</span><br><span class="line">	keepalive_timeout   65;</span><br><span class="line">	types_<span class="built_in">hash</span>_max_size 2048;</span><br><span class="line"></span><br><span class="line">	include             /etc/nginx/mime.types;</span><br><span class="line">	default_<span class="built_in">type</span>        application/octet-stream;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">	<span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">	<span class="comment"># for more information.</span></span><br><span class="line">	include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80 default_server;</span><br><span class="line">		listen       [::]:80 default_server;</span><br><span class="line">		server_name  _;</span><br><span class="line">		root         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">		<span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">		include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 404 /404.html;</span><br><span class="line">			location = /40x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 500 502 503 504 /50x.html;</span><br><span class="line">			location = /50x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置反向代理"><a href="#配置反向代理" class="headerlink" title="配置反向代理"></a>配置反向代理</h2><p>在/etc/nginx/conf.d/目录下新建一个配置文件reverse_proxy.conf，输入以下内容:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream wx_server &#123;</span><br><span class="line">	server localhost:8001;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">proxy_temp_path     /etc/nginx/proxy_temp;</span><br><span class="line">proxy_cache_path    /etc/nginx/proxy_cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=1g;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name blog.hustlibraco.com hustlibraco.com;</span><br><span class="line"></span><br><span class="line">	location ~ .*\.(gif|jpg|png|css|js|ico|swf)(.*) &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">		proxy_cache cache_one;</span><br><span class="line">		proxy_cache_valid 200 304 5m;</span><br><span class="line">		proxy_cache_key <span class="variable">$host</span><span class="variable">$uri</span><span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">		expires 30d;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/blog_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name wx.hustlibraco.com;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://wx_server;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/wx_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中两段server开头的配置指明了代理的规则，我们逐一解释下这些配置:</p>
-<ul>
-<li><p><code>listen 80</code><br>监听80端口</p>
-</li>
-<li><p><code>server_name blog.hustlibraco.com hustlibraco.com</code><br>接受这两个域名的请求</p>
-</li>
-<li><p><code>location ~ .\*\.(gif|jpg|png|css|js|ico|swf)(.\*){}</code><br>指定文件的缓存配置</p>
-</li>
-<li><p><code>location / {}</code><br>接受server_name下所有路径的请求</p>
-</li>
-<li><p><code>proxy_pass http://localhost:8000</code><br>转发到localhost的8000端口上</p>
-</li>
-<li><p><code>proxy_pass http://wx_server</code><br>转发到wx_server节点上，由upstream配置</p>
-</li>
-<li><p><code>proxy_redirect off</code><br>不重写被代理服务器返回给客户端的Location和Refresh</p>
-</li>
-<li><p><code>proxy_set_header Host $host</code><br>设置请求头的Host为反向代理服务器的Host</p>
-</li>
-<li><p><code>proxy_set_header X-Real-IP $remote_addr</code><br>设置请求头的X-Real-IP为客户端真实IP</p>
-</li>
-<li><p><code>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for</code><br>把请求来源的IP添加到请求头的X-Forwarded-For字段</p>
-<blockquote>
-<p>X-Forwarded-For:简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP，只有在通过了HTTP代理或者负载均衡服务器时才会添加该项。 它不是RFC中定义的标准请求头信息，在squid缓存代理服务器开发文档中可以找到该项的详细介绍。 标准格式如下：X-Forwarded-For: client1, proxy1, proxy2。</p>
-</blockquote>
-</li>
-<li><p><code>access_log /var/log/nginx/blog_hustlibraco_com_access.log</code><br>请求日志文件</p>
-</li>
-</ul>
-<p>了解这些配置项的意义之后，可以知道发送给blog.hustlibraco.com, hustlibraco.com的请求都会被转发到本地8000服务上，而发送给wx.hustlibraco.com的请求被转发到wx_server节点上（localhost:8001）。</p>
-<p>配置好以后使用命令service nginx reload使配置生效。</p>
-<h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>CentOS7引入了systemctl命令，结合了service和chkconfig的功能，一行命令设设置开机自启动:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br><span class="line">ln <span class="_">-s</span> <span class="string">'/usr/lib/systemd/system/nginx.service'</span> <span class="string">'/etc/systemd/system/multi-user.target.wants/nginx.service'</span></span><br></pre></td></tr></table></figure>
+        <h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comma separated list of ip addresses to listen on (all local ips by default)</span></span><br><span class="line"><span class="built_in">bind</span>_ip = 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port number (27017 by default)</span></span><br><span class="line"><span class="comment">#port = 27017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fork server process (false by default)</span></span><br><span class="line">fork = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Full path to pidfile (if not set, no pidfile is created)</span></span><br><span class="line">pidfilepath = /var/run/mongodb/mongod.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath = /var/<span class="built_in">log</span>/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative directory for UNIX domain sockets (defaults to /tmp)</span></span><br><span class="line">unixSocketPrefix = /var/run/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory for datafiles (defaults to /data/db/)</span></span><br><span class="line">dbpath = /var/lib/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable journaling (journaling is on by default for 64 bit)</span></span><br><span class="line"><span class="comment">#journal = true</span></span><br><span class="line"><span class="comment">#nojournal = true</span></span><br></pre></td></tr></table></figure>
+<p>默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。</p>
+<h2 id="配置开机自启动"><a href="#配置开机自启动" class="headerlink" title="配置开机自启动"></a>配置开机自启动</h2><p>打开/etc/rc.d/rc.local文件，追加/usr/bin/mongod –config /etc/mongod.conf至行尾，保存即可。</p>
+<h2 id="尝试启动"><a href="#尝试启动" class="headerlink" title="尝试启动"></a>尝试启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service mongod start</span><br></pre></td></tr></table></figure>
+<p>结果失败了，提示我使用指令systemctl status mongodb查看原因，指令输出类似这样:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mongodb.service - High-performance, schema-free document-oriented database</span><br><span class="line">        Loaded: loaded (/usr/lib/systemd/system/mongodb.service; enabled)</span><br><span class="line">        Active: failed (Result: <span class="built_in">exit</span>-code) since Mi 2013-04-03 15:48:01 EEST; 3min 13s ago</span><br><span class="line">        Process: 1756 ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf (code=exited, status=14)</span><br><span class="line"></span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libstdc++.so.6(_ZNSt6localeC1EPKc+0x71b) [0x7f60471c952b]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem4path7codecvtEv+0x4f) [0x7f6047adfb6f]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZNK5boost10filesystem4path14root_directoryEv+0x114) [0x7f6047ae1344]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem8absoluteERKNS0_4pathES3_+0x3e) [0x7f6047add16e]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(_ZN5mongo27initializeServerGlobalStateEb+0xf3) [0x94<span class="built_in">fc</span>73]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(main+0x234) [0x7591f4]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libc.so.6(__libc_start_main+0xf5) [0x7f60468b7a15]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod() [0x76bcd5]</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: mongodb.service: main process exited, code=exited, status=14/n/a</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: Unit mongodb.service entered failed state</span><br></pre></td></tr></table></figure>
+<p>仍然看不出哪里有问题，直到google到了这样的字眼sudo chown -R mongodb: /var/{lib,log}/mongodb，恍然大悟。</p>
+<p>使用Yum安装Mongodb会默认创建mongo用户,该用户的家目录是/var/lib/mongodb, 但是日志文件/var/log/mongodb/mongod.log和进程ID文件/var/run/mongodb/mongod.pid在其他的目录下面，这些目录属主不是mongodb用户，所以写入的时候会报权限问题。</p>
+<p>修改目录/var/log/mongodb和/var/run/mongodb属主为monodb即可。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Yum安装软件十分简单，但是由于Mongodb的安装包忽略了权限问题，而且出错日志十分不明显，导致我花费数十分钟才解决。</p>
+<p>其实Linux下权限问题十分常见，发生问题不知道原因的时候都可以往这方面尝试一下。</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>后来想了一下，应该不是安装包的问题，这问题未免也太低级了。</p>
+<p>极有可能是我安装好的时候使用自己的帐号运行过服务，所以产生的配置文件及目录的属主是我平常用的帐号，因此mongodb这个用户没有写入和执行权限。</p>
+
       
     </div>
 
@@ -406,7 +388,7 @@
           
             <a href="/tags/Linux/" rel="tag">#Linux</a>
           
-            <a href="/tags/Nginx/" rel="tag">#Nginx</a>
+            <a href="/tags/Mongodb/" rel="tag">#Mongodb</a>
           
         </div>
       
@@ -415,12 +397,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2015/12/03/ciqbnoiw60000sty4db339ygi/" rel="next" title="Nginx配置多域名反向代理">
+                <i class="fa fa-chevron-left"></i> Nginx配置多域名反向代理
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/03/ciqbnoiwo0002sty46y61pbns" rel="prev" title="Centos使用Yum安装配置Mongodb">
-                Centos使用Yum安装配置Mongodb <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/09/ciqbnoixa0005sty4hsq58v4r/" rel="prev" title="利用supervisor部署多个tornado服务">
+                利用supervisor部署多个tornado服务 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -436,10 +422,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/ciqbnoiw60000sty4db339ygi"
-     data-title="Nginx配置多域名反向代理"
+        <div class="ds-share flat" data-thread-key="2015/12/03/ciqbnoiwo0002sty46y61pbns/"
+     data-title="Centos使用Yum安装配置Mongodb"
      data-content=""
-     data-url="/2015/12/03/ciqbnoiw60000sty4db339ygi">
+     data-url="/2015/12/03/ciqbnoiwo0002sty46y61pbns/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -466,8 +452,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/03/ciqbnoiw60000sty4db339ygi"
-           data-title="Nginx配置多域名反向代理" data-url="/2015/12/03/ciqbnoiw60000sty4db339ygi">
+      <div class="ds-thread" data-thread-key="2015/12/03/ciqbnoiwo0002sty46y61pbns/"
+           data-title="Centos使用Yum安装配置Mongodb" data-url="/2015/12/03/ciqbnoiwo0002sty46y61pbns/">
       </div>
     
   </div>
@@ -585,7 +571,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nginx"><span class="nav-number">1.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置反向代理"><span class="nav-number">2.</span> <span class="nav-text">配置反向代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置开机自启动"><span class="nav-number">3.</span> <span class="nav-text">设置开机自启动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Mongodb"><span class="nav-number">1.</span> <span class="nav-text">安装Mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">配置开机自启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试启动"><span class="nav-number">3.</span> <span class="nav-text">尝试启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li></ol></div>
             
           </div>
         </section>
