@@ -155,10 +155,14 @@ $ git push origin hexo
 如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:
 ```bash
 # 配置新电脑的sshkey到github，或者选择https方式clone
-$ git clone git@github.com:xxxx/xxxx.github.io.git blog
+$ git clone git@github.com:xxxx/xxxx.github.io.git -b hexo blog
 $ cd blog
 # 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项
 # eg. npm install hexo-deployer-git --save
 $ npm install
 ```
-**无须执行`hexo init`**。
+无须执行`hexo init`。
+
+### 弊端
+
+因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者[开源中国](http://git.oschina.net/)。
