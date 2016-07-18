@@ -12,9 +12,13 @@
   {{ __('footer.powered', '<a class="theme-link" href="http://hexo.io">Hexo</a>') }}
 </div>
 
-<div class="theme-info">
+<div class="powered-by">
   {{ __('footer.theme') }} -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.{{ theme.scheme }}
   </a>
+</div>
+
+<div class="powered-by">
+  {{ config.beian }}
 </div>
