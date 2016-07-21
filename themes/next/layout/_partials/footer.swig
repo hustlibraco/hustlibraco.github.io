@@ -20,5 +20,5 @@
 </div>
 
 <div class="powered-by">
-  {{ config.beian }}
+  <a href="http://www.miibeian.gov.cn/" target="_blank">{{ config.beian }}</a>
 </div>
