@@ -4,11 +4,25 @@
   
     
     <entry>
+      <title><![CDATA[支持select和input的JS组件]]></title>
+      <url>/2016/07/21/7-%E6%94%AF%E6%8C%81select%E5%92%8Cinput%E7%9A%84JS%E7%BB%84%E4%BB%B6/</url>
+      <content type="html"><![CDATA[<p>其实一直以来都不喜欢写JS，但是工作中又不可避免的要写一些前台的用户交互，之前每次都是现写现查，以至于写了不少前端代码都没有积累。既然不能逃避，不如选择接受，从现在起开始有意识得积累一些前端经验。<a id="more"></a></p>
+<p>JS作为一门语言，其设计品味不敢恭维，但是得益于多年在浏览器上的耕耘，无数前端工作者在其上面的工作令其大放异彩。从早期的JQuery到现在的AngularJS、ReactJS、NodeJS，JS自身的语义设计也随着ES6的发布变得越来越完善，也许JS未来会成为一门“真正”的好语言吧。</p>
+<p>扯了那么多，现在进入正题。作为一个业余的JS开发者，自己开发组件显然不是一种好选择，在我碰到一个既可以让用户选择也能让用户自行输入的表单字段时陷入了困扰。在<code>github</code>上的搜索让我找到了<code>select2.js</code>这个组件，真的非常强大。</p>
+<p>其中一个选项满足了我的业务：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 必要文件的包含 --&gt;</span><br><span class="line">&lt;script type="text/javascript" src="dist/js/select2.min.js"&gt;&lt;/script&gt;</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line">&lt;!-- select 框 --&gt;</span><br><span class="line">&lt;select name="handler" class="form-control js-example-tags" multiple="multiple"&gt;</span><br><span class="line">    &lt;option value="1"&gt;orange&lt;/option&gt;</span><br><span class="line">    &lt;option value="2"&gt;purple&lt;/option&gt;</span><br><span class="line">    &lt;option value="3"&gt;bule&lt;/option&gt;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 启用组件 --&gt;</span><br><span class="line">$(<span class="string">".js-example-tags"</span>).select2(&#123;</span><br><span class="line">  tags: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/images/select-tag.png" alt="select-tag"></p>
+<p>更多用法：<a href="http://select2.github.io/examples.html#tags" target="_blank" rel="external">http://select2.github.io/examples.html#tags</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hexo使用体验]]></title>
       <url>/2016/07/01/6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
       <content type="html"><![CDATA[<p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
 <p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。<br><a id="more"></a></p>
-<h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
+<h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>~<br>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
 <table>
 <thead>
 <tr>
