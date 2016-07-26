@@ -88,7 +88,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,Nginx," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -104,16 +104,16 @@
 
 
 
-<meta name="description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
+<meta name="description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx配置多域名反向代理">
-<meta property="og:url" content="/2015/12/03/1-Nginx配置多域名反向代理/index.html">
+<meta property="og:title" content="Python中try/except/else/finally的执行机制">
+<meta property="og:url" content="/2016/07/26/try-except-else-finally-in-Python/index.html">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
-<meta property="og:updated_time" content="2016-06-29T14:11:58.004Z">
+<meta property="og:description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
+<meta property="og:updated_time" content="2016-07-26T06:07:52.567Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx配置多域名反向代理">
-<meta name="twitter:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
+<meta name="twitter:title" content="Python中try/except/else/finally的执行机制">
+<meta name="twitter:description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
 
 
 
@@ -134,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="/2015/12/03/1-Nginx配置多域名反向代理/"/>
+  <link rel="canonical" href="/2016/07/26/try-except-else-finally-in-Python/"/>
 
-  <title> Nginx配置多域名反向代理 | 倚山观澜 </title>
+  <title> Python中try/except/else/finally的执行机制 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +289,7 @@
             
             
               
-                Nginx配置多域名反向代理
+                Python中try/except/else/finally的执行机制
               
             
           </h1>
@@ -301,8 +301,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-03T19:55:58+08:00" content="2015-12-03">
-              2015-12-03
+            <time itemprop="dateCreated" datetime="2016-07-26T10:50:40+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -312,8 +312,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/03/1-Nginx配置多域名反向代理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/1-Nginx配置多域名反向代理/" itemprop="commentsCount"></span>
+                <a href="/2016/07/26/try-except-else-finally-in-Python/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/try-except-else-finally-in-Python/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -323,7 +323,7 @@
 
           
           
-             <span id="/2015/12/03/1-Nginx配置多域名反向代理/" class="leancloud_visitors" data-flag-title="Nginx配置多域名反向代理">
+             <span id="/2016/07/26/try-except-else-finally-in-Python/" class="leancloud_visitors" data-flag-title="Python中try/except/else/finally的执行机制">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -345,45 +345,47 @@
       
 
       
-        <p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。<a id="more"></a>与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
-<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
-<p>打开nginx的配置文件/etc/nginx/nginx.conf，长这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">error_<span class="built_in">log</span> /var/<span class="built_in">log</span>/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	<span class="built_in">log</span>_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">						<span class="string">'$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">						<span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line"></span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">	sendfile            on;</span><br><span class="line">	tcp_nopush          on;</span><br><span class="line">	tcp_nodelay         on;</span><br><span class="line">	keepalive_timeout   65;</span><br><span class="line">	types_<span class="built_in">hash</span>_max_size 2048;</span><br><span class="line"></span><br><span class="line">	include             /etc/nginx/mime.types;</span><br><span class="line">	default_<span class="built_in">type</span>        application/octet-stream;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">	<span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">	<span class="comment"># for more information.</span></span><br><span class="line">	include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80 default_server;</span><br><span class="line">		listen       [::]:80 default_server;</span><br><span class="line">		server_name  _;</span><br><span class="line">		root         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">		<span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">		include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 404 /404.html;</span><br><span class="line">			location = /40x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 500 502 503 504 /50x.html;</span><br><span class="line">			location = /50x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置反向代理"><a href="#配置反向代理" class="headerlink" title="配置反向代理"></a>配置反向代理</h2><p>在/etc/nginx/conf.d/目录下新建一个配置文件reverse_proxy.conf，输入以下内容:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream wx_server &#123;</span><br><span class="line">	server localhost:8001;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">proxy_temp_path     /etc/nginx/proxy_temp;</span><br><span class="line">proxy_cache_path    /etc/nginx/proxy_cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=1g;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name blog.hustlibraco.com hustlibraco.com;</span><br><span class="line"></span><br><span class="line">	location ~ .*\.(gif|jpg|png|css|js|ico|swf)(.*) &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">		proxy_cache cache_one;</span><br><span class="line">		proxy_cache_valid 200 304 5m;</span><br><span class="line">		proxy_cache_key <span class="variable">$host</span><span class="variable">$uri</span><span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">		expires 30d;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/blog_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name wx.hustlibraco.com;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://wx_server;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/wx_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中两段server开头的配置指明了代理的规则，我们逐一解释下这些配置:</p>
-<ul>
-<li><p><code>listen 80</code><br>监听80端口</p>
-</li>
-<li><p><code>server_name blog.hustlibraco.com hustlibraco.com</code><br>接受这两个域名的请求</p>
-</li>
-<li><p><code>location ~ .\*\.(gif|jpg|png|css|js|ico|swf)(.\*){}</code><br>指定文件的缓存配置</p>
-</li>
-<li><p><code>location / {}</code><br>接受server_name下所有路径的请求</p>
-</li>
-<li><p><code>proxy_pass http://localhost:8000</code><br>转发到localhost的8000端口上</p>
-</li>
-<li><p><code>proxy_pass http://wx_server</code><br>转发到wx_server节点上，由upstream配置</p>
-</li>
-<li><p><code>proxy_redirect off</code><br>不重写被代理服务器返回给客户端的Location和Refresh</p>
-</li>
-<li><p><code>proxy_set_header Host $host</code><br>设置请求头的Host为反向代理服务器的Host</p>
-</li>
-<li><p><code>proxy_set_header X-Real-IP $remote_addr</code><br>设置请求头的X-Real-IP为客户端真实IP</p>
-</li>
-<li><p><code>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for</code><br>把请求来源的IP添加到请求头的X-Forwarded-For字段</p>
+        <p>最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。<a id="more"></a></p>
+<h2 id="不含return的情况"><a href="#不含return的情况" class="headerlink" title="不含return的情况"></a>不含return的情况</h2><h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
+<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="try子句异常"><a href="#try子句异常" class="headerlink" title="try子句异常"></a>try子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
+<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">except</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="try-except子句同时异常"><a href="#try-except子句同时异常" class="headerlink" title="try/except子句同时异常"></a>try/except子句同时异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
+<h3 id="else子句异常"><a href="#else子句异常" class="headerlink" title="else子句异常"></a>else子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 7, in t</span><br><span class="line">    print &apos;else&apos;/0</span><br><span class="line">TypeError: unsupported operand type(s) for /: &apos;str&apos; and &apos;int&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="finally子句异常"><a href="#finally子句异常" class="headerlink" title="finally子句异常"></a>finally子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">11</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">9</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>finally子句总会执行</li>
+<li>除了try子句，其他子句中的异常都会抛出</li>
+</ol>
+<h2 id="包含return的情况"><a href="#包含return的情况" class="headerlink" title="包含return的情况"></a>包含return的情况</h2><p>众所周知，return会直接跳出函数，那么它和异常机制的优先级如何呢？</p>
+<h3 id="try子句return"><a href="#try子句return" class="headerlink" title="try子句return"></a>try子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line"></span><br><span class="line">t()</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br></pre></td></tr></table></figure>
+<p>else子句没有执行！finally子句仍然执行！ </p>
+<h3 id="finally子句return"><a href="#finally子句return" class="headerlink" title="finally子句return"></a>finally子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>函数的返回值是3，而不是try子句中设置的0，而且except子句的异常不见了。但是如果注释掉finally子句的return，就可以看见except中抛出的异常。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="comment"># return 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">15</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">6</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
+<p>这是为什么呢？其实官方文档里有讲：</p>
 <blockquote>
-<p>X-Forwarded-For:简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP，只有在通过了HTTP代理或者负载均衡服务器时才会添加该项。 它不是RFC中定义的标准请求头信息，在squid缓存代理服务器开发文档中可以找到该项的详细介绍。 标准格式如下：X-Forwarded-For: client1, proxy1, proxy2。</p>
+<p>A finally clause is always executed before leaving the try statement, whether an exception has occurred or not. When an exception has occurred in the try clause and has not been handled by an except clause (or it has occurred in a except or else clause), it is <strong>re-raised after the finally clause has been executed</strong>. The finally clause is also executed “on the way out” when any other clause of the try statement is left via a break, continue or return statement.</p>
 </blockquote>
-</li>
-<li><p><code>access_log /var/log/nginx/blog_hustlibraco_com_access.log</code><br>请求日志文件</p>
-</li>
-</ul>
-<p>了解这些配置项的意义之后，可以知道发送给blog.hustlibraco.com, hustlibraco.com的请求都会被转发到本地8000服务上，而发送给wx.hustlibraco.com的请求被转发到wx_server节点上（localhost:8001）。</p>
-<p>配置好以后使用命令service nginx reload使配置生效。</p>
-<h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>CentOS7引入了systemctl命令，结合了service和chkconfig的功能，一行命令设设置开机自启动:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br><span class="line">ln <span class="_">-s</span> <span class="string">'/usr/lib/systemd/system/nginx.service'</span> <span class="string">'/etc/systemd/system/multi-user.target.wants/nginx.service'</span></span><br></pre></td></tr></table></figure>
+<p>也就是说except、esle子句中的异常在finally子句执行之后才会抛出，但是finally直接return了，所以我们就看不到异常了，而且会覆盖本身的return值。这种用法显然是不符合初衷的，所以不建议在finally语句中使用<code>return</code>、<code>break</code>、<code>continue</code>这些跳出的语句，应仅用作资源释放操作，否则会出现意想不到的结果。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>执行顺序 finally &gt; return &gt; else</li>
+<li>finally的return会抑制其他子句异常抛出，不建议使用</li>
+</ol>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">example</span><span class="params">(id)</span>:</span></span><br><span class="line">    db = get_db()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> db.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">            sql = <span class="string">'''update xxxx</span><br><span class="line">                        set yyyy = yyyy + 1</span><br><span class="line">                      where id = %s'''</span></span><br><span class="line">            cursor.execute(sql, (id,))</span><br><span class="line">        db.commit()</span><br><span class="line">    <span class="keyword">except</span> Exception, e:</span><br><span class="line">        app.logger.error(e, exc_info=<span class="keyword">True</span>)</span><br><span class="line">        db.rollback()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># do sth else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br></pre></td></tr></table></figure>
+<p>注意<code>return</code>的位置和<code>finally</code>子句的用法。</p>
+
       
     </div>
 
@@ -404,9 +406,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
-          
-            <a href="/tags/Nginx/" rel="tag">#Nginx</a>
+            <a href="/tags/Python/" rel="tag">#Python</a>
           
         </div>
       
@@ -415,13 +415,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/21/7-支持select和input的JS组件/" rel="next" title="支持select和input的JS组件">
+                <i class="fa fa-chevron-left"></i> 支持select和input的JS组件
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/03/2-Centos使用Yum安装配置Mongodb/" rel="prev" title="Centos使用Yum安装配置Mongodb">
-                Centos使用Yum安装配置Mongodb <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -436,10 +436,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/1-Nginx配置多域名反向代理/"
-     data-title="Nginx配置多域名反向代理"
+        <div class="ds-share flat" data-thread-key="2016/07/26/try-except-else-finally-in-Python/"
+     data-title="Python中try/except/else/finally的执行机制"
      data-content=""
-     data-url="/2015/12/03/1-Nginx配置多域名反向代理/">
+     data-url="/2016/07/26/try-except-else-finally-in-Python/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -466,8 +466,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/03/1-Nginx配置多域名反向代理/"
-           data-title="Nginx配置多域名反向代理" data-url="/2015/12/03/1-Nginx配置多域名反向代理/">
+      <div class="ds-thread" data-thread-key="2016/07/26/try-except-else-finally-in-Python/"
+           data-title="Python中try/except/else/finally的执行机制" data-url="/2016/07/26/try-except-else-finally-in-Python/">
       </div>
     
   </div>
@@ -595,7 +595,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nginx"><span class="nav-number">1.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置反向代理"><span class="nav-number">2.</span> <span class="nav-text">配置反向代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置开机自启动"><span class="nav-number">3.</span> <span class="nav-text">设置开机自启动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不含return的情况"><span class="nav-number">1.</span> <span class="nav-text">不含return的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般情况"><span class="nav-number">1.1.</span> <span class="nav-text">一般情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try子句异常"><span class="nav-number">1.2.</span> <span class="nav-text">try子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try-except子句同时异常"><span class="nav-number">1.3.</span> <span class="nav-text">try/except子句同时异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else子句异常"><span class="nav-number">1.4.</span> <span class="nav-text">else子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally子句异常"><span class="nav-number">1.5.</span> <span class="nav-text">finally子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包含return的情况"><span class="nav-number">2.</span> <span class="nav-text">包含return的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#try子句return"><span class="nav-number">2.1.</span> <span class="nav-text">try子句return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally子句return"><span class="nav-number">2.2.</span> <span class="nav-text">finally子句return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">3.</span> <span class="nav-text">一个例子</span></a></li></ol></div>
             
           </div>
         </section>
