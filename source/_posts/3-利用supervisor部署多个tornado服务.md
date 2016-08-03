@@ -8,101 +8,138 @@ tags: [Supervisor, Tornado, Python]
 <!-- more -->
 [Supervisor](http://supervisord.org/) 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。
 
-## 安装Supervisor
-
-官网上介绍了多种安装方法，这里使用pip进行安装:
+## 安装
 
 ```bash
-pip install supervisor
+$ pip install supervisor
 ```
 
-安装完毕之后在/usr/bin目录会生成一个echo_supervisord_conf文件，它的作用是打印默认的Supervisor配置。接下来我们执行:
+## 配置
 
 ```bash
-echo_supervisord_conf > /etc/supervisord.conf
+$ echo_supervisord_conf > /etc/supervisord.conf
 ```
 
-这样我们的配置文件就建立好了，最好不要改配置文件的路径和名字，因为Supervisor命令默认读取此路径配置，以后使用起来更方便。
+### 修改默认配置
 
-supervisorctl默认通过unix_http_server与supervisor通信，关键的.sock文件默认保存在/tmp目录下，但是在阿里云上似乎会定期清理/tmp下的文件，导致supervisorctl无法与监控主程序进行通信，类似问题需要重新配置你的.sock文件在一个不受干扰的路径，如图所示:
-
-```bash
-[unix_http_server]
-file=/home/libraco/conf/supervisor.sock   ; (the path to the socket file)
-```
-
-针对单独服务的配置可以写在任意地方，只要在主配置文件中包含进来就可以。包含格式在默认配置文件的最后一行：
+编辑`/etc/supervisord.conf`：
 
 ```ini
-; The [include] section can just contain the "files" setting.  This
-; setting can list multiple files (separated by whitespace or
-; newlines).  It can also contain wildcards.  The filenames are
-; interpreted as relative to this file.  Included files *cannot*
-; include files themselves.
+; 修改unix socket文件位置，因为不清楚的原因，默认文件位置工作一段时间之后会不正常
+[unix_http_server]
+file=/home/libraco/conf/supervisor.sock   ; (the path to the socket file)
 
+[supervisorctl]
+serverurl=unix:///home/libraco/conf/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; 取消注释，并修改配置文件目录
 [include]
-files = /etc/supervisor/conf.d/*.conf
+files = etc/supervisor/*.ini
 ```
 
-这里会包含/etc/supervisor/conf.d/下所有以.conf结尾的文件，记得删除行首的分号注释符。
+### 配置Tornado
 
-## 针对Tornado的Supervisor配置
-
-Supervisor关于监控对象的详细配置可以参考其官网，这里我们给一个具体例子:
+在`/etc/supervisor/`下添加`tornado.ini`文件:
 
 ```ini
 [group:tornadoes]
 programs=tornado-8000,tornado-8001,tornado-8002,tornado-8003
 
 [program:tornado-8000]
-command=python /var/www/main.py --port=8000 --log_file_prefix=/var/log/tornado/tornado-8000.log
+
+;*命令路径,如果使用python启动的程序应该为 python /home/test.py, 
+;不建议放入/home/user/, 对于非user用户一般情况下是不能访问
+command=python /var/www/main.py --port=8000
+
+;执行目录,若有/home/supervisor_test/test1.py
+;将directory设置成/home/supervisor_test
+;则command只需设置成python test1.py
+;否则command必须设置成绝对执行目录
 directory=/var/www
+
+;*以www-data用户执行
 user=www-data
+
+;如果是true,当supervisor启动时,程序将会自动启动
+autostart=true
+
+;*自动重启
 autorestart=true
+
+;标准输出重定向到文件，标准错误重定向到标准输出
+stdout_logfile= /var/log/tornado-8000.log
 redirect_stderr=true
-loglevel=info
 
 [program:tornado-8001]
-command=python /var/www/main.py --port=8001 --log_file_prefix=/var/log/tornado/tornado-8000.log
+command=python /var/www/main.py --port=8001
 directory=/var/www
 user=www-data
+autostart=true
 autorestart=true
+stdout_logfile= /var/log/tornado-8001.log
 redirect_stderr=true
-loglevel=info
 
 [program:tornado-8002]
-command=python /var/www/main.py --port=8002 --log_file_prefix=/var/log/tornado/tornado-8000.log
+command=python /var/www/main.py --port=8002
 directory=/var/www
 user=www-data
+autostart=true
 autorestart=true
+stdout_logfile= /var/log/tornado-8002.log
 redirect_stderr=true
-
-loglevel=info
 
 [program:tornado-8003]
-command=python /var/www/main.py --port=8003 --log_file_prefix=/var/log/tornado/tornado-8000.log
+command=python /var/www/main.py --port=8003
 directory=/var/www
 user=www-data
+autostart=true
 autorestart=true
+stdout_logfile= /var/log/tornado-8003.log
 redirect_stderr=true
-loglevel=info
 ```
 
 这里我们定义了一个名为tornadoes的组，包含四个成员tornado-8000、tornado-8001、tornado-8002、tornado-8003。
 
-program部分定义了Supervisor将要运行的每个命令的参数。
+program定义进程名，每个program有单独的详细配置。
 
-command的值是必须的，通常是带有我们希望监听的带有port参数的Tornado应用。
-
-我们还为每个程序的工作目录、有效用户和日志文件定义了额外的设置。
-
-autorestart=true保证进程在异常情况下会自动重启，而redirect_stderr=true会把标准错误重定向到标准输出。
 
 至此我们的配置工作基本完成。
 
-## 启动Supervisord
+## 启动
 
-直接在Bash中执行supervisord即可，如果需要指定配置文件，使用-c参数。此时四个Tornado服务已经跑起来了。
+```bash
+$ /usr/bin/supervisord -c /etc/supervisord.conf
+```
+
+
+## 开机自启动
+
+```bash
+$ sudo vim /lib/systemd/system/supervisor.service  
+```
+
+写入如下内容:
+```init
+[unit]
+Description=supervisor
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+# 启动服务
+$ sudo systemctl start supervisor
+
+# 开机自启动
+$ sudo systemctl enable supervisor
+```
 
 ## 管理服务
 
