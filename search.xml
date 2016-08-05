@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Burpsuite初探]]></title>
-      <url>/2016/08/05/burpsuite-install/</url>
+      <url>http://sha256.cc/2016/08/05/burpsuite-install/</url>
       <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Burp Suite是响当当的web应用程序渗透测试集成平台。从应用程序攻击表面的最初映射和分析，到寻找和利用安全漏洞等过程，所有工具为支持整体测试程序而无缝地在一起工作。<br><a id="more"></a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>版本：Burp suite pro v1.6.34（破解版本）<br>下载地址：<a href="http://download.csdn.net/download/luckchoudog/9451559" target="_blank" rel="external">http://download.csdn.net/download/luckchoudog/9451559</a><br>安装JDK:</p>
 <ul>
@@ -32,7 +32,7 @@
     
     <entry>
       <title><![CDATA[Python中try/except/else/finally的执行机制]]></title>
-      <url>/2016/07/26/try-except-else-finally-in-Python/</url>
+      <url>http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/</url>
       <content type="html"><![CDATA[<p>最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。<a id="more"></a></p>
 <h2 id="不含return的情况"><a href="#不含return的情况" class="headerlink" title="不含return的情况"></a>不含return的情况</h2><h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
 <p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
@@ -78,7 +78,7 @@
     
     <entry>
       <title><![CDATA[支持select和input的JS组件]]></title>
-      <url>/2016/07/21/7-%E6%94%AF%E6%8C%81select%E5%92%8Cinput%E7%9A%84JS%E7%BB%84%E4%BB%B6/</url>
+      <url>http://sha256.cc/2016/07/21/7-%E6%94%AF%E6%8C%81select%E5%92%8Cinput%E7%9A%84JS%E7%BB%84%E4%BB%B6/</url>
       <content type="html"><![CDATA[<p>其实一直以来都不喜欢写JS，但是工作中又不可避免的要写一些前台的用户交互，之前每次都是现写现查，以至于写了不少前端代码都没有积累。既然不能逃避，不如选择接受，从现在起开始有意识得积累一些前端经验。<a id="more"></a></p>
 <p>JS作为一门语言，其设计品味不敢恭维，但是得益于多年在浏览器上的耕耘，无数前端工作者在其上面的工作令其大放异彩。从早期的JQuery到现在的AngularJS、ReactJS、NodeJS，JS自身的语义设计也随着ES6的发布变得越来越完善，也许JS未来会成为一门“真正”的好语言吧。</p>
 <p>扯了那么多，现在进入正题。作为一个业余的JS开发者，自己开发组件显然不是一种好选择，在我碰到一个既可以让用户选择也能让用户自行输入的表单字段时陷入了困扰。在<code>github</code>上的搜索让我找到了<code>select2.js</code>这个组件，真的非常强大。</p>
@@ -92,7 +92,7 @@
     
     <entry>
       <title><![CDATA[Hexo使用体验]]></title>
-      <url>/2016/07/01/6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
+      <url>http://sha256.cc/2016/07/01/6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
       <content type="html"><![CDATA[<p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
 <p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。<br><a id="more"></a></p>
 <h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>~<br>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
@@ -188,7 +188,7 @@
     
     <entry>
       <title><![CDATA[Ngx_lua_waf搭建步骤]]></title>
-      <url>/2016/06/30/5-Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
+      <url>http://sha256.cc/2016/06/30/5-Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
       <content type="html"><![CDATA[<p>Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。<br><a id="more"></a></p>
 <blockquote>
 <p><a href="https://github.com/loveshell/ngx_lua_waf" target="_blank" rel="external">ngx_lua_waf</a>是我刚入职趣游时候开发的一个基于ngx_lua的web应用防火墙。</p>
@@ -246,7 +246,7 @@
     
     <entry>
       <title><![CDATA[python实现rsa的几种方案]]></title>
-      <url>/2015/12/09/4-python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
+      <url>http://sha256.cc/2015/12/09/4-python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
       <content type="html"><![CDATA[<h2 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a><a href="https://pypi.python.org/pypi/rsa" target="_blank" rel="external">rsa</a></h2><p>这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。</p>
 <a id="more"></a>
 <p><strong> 解密性能: 70ms左右 </strong></p>
@@ -278,7 +278,7 @@
     
     <entry>
       <title><![CDATA[利用supervisor部署多个tornado服务]]></title>
-      <url>/2015/12/09/3-%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
+      <url>http://sha256.cc/2015/12/09/3-%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
       <content type="html"><![CDATA[<p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。<br><a id="more"></a><br><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ pip install supervisor</span><br></pre></td></tr></table></figure>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
@@ -313,7 +313,7 @@
     
     <entry>
       <title><![CDATA[Centos使用Yum安装配置Mongodb]]></title>
-      <url>/2015/12/03/2-Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
+      <url>http://sha256.cc/2015/12/03/2-Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
       <content type="html"><![CDATA[<h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -336,7 +336,7 @@
     
     <entry>
       <title><![CDATA[Nginx配置多域名反向代理]]></title>
-      <url>/2015/12/03/1-Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
+      <url>http://sha256.cc/2015/12/03/1-Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
       <content type="html"><![CDATA[<p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。<a id="more"></a>与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
 <h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
