@@ -14,7 +14,7 @@ beian: 粤ICP备14057184号
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: /
+url: http://sha256.cc
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
