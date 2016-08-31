@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sha256.cc/2016/08/31/gunicorn-with-flask/</loc>
+    
+    <lastmod>2016-08-31T07:43:12.868Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sha256.cc/2016/08/05/burpsuite-install/</loc>
     
     <lastmod>2016-08-05T10:46:07.425Z</lastmod>

@@ -44,7 +44,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python," />
+  <meta name="keywords" content="Python,Gunicorn,Flask," />
 
 
 
@@ -60,16 +60,16 @@
 
 
 
-<meta name="description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
+<meta name="description" content="FlaskFlask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python中try/except/else/finally的执行机制">
-<meta property="og:url" content="http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/index.html">
+<meta property="og:title" content="使用Gunicorn部署Flask Web服务">
+<meta property="og:url" content="http://sha256.cc/2016/08/31/gunicorn-with-flask/index.html">
 <meta property="og:site_name" content="倚山观澜">
-<meta property="og:description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
-<meta property="og:updated_time" content="2016-07-26T06:07:52.567Z">
+<meta property="og:description" content="FlaskFlask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。">
+<meta property="og:updated_time" content="2016-08-31T07:43:12.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python中try/except/else/finally的执行机制">
-<meta name="twitter:description" content="最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。">
+<meta name="twitter:title" content="使用Gunicorn部署Flask Web服务">
+<meta name="twitter:description" content="FlaskFlask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。">
 
 
 
@@ -90,9 +90,9 @@
 
 
 
-  <link rel="canonical" href="http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/"/>
+  <link rel="canonical" href="http://sha256.cc/2016/08/31/gunicorn-with-flask/"/>
 
-  <title> Python中try/except/else/finally的执行机制 | 倚山观澜 </title>
+  <title> 使用Gunicorn部署Flask Web服务 | 倚山观澜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -245,7 +245,7 @@
             
             
               
-                Python中try/except/else/finally的执行机制
+                使用Gunicorn部署Flask Web服务
               
             
           </h1>
@@ -257,8 +257,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-26T10:50:40+08:00" content="2016-07-26">
-              2016-07-26
+            <time itemprop="dateCreated" datetime="2016-08-31T15:07:45+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -268,8 +268,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/26/try-except-else-finally-in-Python/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/try-except-else-finally-in-Python/" itemprop="commentsCount"></span>
+                <a href="/2016/08/31/gunicorn-with-flask/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/gunicorn-with-flask/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,7 +279,7 @@
 
           
           
-             <span id="/2016/07/26/try-except-else-finally-in-Python/" class="leancloud_visitors" data-flag-title="Python中try/except/else/finally的执行机制">
+             <span id="/2016/08/31/gunicorn-with-flask/" class="leancloud_visitors" data-flag-title="使用Gunicorn部署Flask Web服务">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -301,46 +301,20 @@
       
 
       
-        <p>最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。<a id="more"></a></p>
-<h2 id="不含return的情况"><a href="#不含return的情况" class="headerlink" title="不含return的情况"></a>不含return的情况</h2><h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="try子句异常"><a href="#try子句异常" class="headerlink" title="try子句异常"></a>try子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">except</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="try-except子句同时异常"><a href="#try-except子句同时异常" class="headerlink" title="try/except子句同时异常"></a>try/except子句同时异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
-<h3 id="else子句异常"><a href="#else子句异常" class="headerlink" title="else子句异常"></a>else子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 7, in t</span><br><span class="line">    print &apos;else&apos;/0</span><br><span class="line">TypeError: unsupported operand type(s) for /: &apos;str&apos; and &apos;int&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="finally子句异常"><a href="#finally子句异常" class="headerlink" title="finally子句异常"></a>finally子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">11</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">9</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>finally子句总会执行</li>
-<li>除了try子句，其他子句中的异常都会抛出</li>
-</ol>
-<h2 id="包含return的情况"><a href="#包含return的情况" class="headerlink" title="包含return的情况"></a>包含return的情况</h2><p>众所周知，return会直接跳出函数，那么它和异常机制的优先级如何呢？</p>
-<h3 id="try子句return"><a href="#try子句return" class="headerlink" title="try子句return"></a>try子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line"></span><br><span class="line">t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br></pre></td></tr></table></figure>
-<p>else子句没有执行！finally子句仍然执行！ </p>
-<h3 id="finally子句return"><a href="#finally子句return" class="headerlink" title="finally子句return"></a>finally子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p>函数的返回值是3，而不是try子句中设置的0，而且except子句的异常不见了。但是如果注释掉finally子句的return，就可以看见except中抛出的异常。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="comment"># return 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">15</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">6</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
-<p>这是为什么呢？其实官方文档里有讲：</p>
-<blockquote>
-<p>A finally clause is always executed before leaving the try statement, whether an exception has occurred or not. When an exception has occurred in the try clause and has not been handled by an except clause (or it has occurred in a except or else clause), it is <strong>re-raised after the finally clause has been executed</strong>. The finally clause is also executed “on the way out” when any other clause of the try statement is left via a break, continue or return statement.</p>
-</blockquote>
-<p>也就是说except、esle子句中的异常在finally子句执行之后才会抛出，但是finally直接return了，所以我们就看不到异常了，而且会覆盖本身的return值。这种用法显然是不符合初衷的，所以不建议在finally语句中使用<code>return</code>、<code>break</code>、<code>continue</code>这些跳出的语句，应仅用作资源释放操作，否则会出现意想不到的结果。</p>
-<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>执行顺序 finally &gt; return &gt; else</li>
-<li>finally的return会抑制其他子句异常抛出，不建议使用</li>
-</ol>
-<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">example</span><span class="params">(id)</span>:</span></span><br><span class="line">    db = get_db()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> db.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">            sql = <span class="string">'''update xxxx</span><br><span class="line">                        set yyyy = yyyy + 1</span><br><span class="line">                      where id = %s'''</span></span><br><span class="line">            cursor.execute(sql, (id,))</span><br><span class="line">        db.commit()</span><br><span class="line">    <span class="keyword">except</span> Exception, e:</span><br><span class="line">        app.logger.error(e, exc_info=<span class="keyword">True</span>)</span><br><span class="line">        db.rollback()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># do sth else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br></pre></td></tr></table></figure>
-<p>注意<code>return</code>的位置和<code>finally</code>子句的用法。</p>
+        <h2 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h2><p>Flask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。<a id="more"></a></p>
+<h2 id="Gunicorn"><a href="#Gunicorn" class="headerlink" title="Gunicorn"></a>Gunicorn</h2><p>Gunicorn ‘Green Unicorn’ 是一个 UNIX 下的 WSGI HTTP 服务器，它是一个移植自 Ruby 的 Unicorn 项目的 pre-fork worker 模型。它既支持 eventlet，也支持 greenlet。在 Gunicorn 上运行 Flask 应用非常简单:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gunicorn myproject:app</span><br></pre></td></tr></table></figure>
+<p>Gunicorn 提供许多命令行参数，可以使用 gunicorn -h 来获得帮助。下面的例子 使用 4 worker 进程（ -w 4 ）来运行 Flask 应用，绑定到 localhost 的 4000 端口（ -b 127.0.0.1:4000 ）:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gunicorn -w 4 -b 127.0.0.1:4000 myproject:app</span><br></pre></td></tr></table></figure>
+<h2 id="几点注意的地方"><a href="#几点注意的地方" class="headerlink" title="几点注意的地方"></a>几点注意的地方</h2><p>1.Gunicorn 日志分为 accesslog 和 errorlog，但是如果你没有配置这两个选项，它们不会被打印出来。</p>
+<p>2.被 Gunicorn 包裹的web服务日志，可以改写输出到 Gunicorn errorlog 上，记得设置 errorlog 的 loglevel ，要不然你可能看不到日志。</p>
+<p>3.如果 Gunicorn 开启了多进程，原来服务的日志系统也需要兼容多进程，或者仅输出到 Gunicorn 的 errorlog 上，写法如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">app.logger.setLevel(logging.INFO)</span><br><span class="line">app.logger.handlers.extend(logging.getLogger(<span class="string">"gunicorn.error"</span>).handlers)</span><br></pre></td></tr></table></figure>
+<p>我猜测这样是多进程安全的，仅仅是<strong>猜测</strong>!</p>
+<p>4.如果你的服务在启动和结束之前还要执行其他操作，目前我不知道Gunicorn如何实现，官方给了自定义Gunicorn的写法，但是我遇到了无法结束的bug。参见：<a href="http://docs.gunicorn.org/en/stable/custom.html" target="_blank" rel="external">http://docs.gunicorn.org/en/stable/custom.html</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> unicode_literals</span><br><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">import</span> gunicorn.app.base</span><br><span class="line"><span class="keyword">from</span> gunicorn.six <span class="keyword">import</span> iteritems</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">number_of_workers</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (multiprocessing.cpu_count() * <span class="number">2</span>) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handler_app</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    response_body = <span class="string">b'Works fine'</span></span><br><span class="line">    status = <span class="string">'200 OK'</span></span><br><span class="line">    response_headers = [</span><br><span class="line">        (<span class="string">'Content-Type'</span>, <span class="string">'text/plain'</span>),</span><br><span class="line">    ]</span><br><span class="line">    start_response(status, response_headers)</span><br><span class="line">    <span class="keyword">return</span> [response_body]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StandaloneApplication</span><span class="params">(gunicorn.app.base.BaseApplication)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, app, options=None)</span>:</span></span><br><span class="line">        self.options = options <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">        self.application = app</span><br><span class="line">        super(StandaloneApplication, self).__init__()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_config</span><span class="params">(self)</span>:</span></span><br><span class="line">        config = dict([(key, value) <span class="keyword">for</span> key, value <span class="keyword">in</span> iteritems(self.options)</span><br><span class="line">                       <span class="keyword">if</span> key <span class="keyword">in</span> self.cfg.settings <span class="keyword">and</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>])</span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> iteritems(config):</span><br><span class="line">            self.cfg.set(key.lower(), value)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.application</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    options = &#123;</span><br><span class="line">        <span class="string">'bind'</span>: <span class="string">'%s:%s'</span> % (<span class="string">'127.0.0.1'</span>, <span class="string">'8080'</span>),</span><br><span class="line">        <span class="string">'workers'</span>: number_of_workers(),</span><br><span class="line">    &#125;</span><br><span class="line">    StandaloneApplication(handler_app, options).run()</span><br></pre></td></tr></table></figure>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>原来喜欢用 python 不喜欢 php 写 web 最大的原因之一就是 php 必须假设在一个web服务器上，配置麻烦。现在发现python web框架自带的服务器就是个玩具而已，生产配置是一样的麻烦。</p>
+<p>我还是太年轻了。也许可以花时间学下php，在适合的场景用适合的语言。</p>
 
       
     </div>
@@ -364,6 +338,10 @@
           
             <a href="/tags/Python/" rel="tag">#Python</a>
           
+            <a href="/tags/Gunicorn/" rel="tag">#Gunicorn</a>
+          
+            <a href="/tags/Flask/" rel="tag">#Flask</a>
+          
         </div>
       
 
@@ -371,17 +349,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/7-支持select和input的JS组件/" rel="next" title="支持select和input的JS组件">
-                <i class="fa fa-chevron-left"></i> 支持select和input的JS组件
+              <a href="/2016/08/05/burpsuite-install/" rel="next" title="Burpsuite初探">
+                <i class="fa fa-chevron-left"></i> Burpsuite初探
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/05/burpsuite-install/" rel="prev" title="Burpsuite初探">
-                Burpsuite初探 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -396,10 +370,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/26/try-except-else-finally-in-Python/"
-     data-title="Python中try/except/else/finally的执行机制"
+        <div class="ds-share flat" data-thread-key="2016/08/31/gunicorn-with-flask/"
+     data-title="使用Gunicorn部署Flask Web服务"
      data-content=""
-     data-url="http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/">
+     data-url="http://sha256.cc/2016/08/31/gunicorn-with-flask/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -426,8 +400,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/26/try-except-else-finally-in-Python/"
-           data-title="Python中try/except/else/finally的执行机制" data-url="http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/">
+      <div class="ds-thread" data-thread-key="2016/08/31/gunicorn-with-flask/"
+           data-title="使用Gunicorn部署Flask Web服务" data-url="http://sha256.cc/2016/08/31/gunicorn-with-flask/">
       </div>
     
   </div>
@@ -555,7 +529,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不含return的情况"><span class="nav-number">1.</span> <span class="nav-text">不含return的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般情况"><span class="nav-number">1.1.</span> <span class="nav-text">一般情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try子句异常"><span class="nav-number">1.2.</span> <span class="nav-text">try子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try-except子句同时异常"><span class="nav-number">1.3.</span> <span class="nav-text">try/except子句同时异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#else子句异常"><span class="nav-number">1.4.</span> <span class="nav-text">else子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally子句异常"><span class="nav-number">1.5.</span> <span class="nav-text">finally子句异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包含return的情况"><span class="nav-number">2.</span> <span class="nav-text">包含return的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#try子句return"><span class="nav-number">2.1.</span> <span class="nav-text">try子句return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally子句return"><span class="nav-number">2.2.</span> <span class="nav-text">finally子句return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">3.</span> <span class="nav-text">一个例子</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask"><span class="nav-number">1.</span> <span class="nav-text">Flask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gunicorn"><span class="nav-number">2.</span> <span class="nav-text">Gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几点注意的地方"><span class="nav-number">3.</span> <span class="nav-text">几点注意的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
           </div>
         </section>
