@@ -4,6 +4,21 @@
   
     
     <entry>
+      <title><![CDATA[Kali Linux 2016.1 安装 Chrome]]></title>
+      <url>http://sha256.cc/2016/09/18/kali-linux-install-chrome/</url>
+      <content type="html"><![CDATA[<p>Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。<a id="more"></a></p>
+<h2 id="1-下载地址"><a href="#1-下载地址" class="headerlink" title="1. 下载地址"></a>1. 下载地址</h2><p>wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" target="_blank" rel="external">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a><br>实测不用翻墙，速度还挺快。</p>
+<h2 id="2-安装命令"><a href="#2-安装命令" class="headerlink" title="2. 安装命令"></a>2. 安装命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
+<h2 id="3-运行设置"><a href="#3-运行设置" class="headerlink" title="3. 运行设置"></a>3. 运行设置</h2><p>安装完chrome之后我们发现并不能正常打开它，需要在<code>/usr/share/application</code>里找到chrome的快捷方式，在原先的运行命令添加<code>--no-sandbox</code>和<code>--user-dir-data</code>。</p>
+<ul>
+<li><code>--no-sandbox</code> 解决点击图片无响应问题</li>
+<li><code>--user-dir-data</code> 解决Chrome不能在root用户下运行的问题</li>
+</ul>
+<p><img src="/images/chrome-setting.png" alt="chrome-setting"></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用Gunicorn部署Flask Web服务]]></title>
       <url>http://sha256.cc/2016/08/31/gunicorn-with-flask/</url>
       <content type="html"><![CDATA[<h2 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h2><p>Flask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。<a id="more"></a></p>

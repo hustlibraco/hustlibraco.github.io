@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sha256.cc/2016/09/18/kali-linux-install-chrome/</loc>
+    
+    <lastmod>2016-09-18T06:29:24.938Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sha256.cc/2016/08/31/gunicorn-with-flask/</loc>
     
     <lastmod>2016-09-01T09:58:23.661Z</lastmod>
