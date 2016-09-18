@@ -60,6 +60,8 @@
 <p>4.导出为<code>cer</code>格式证书</p>
 <p><img src="/images/burpsuite5.png" alt="burpsuite5"></p>
 <p>5.安装<code>cer</code>证书到 <strong>受信任的根证书颁发机构</strong></p>
+<h2 id="HTTPS代理抓包设置（Chrome-in-Linux）"><a href="#HTTPS代理抓包设置（Chrome-in-Linux）" class="headerlink" title="HTTPS代理抓包设置（Chrome  in Linux）"></a>HTTPS代理抓包设置（Chrome  in Linux）</h2><p>如果是在Linux下，打开<code>Chrome</code>-<code>Setting</code>-<code>HTTPS/SSL</code>-<code>Manage certificates...</code>, 选择<code>Authorities</code>这一栏，导入证书文件即可。</p>
+<p><img src="/images/burp-chrome-linux-setting.png" alt="burp-chrome-linux-setting"></p>
 <p>同步骤3</p>
 <h2 id="HTTPS代理抓包效果"><a href="#HTTPS代理抓包效果" class="headerlink" title="HTTPS代理抓包效果"></a>HTTPS代理抓包效果</h2><p><img src="/images/burpsuite6.png" alt="burpsuite6"></p>
 <p>如果代理失败，可能是Burpsuite版本太低，ssl默认为RC4算法，百度https不支持。</p>
