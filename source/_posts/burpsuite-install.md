@@ -46,6 +46,13 @@ Burp Suite是响当当的web应用程序渗透测试集成平台。从应用程�
 
 同步骤3
 
+## HTTPS代理抓包设置（Chrome  in Linux）
+
+如果是在Linux下，打开`Chrome`-`Setting`-`HTTPS/SSL`-`Manage certificates...`, 选择`Authorities`这一栏，导入证书文件即可。
+
+![burp-chrome-linux-setting](/images/burp-chrome-linux-setting.png)
+
+
 ## HTTPS代理抓包效果
 
 ![burpsuite6](/images/burpsuite6.png)
