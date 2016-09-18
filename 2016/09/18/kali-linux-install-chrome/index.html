@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="倚山观澜">
 <meta property="og:description" content="Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。">
 <meta property="og:image" content="http://sha256.cc/images/chrome-setting.png">
-<meta property="og:updated_time" content="2016-09-18T06:29:24.938Z">
+<meta property="og:updated_time" content="2016-09-18T16:13:26.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kali Linux 2016.1 安装 Chrome">
 <meta name="twitter:description" content="Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。">
@@ -306,6 +306,8 @@
         <p>Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。<a id="more"></a></p>
 <h2 id="1-下载地址"><a href="#1-下载地址" class="headerlink" title="1. 下载地址"></a>1. 下载地址</h2><p>wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" target="_blank" rel="external">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a><br>实测不用翻墙，速度还挺快。</p>
 <h2 id="2-安装命令"><a href="#2-安装命令" class="headerlink" title="2. 安装命令"></a>2. 安装命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
+<p>如果缺少依赖：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install <span class="_">-f</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-运行设置"><a href="#3-运行设置" class="headerlink" title="3. 运行设置"></a>3. 运行设置</h2><p>安装完chrome之后我们发现并不能正常打开它，需要在<code>/usr/share/application</code>里找到chrome的快捷方式，在原先的运行命令添加<code>--no-sandbox</code>和<code>--user-dir-data</code>。</p>
 <ul>
 <li><code>--no-sandbox</code> 解决点击图片无响应问题</li>
