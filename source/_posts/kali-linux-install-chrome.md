@@ -16,6 +16,11 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 ```bash
 dpkg -i google-chrome-stable_current_amd64.deb
 ```
+如果缺少依赖：
+
+```bash
+apt-get install -f
+```
 
 ## 3. 运行设置
 
