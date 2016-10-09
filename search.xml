@@ -4,6 +4,22 @@
   
     
     <entry>
+      <title><![CDATA[根据php加密算法编写python解密代码]]></title>
+      <url>http://sha256.cc/2016/10/09/php2python-code/</url>
+      <content type="html"><![CDATA[<p>服务器搬家，暂时无法工作，拿起一道<a href="http://www.shiyanbar.com/ctf/1760" target="_blank" rel="external">CTF</a>练练手。<a id="more"></a></p>
+<p>php代码是一张图片:</p>
+<p><img src="/images/ctf_web200.jpg" alt="ctf"></p>
+<p>使用了<code>rot13</code>、逆序、base64等方法加密，我们将其翻译成python代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rot13</span><span class="params">(s, offset=<span class="number">13</span>)</span>:</span></span><br><span class="line">    <span class="string">'''</span><br><span class="line">    ROT-13 编码是一种每一个字母被另一个字母代替的方法。</span><br><span class="line">    这个代替字母是由原来的字母向前移动 13 个字母而得到的。数字和非字母字符保持不变。</span><br><span class="line">    '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encodeCh</span><span class="params">(ch)</span>:</span></span><br><span class="line">        f=<span class="keyword">lambda</span> x: chr((ord(ch)-x+offset) % <span class="number">26</span> + x)</span><br><span class="line">        <span class="keyword">return</span> f(<span class="number">97</span>) <span class="keyword">if</span> ch.islower() <span class="keyword">else</span> (f(<span class="number">65</span>) <span class="keyword">if</span> ch.isupper() <span class="keyword">else</span> ch)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(encodeCh(c) <span class="keyword">for</span> c <span class="keyword">in</span> s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(s)</span>:</span></span><br><span class="line">    oo = <span class="string">''</span></span><br><span class="line">    o = s[::<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(o)):</span><br><span class="line">        c = chr(ord(o[i])+<span class="number">1</span>)</span><br><span class="line">        oo += c</span><br><span class="line">    <span class="keyword">return</span> rot13(base64.b64encode(oo)[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+<p>照着encode函数，很容易可以写出来decode函数:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(s)</span>:</span></span><br><span class="line">    o = <span class="string">''</span></span><br><span class="line">    oo = base64.b64decode(rot13(s)[::<span class="number">-1</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(oo)):</span><br><span class="line">        c = chr(ord(oo[i])<span class="number">-1</span>)</span><br><span class="line">        o += c</span><br><span class="line">    <span class="keyword">return</span> o[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<p>密文<code>s=a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws</code>, 我们调用一下decode函数，直接得到结果。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@kaliSec:~/文档<span class="comment"># python 1.py </span></span><br><span class="line">a1zL<span class="built_in">bg</span>QsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws flag:&#123;NSCTF_b73d5adfb819c64603d7237fa0d52977&#125;</span><br></pre></td></tr></table></figure>
+<p>语言都是相通的，熟悉算法和数据结构更为关键。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Kali Linux 2016.1 安装 Chrome]]></title>
       <url>http://sha256.cc/2016/09/18/kali-linux-install-chrome/</url>
       <content type="html"><![CDATA[<p>Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。<a id="more"></a></p>
