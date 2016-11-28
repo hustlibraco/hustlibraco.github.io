@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title><![CDATA[pip设置国内源]]></title>
+      <url>http://sha256.cc/2016/11/28/pypi-source-setting/</url>
+      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>每次学习编程的时候都会遇到许多运维的问题。身为立志成为一名全站工程师的我，只有不断折腾了。</p>
+</blockquote><a id="more"></a>
+<p>pip的默认下载源是国外的，所以不是很快，类似yum我们想替换成国内的源，比如：</p>
+<ul>
+<li>阿里云 <a href="http://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="external">http://mirrors.aliyun.com/pypi/simple/</a>  </li>
+<li>豆瓣 <a href="https://pypi.doubanio.com/simple/" target="_blank" rel="external">https://pypi.doubanio.com/simple/</a>  </li>
+</ul>
+<p>网上搜到的地址很多都是过期的，验证方法是用浏览器打开的能看到包列表的地址。比如<code>https://pypi.douban.com/simple/</code>用浏览器打开会跳转至<code>https://pypi.doubanio.com/simple/</code>，这才是最终的正确地址。</p>
+<p>以豆瓣源为例，在Linux下面，创建/etc/pip.conf，编辑内容如下:</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">timeout</span> = <span class="number">60</span></span><br><span class="line"><span class="attr">trusted-host</span>=pypi.doubanio.com</span><br><span class="line"><span class="attr">index-url</span>=https://pypi.doubanio.com/simple/</span><br></pre></td></tr></table></figure>
+<p>保存即可生效，甚至包括virtualenv创建出来的pip也会用这个源。</p>
+<h3 id="临时用法"><a href="#临时用法" class="headerlink" title="临时用法"></a>临时用法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install xxx -i http://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
+<h3 id="更多设置"><a href="#更多设置" class="headerlink" title="更多设置"></a>更多设置</h3><p>可以针对不同Linux用户设置不同源，详见 <a href="https://pip.pypa.io/en/stable/user_guide/#configuration" target="_blank" rel="external">https://pip.pypa.io/en/stable/user_guide/#configuration</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[根据php加密算法编写python解密代码]]></title>
       <url>http://sha256.cc/2016/10/09/php2python-code/</url>
       <content type="html"><![CDATA[<p>服务器搬家，暂时无法工作，拿起一道<a href="http://www.shiyanbar.com/ctf/1760" target="_blank" rel="external">CTF</a>练练手。<a id="more"></a></p>
