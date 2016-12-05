@@ -189,3 +189,110 @@ f = a(b(c(f)))
 > 著作权归作者所有，转载请联系作者获得授权。
 
 
+### 个人练习
+
+```python
+#coding=utf-8
+#!/usr/bin/env python
+from functools import wraps
+from hashlib import md5
+from random import randint
+import os
+import redis
+import time, datetime
+
+class Decorator(object):
+    """装饰器类"""
+    func_cache_dict = {}
+    func_cache_key = 'func_cache'
+    rds = redis.StrictRedis()
+
+    @classmethod
+    def func_cache(cls, func):
+        @wraps(func)
+        def wrapper(*args, **kargs):
+            argstr = '{0}+{1}+{2}'.format(func.__name__,
+                '+'.join(str(i) for i in args),
+                '+'.join('{0}={1}'.format(k,v) for k,v in kargs.iteritems()))
+            uniqid = md5(argstr).hexdigest()
+            if uniqid not in cls.func_cache_dict:
+                try:
+                    res = func(*args, **kargs)
+                except Exception as e:
+                    logging.error(e, exc_info=True)
+                    return None
+                else:
+                    cls.func_cache_dict[uniqid] = res
+            return cls.func_cache_dict[uniqid]
+        return wrapper
+
+    @classmethod
+    def fun_cache_expire(cls, expire_time):
+        assert isinstance(expire_time, int), 'expire_time must be a integer.'
+        def decorator(func):
+            @wraps(func)
+            def wrapper(*args, **kargs):
+                argstr = '{0}+{1}+{2}'.format(func.__name__,
+                    '+'.join(str(i) for i in args),
+                    '+'.join('{0}={1}'.format(k,v) for k,v in kargs.iteritems()))
+                uniqid = md5(argstr).hexdigest()
+                expire_at = float(cls.rds.get(cls.func_cache_key + uniqid) or 0)
+                cond1 = (uniqid not in cls.func_cache_dict)
+                cond2 = (time.time() > expire_at)
+                # print 'cond1:{0}, cond2:{1}'.format(cond1, cond2)
+                if cond1 or cond2:
+                    try:
+                        res = func(*args, **kargs)
+                    except Exception as e:
+                        logging.error(e, exc_info=True)
+                        return None
+                    else:
+                        cls.func_cache_dict[uniqid] = res
+                        cls.rds.setex(cls.func_cache_key + uniqid, 
+                            datetime.timedelta(seconds=expire_time), 
+                            time.time() + expire_time)
+                return cls.func_cache_dict[uniqid]
+            return wrapper
+        return decorator
+
+
+def randomstr1():
+    return os.urandom(8).encode('hex')
+
+@Decorator.func_cache
+def randomstr2():
+    return os.urandom(8).encode('hex')
+
+@Decorator.fun_cache_expire(3)
+# 结果缓存三秒
+def randomstr3():
+    return os.urandom(8).encode('hex')
+
+@Decorator.fun_cache_expire(1)
+# 带参数的函数
+def randomstr4(*args):
+    s = '_'.join(str(i) for i in args)
+    return md5(s).hexdigest()
+
+for i in range(8):
+    args = [randint(1,100) for i in range(3)]
+    print randomstr1(), randomstr2(), randomstr3(), randomstr4(*args)
+    time.sleep(1)
+
+print randomstr1(), randomstr2(), randomstr3(), randomstr4(*args)
+```
+
+运行结果：
+```bash
+302e93d809adda2f 828719ab1a357f0a 9e9a3d8e26d8b101 71078cd8bf589b0a82a4d64867a4fca9
+8ff79b5be99afab7 828719ab1a357f0a 9e9a3d8e26d8b101 2642897d9d2e5d403790f5efcb51c9de
+284014dc432de190 828719ab1a357f0a 9e9a3d8e26d8b101 79c3b2f9cee061069dc95f27ec93893b
+# randomstr3 函数结果缓存3秒，所以3秒变换一次结果
+8d6201c551e12e08 828719ab1a357f0a bae42a9245254d39 840d506ee9004882b3b8537c722cc917
+8038c2c75f0e2584 828719ab1a357f0a bae42a9245254d39 454715c6f86330eebf9a79d65c4c519d
+1ad603c8b1c0f862 828719ab1a357f0a bae42a9245254d39 0c69a374754d0c546fe588ff638c4376
+f3a35c418c35084c 828719ab1a357f0a 6997bc4c1a5c6acf 71a735b4c528d6eb7bc49375f2e031a7
+d42fcb94450a61aa 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422
+# randomstr4 函数最后一次执行的入参与上次相同，所以结果与上一次相同
+90e416f4a6177b8d 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422
+```
