@@ -4,6 +4,69 @@
   
     
     <entry>
+      <title><![CDATA[使用virtualenvwrapper(Linux + Windows)]]></title>
+      <url>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</url>
+      <content type="html"><![CDATA[<p>生活的问题在于，你永远不知道下一个到来的是什么问题。开发亦然。之前Python都是用一个运行环境，偶尔用一下virtualenv，直到开始在windows调试python才不得不来学习virtualenvwrapper。<a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Virtualenvwrapper解决的主要问题是和virtualenv一样的，但是它弥补了virtualenv无法统一管理环境的缺点。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>virtualenvwrapper安装方式还是比较简单的。</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>1.安装<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br></pre></td></tr></table></figure></p>
+<p>2.设置环境变量<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export WORKON_HOME=~/Envs</span><br><span class="line">export PROJECT_HOME=$HOME/pyproj</span><br><span class="line">source /usr/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure></p>
+<p>建议添加到自启动脚本中<code>~/.bashrc</code> 或 <code>~/.profile</code>。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>windows下直接安装virtualenvwrapper似乎不能运行。<br>我搜索到有独立的安装包，也能通过pip安装。<a href="https://github.com/davidmarble/virtualenvwrapper-win。" target="_blank" rel="external">https://github.com/davidmarble/virtualenvwrapper-win。</a></p>
+<p>1.安装<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># using pip</span><br><span class="line">pip install virtualenvwrapper-win</span><br><span class="line"></span><br><span class="line"># using easy_install</span><br><span class="line">easy_install virtualenvwrapper-win</span><br><span class="line"></span><br><span class="line"># from source</span><br><span class="line">git clone git://github.com/davidmarble/virtualenvwrapper-win.git</span><br><span class="line">cd virtualenvwrapper-win</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure></p>
+<p>2.设置环境变量（可选）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Optional: Add an environment variable WORKON_HOME to specify the path to store environments. By default, this is `%USERPROFILE%\Envs`。</span><br></pre></td></tr></table></figure></p>
+<p>3.可能出现的错误<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  File &quot;D:\Python\Python27\Lib\mimetypes.py&quot;, line 249, in enum_types</span><br><span class="line">        ctype = ctype.encode(default_encoding) # omit in 3.x!</span><br><span class="line">UnicodeDecodeError: &apos;ascii&apos; codec can&apos;t decode byte 0xb0 in position 1: ordinal not in range(128)</span><br></pre></td></tr></table></figure></p>
+<p>原因是某些程序（阿里旺旺）写了一些中文键值到注册表里。具体看<a href="http://pcliuyang.blog.51cto.com/8343567/1339637" target="_blank" rel="external">http://pcliuyang.blog.51cto.com/8343567/1339637</a></p>
+<p><strong>解决方法</strong>：打开<code>Python27/Lib/mimetypes.py</code>，找到<code>default_encoding = sys.getdefaultencoding()</code>一行，在它前面添加如下代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># begin fix bug</span><br><span class="line">if sys.getdefaultencoding() != &apos;gbk&apos;:</span><br><span class="line">        reload(sys)</span><br><span class="line">        sys.setdefaultencoding(&apos;gbk&apos;)</span><br><span class="line"># end</span><br></pre></td></tr></table></figure></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>主要命令Linux和windows是一致的，部分有出入。</p>
+<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><p><code>mkvirtualenv &lt;name&gt;</code><br>    Create a new virtualenv environment named <em><name></name></em>.  The environment will<br>    be created in WORKON_HOME.</p>
+<p><code>lsvirtualenv</code><br>    List all of the enviornments stored in WORKON_HOME.</p>
+<p><code>rmvirtualenv &lt;name&gt;</code><br>    Remove the environment <em><name></name></em>. Uses <code>folder_delete.bat</code>.</p>
+<p><code>workon [&lt;name&gt;]</code><br>    If <em><name></name></em> is specified, activate the environment named <em><name></name></em> (change<br>    the working virtualenv to <em><name></name></em>). If a project directory has been<br>    defined, we will change into it. If no argument is specified, list the<br>    available environments. One can pass additional option -c after<br>    virtualenv name to cd to virtualenv directory if no projectdir is set.</p>
+<p><code>deactivate</code><br>    Deactivate the working virtualenv and switch back to the default system<br>    Python.</p>
+<p><code>add2virtualenv &lt;full or relative path&gt;</code><br>    If a virtualenv environment is active, appends <em><path></path></em> to<br>    <code>virtualenv_path_extensions.pth</code> inside the environment’s site-packages,<br>    which effectively adds <em><path></path></em> to the environment’s PYTHONPATH.<br>    If a virtualenv environment is not active, appends <em><path></path></em> to<br>    <code>virtualenv_path_extensions.pth</code> inside the default Python’s<br>    site-packages. If <em><path></path></em> doesn’t exist, it will be created.</p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p><code>cdproject</code><br>    If a virtualenv environment is active and a projectdir has been defined,<br>    change the current working directory to active virtualenv’s project directory.<br>    <code>cd-</code> will return you to the last directory you were in before calling<br>    <code>cdproject</code>.</p>
+<p><code>cdsitepackages</code><br>    If a virtualenv environment is active, change the current working<br>    directory to the active virtualenv’s site-packages directory. If<br>    a virtualenv environment is not active, change the current working<br>    directory to the default Python’s site-packages directory. <code>cd-</code><br>    will return you to the last directory you were in before calling<br>    <code>cdsitepackages</code>.</p>
+<p><code>cdvirtualenv</code><br>    If a virtualenv environment is active, change the current working<br>    directory to the active virtualenv base directory. If a virtualenv<br>    environment is not active, change the current working directory to<br>    the base directory of the default Python. <code>cd-</code> will return you<br>    to the last directory you were in before calling <code>cdvirtualenv</code>.</p>
+<p><code>lssitepackages</code><br>    If a virtualenv environment is active, list that environment’s<br>    site-packages. If a virtualenv environment is not active, list the<br>    default Python’s site-packages. Output includes a basic listing of<br>    the site-packages directory, the contents of easy-install.pth,<br>    and the contents of virtualenv_path_extensions.pth (used by<br>    <code>add2virtualenv</code>).</p>
+<p><code>setprojectdir(win)/setvirtualenvproject(Linux) &lt;full or relative path&gt;</code><br>    If a virtualenv environment is active, define <em><path></path></em> as project<br>    directory containing the source code.  This allows the use of <code>cdproject</code><br>    to change the working directory. In addition, the directory will be<br>    added to the environment using <code>add2virtualenv</code>. If <em><path></path></em> doesn’t<br>    exist, it will be created.</p>
+<p><code>toggleglobalsitepackages</code><br>    If a virtualenv environment is active, toggle between having the<br>    global site-packages in the PYTHONPATH or just the virtualenv’s<br>    site-packages.</p>
+<p><code>whereis &lt;file&gt;</code><br>    A script included for convenience. Returns directory locations<br>    of <code>file</code> and <code>file</code> with any executable extensions. So you can call<br>    <code>whereis python</code> to find all executables starting with <code>python</code> or<br>    <code>whereis python.exe</code> for an exact match.</p>
+<p><code>mkproject(Only in Linux)</code><br>    项目将创建到PROJECT_HOME目录下，实际上相当于在某个目录下，建了一个环境。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[搭建使用个人Git服务器]]></title>
+      <url>http://sha256.cc/2016/12/16/private-git/</url>
+      <content type="html"><![CDATA[<p>一直一来都不用IDE，直接用SFTPDriver把Linux服务器文件直接映射到Windows本次操作。可惜Win10已经用不了SftpDriver，替代品稳定性捉急，因此在Linux上搭建个人Git服务器成为了必然。<a id="more"></a></p>
+<h2 id="Git服务器搭建"><a href="#Git服务器搭建" class="headerlink" title="Git服务器搭建"></a>Git服务器搭建</h2><p>以CentOS7为例，有以下几个步骤。</p>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install git</span><br></pre></td></tr></table></figure>
+<h3 id="创建git用户，创建authorized-keys文件"><a href="#创建git用户，创建authorized-keys文件" class="headerlink" title="创建git用户，创建authorized_keys文件"></a>创建git用户，创建authorized_keys文件</h3><p>一定要设置好权限，否则无法起作用或者不安全<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adduser git </span><br><span class="line">su - git</span><br><span class="line">mkdir .ssh &amp;&amp; chmod 700 .ssh</span><br><span class="line">touch .ssh/authorized_keys</span><br><span class="line">chmod 600 .ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建一个空仓库"><a href="#创建一个空仓库" class="headerlink" title="创建一个空仓库"></a>创建一个空仓库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /home/git</span><br><span class="line">git init --bare sample.git</span><br></pre></td></tr></table></figure>
+<h3 id="禁止git用户登录服务器"><a href="#禁止git用户登录服务器" class="headerlink" title="禁止git用户登录服务器"></a>禁止git用户登录服务器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改 /bin/bash 为 git-shell</span></span><br><span class="line">vim /etc/passwd</span><br><span class="line">git:x:1001:1002::/home/git:/usr/bin/git-shell</span><br></pre></td></tr></table></figure>
+<h3 id="退出git用户"><a href="#退出git用户" class="headerlink" title="退出git用户"></a>退出git用户</h3><h2 id="TortoiseGit客户端使用"><a href="#TortoiseGit客户端使用" class="headerlink" title="TortoiseGit客户端使用"></a>TortoiseGit客户端使用</h2><h3 id="使用Puttygen生成密钥对"><a href="#使用Puttygen生成密钥对" class="headerlink" title="使用Puttygen生成密钥对"></a>使用Puttygen生成密钥对</h3><p><img src="/images/private-git-1.png" alt="select-tag"><br>公钥复制粘贴到服务器的<code>/home/git/.ssh/authorized_keys</code>文件中。<br>私钥保存在本地。</p>
+<blockquote>
+<p>TortoiseGit默认不是OpenSSH</p>
+</blockquote>
+<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><p>右键 git clone，加载Putty密钥选择刚刚生成的私钥。<br><img src="/images/private-git-2.png" alt="select-tag"></p>
+<h2 id="错误帮助"><a href="#错误帮助" class="headerlink" title="错误帮助"></a>错误帮助</h2><h3 id="如果提示网络无法链接，那么服务器的ssh端口很可能不是22！"><a href="#如果提示网络无法链接，那么服务器的ssh端口很可能不是22！" class="headerlink" title="如果提示网络无法链接，那么服务器的ssh端口很可能不是22！"></a>如果提示网络无法链接，那么服务器的ssh端口很可能不是22！</h3><p>如果服务器ssh端口不是22，则要求如下格式：</p>
+<blockquote>
+<p>ssh://git@115.28.137.182:23456/home/git/sample.git</p>
+</blockquote>
+<ul>
+<li><code>ssh://</code> 前缀必不可少</li>
+<li>ip和端口之间一个冒号，端口和项目地址没有冒号！</li>
+</ul>
+<h3 id="如果要求你输入git的密码，那么很有可能authorized-keys有问题"><a href="#如果要求你输入git的密码，那么很有可能authorized-keys有问题" class="headerlink" title="如果要求你输入git的密码，那么很有可能authorized_keys有问题"></a>如果要求你输入git的密码，那么很有可能authorized_keys有问题</h3><ul>
+<li>格式错误</li>
+<li>权限不对</li>
+</ul>
+<p>具体可以在 <strong>systemctl status sshd</strong> 里看到错误日志！</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[【转】Python装饰器]]></title>
       <url>http://sha256.cc/2016/12/05/python-decorator/</url>
       <content type="html"><![CDATA[<p>装饰器本质上是一个Python函数，它可以让其他函数在不需要做任何代码变动的前提下增加额外功能，装饰器的返回值也是一个函数对象。<a id="more"></a>它经常用于有切面需求的场景，比如：插入日志、性能测试、事务处理、缓存、权限校验等场景。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。</p>

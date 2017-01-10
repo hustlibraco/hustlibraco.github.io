@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</loc>
+    
+    <lastmod>2017-01-10T07:43:47.762Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://sha256.cc/2016/12/16/private-git/</loc>
+    
+    <lastmod>2016-12-21T05:22:02.283Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sha256.cc/2016/12/05/python-decorator/</loc>
     
-    <lastmod>2016-12-05T14:02:11.487Z</lastmod>
+    <lastmod>2016-12-05T14:02:11.000Z</lastmod>
     
   </url>
   
