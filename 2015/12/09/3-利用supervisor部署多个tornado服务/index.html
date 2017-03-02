@@ -66,7 +66,7 @@
 <meta property="og:url" content="http://sha256.cc/2015/12/09/3-利用supervisor部署多个tornado服务/index.html">
 <meta property="og:site_name" content="倚山观澜">
 <meta property="og:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。">
-<meta property="og:updated_time" content="2016-08-03T06:33:32.738Z">
+<meta property="og:updated_time" content="2017-03-02T11:52:49.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用supervisor部署多个tornado服务">
 <meta name="twitter:description" content="单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。">
@@ -313,7 +313,7 @@
 <p>至此我们的配置工作基本完成。</p>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ /usr/bin/supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
 <h2 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vim /lib/systemd/system/supervisor.service</span><br></pre></td></tr></table></figure>
-<p>写入如下内容:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[unit]</span><br><span class="line">Description=supervisor</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>写入如下内容:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=supervisor</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line">$ sudo systemctl start supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机自启动</span></span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> supervisor</span><br></pre></td></tr></table></figure>
 <h2 id="管理服务"><a href="#管理服务" class="headerlink" title="管理服务"></a>管理服务</h2><p>管理服务需要用到supervisorctl命令，这个命令必须在Supervisord启动之后执行，它通过发送指令给Supervisord达到管理的目的。</p>
 <p>常用的指令有：</p>
