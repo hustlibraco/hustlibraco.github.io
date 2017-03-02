@@ -120,7 +120,7 @@ $ sudo vim /lib/systemd/system/supervisor.service
 
 写入如下内容:
 ```init
-[unit]
+[Unit]
 Description=supervisor
 After=network.target
 
