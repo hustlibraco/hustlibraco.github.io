@@ -4,6 +4,47 @@
   
     
     <entry>
+      <title><![CDATA[安全快速地导出Redis集合大数据]]></title>
+      <url>http://sha256.cc/2017/04/05/dump-huge-redis-data/</url>
+      <content type="html"><![CDATA[<p>最近利用redis的集合做数据去重，共存储3e条记录到一个键。<br>现在需要把这3e数据导出到文本文件里面来。<br><a id="more"></a><br>首先我们不能用<code>smembers</code>方法，这个方法会阻塞Redis进程，由于数据量太多，可能会阻塞几十秒，排除这个方法。</p>
+<p>然后我们想到mysql导出大数据的时候会利用cursor来迭代处理，查阅redis文档，我们发现有类似的方法<code>sscan</code>, 可以一次取出指定数量的数据，并且迭代集合。这样不会阻塞redis服务，而且速度很快（40min处理了3e条数据）。</p>
+<blockquote>
+<p>SCAN cursor [MATCH pattern] [COUNT count]</p>
+<p>Available since 2.8.0.<br>Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.</p>
+</blockquote>
+<p>代码片段如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(to, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        cursor = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">while</span> cursor != <span class="number">0</span>:</span><br><span class="line">            cursor, data = r.sscan(key, cursor=cursor, count=count)</span><br><span class="line">            data = [<span class="string">'&#123;0&#125;\n'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">            <span class="comment"># 批量写入减少IO操作</span></span><br><span class="line">            f.writelines(data)</span><br><span class="line">            print(<span class="string">'cursor:&#123;0&#125;'</span>.format(cursor))</span><br></pre></td></tr></table></figure>
+<p>迭代开始的时候我们用0初始化cursor的值，每次迭代的时候都传入上一轮返回cursor值，直到cursor再次等于0的时候遍历结束。</p>
+<p><code>sscan</code>方法有几个特别的地方：</p>
+<ol>
+<li><p>返回的cursor值并不是递增的，而且随机变化的，也就是说你不能通过cursor判断当前集合遍历的进度。<br> <img src="/images/redis_sscan_cursor.png" alt="redis_sscan_cursor"></p>
+</li>
+<li><p>某些元素可能会被返回<strong>多次</strong>。</p>
+<blockquote>
+<p>A given element may be returned multiple times. It is up to the application to handle the case of duplicated elements, for example only using the returned elements in order to perform operations that are safe when re-applied multiple times.</p>
+</blockquote>
+</li>
+<li><p>当集合在迭代的时候发生变化，某些元素可能不会被返回。</p>
+<blockquote>
+<p>Elements that were not constantly present in the collection during a full iteration, may be returned or not: it is undefined.</p>
+</blockquote>
+</li>
+<li><p>迭代返回元素的数量可能和count指定的不一致</p>
+<blockquote>
+<p>While SCAN does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of SCAN using the COUNT option. Basically with COUNT the user specified the amount of work that should be done at every call in order to retrieve elements from the collection. This is just an hint for the implementation, however generally speaking this is what you could expect most of the times from the implementation.<br> The default COUNT value is 10.<br> When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no MATCH option is used, the server will usually return count or a bit more than count elements per call.<br> When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first SCAN call regardless of the COUNT value.<br> Important: there is no need to use the same COUNT value for every iteration. The caller is free to change the count from one iteration to the other as required, as long as the cursor passed in the next call is the one obtained in the previous call to the command.</p>
+</blockquote>
+</li>
+</ol>
+<p>因此不建议在集合可能会发生变动的情况下使用这个方法。</p>
+<p>参考链接：</p>
+<ol>
+<li><a href="https://redis.io/commands/scan" target="_blank" rel="external">redis官方文档</a></li>
+<li><a href="https://zhuoroger.github.io/2016/08/13/redis-delete-large-keys/" target="_blank" rel="external">如何优雅地删除Redis大键</a></li>
+</ol>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用virtualenvwrapper(Linux + Windows)]]></title>
       <url>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</url>
       <content type="html"><![CDATA[<p>生活的问题在于，你永远不知道下一个到来的是什么问题。开发亦然。之前Python都是用一个运行环境，偶尔用一下virtualenv，直到开始在windows调试python才不得不来学习virtualenvwrapper。<a id="more"></a></p>
