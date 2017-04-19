@@ -136,12 +136,28 @@ if sys.getdefaultencoding() != 'gbk':
     and the contents of virtualenv_path_extensions.pth (used by
     ``add2virtualenv``).
 
-``setprojectdir(win)/setvirtualenvproject(Linux) <full or relative path>`` 
-    If a virtualenv environment is active, define *<path>* as project
-    directory containing the source code.  This allows the use of ``cdproject``
-    to change the working directory. In addition, the directory will be
-    added to the environment using ``add2virtualenv``. If *<path>* doesn't
-    exist, it will be created.
+``setprojectdir(win)/setvirtualenvproject(Linux)`` 
+    这两个命令功能相同，但是格式不同。`setprojectdir`只需要一个参数，指定工程主目录。`setvirtualenvproject`需要两个参数，参数一指定虚拟环境目录，参数二指定工程主目录。参数可省略，省略时使用当前的虚拟环境和当前目录。
+
+```bash
+# setvirtualenvproject 用法示例
+$ mkproject myproj
+New python executable in myproj/bin/python
+Installing setuptools.............................................
+..................................................................
+..................................................................
+done.
+Creating /Users/dhellmann/Devel/myproj
+(myproj)$ mkvirtualenv myproj_new_libs
+New python executable in myproj/bin/python
+Installing setuptools.............................................
+..................................................................
+..................................................................
+done.
+Creating /Users/dhellmann/Devel/myproj
+(myproj_new_libs)$ setvirtualenvproject $VIRTUAL_ENV $(pwd)
+```
+   
 
 ``toggleglobalsitepackages``
     If a virtualenv environment is active, toggle between having the
