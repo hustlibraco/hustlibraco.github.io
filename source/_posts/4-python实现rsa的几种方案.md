@@ -2,6 +2,7 @@
 title: python实现rsa的几种方案
 date: 2015-12-09 21:26:47
 tags: [Python, RSA, 密码学]
+categories: [安全, 密码学]
 ---
 
 ## [rsa](https://pypi.python.org/pypi/rsa)

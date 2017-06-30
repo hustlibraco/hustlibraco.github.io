@@ -2,6 +2,7 @@
 title: 使用virtualenvwrapper(Linux + Windows)
 date: 2017-01-10 15:03:33
 tags: [Python]
+categories: [开发, Python]
 ---
 
 生活的问题在于，你永远不知道下一个到来的是什么问题。开发亦然。之前Python都是用一个运行环境，偶尔用一下virtualenv，直到开始在windows调试python才不得不来学习virtualenvwrapper。<!-- more -->

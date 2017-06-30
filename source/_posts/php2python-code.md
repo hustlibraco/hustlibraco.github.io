@@ -2,6 +2,7 @@
 title: 根据php加密算法编写python解密代码
 date: 2016-10-09 16:30:18
 tags: [Php, Python, CTF]
+categories: [开发, Python]
 ---
 
 服务器搬家，暂时无法工作，拿起一道[CTF](http://www.shiyanbar.com/ctf/1760)练练手。<!-- more -->

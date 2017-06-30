@@ -2,6 +2,7 @@
 title: 搭建使用个人Git服务器
 date: 2016-12-16 00:59:43
 tags: [Linux, Git]
+categories: [开发, Git]
 ---
 
 一直一来都不用IDE，直接用SFTPDriver把Linux服务器文件直接映射到Windows本次操作。可惜Win10已经用不了SftpDriver，替代品稳定性捉急，因此在Linux上搭建个人Git服务器成为了必然。<!--more-->

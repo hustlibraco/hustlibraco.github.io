@@ -2,6 +2,7 @@
 title: Hexo使用体验
 date: 2016-07-01 19:07:07
 tags: [Hexo, Next, Blog]
+categories: [博客, Hexo]
 ---
 
 

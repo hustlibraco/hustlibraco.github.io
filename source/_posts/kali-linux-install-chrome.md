@@ -2,6 +2,7 @@
 title: Kali Linux 2016.1 安装 Chrome
 date: 2016-09-18 14:04:39
 tags: [Kali, Linux]
+categories: [安全, Kali]
 ---
 
 Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。<!-- more -->

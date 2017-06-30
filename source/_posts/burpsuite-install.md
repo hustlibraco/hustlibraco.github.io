@@ -2,6 +2,7 @@
 title: Burpsuite初探
 date: 2016-08-05 16:52:04
 tags: [Burpsuite, Web安全, 渗透测试]
+categories: [安全, Web安全]
 ---
 
 ## 简介

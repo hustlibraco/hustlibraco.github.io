@@ -2,6 +2,7 @@
 title: 使用Gunicorn部署Flask Web服务
 date: 2016-08-31 15:07:45
 tags: [Python, Gunicorn, Flask]
+categories: [开发, Flask]
 ---
 
 ## Flask

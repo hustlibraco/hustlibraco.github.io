@@ -2,6 +2,7 @@
 title: Centos使用Yum安装配置Mongodb
 date: 2015-12-03 20:46:31
 tags: [Linux, Mongodb]
+categories: [运维]
 ---
 
 ## 安装Mongodb

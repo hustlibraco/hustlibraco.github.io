@@ -155,8 +155,7 @@
                 </a>
               </span>
               <!--/noindex-->
-            {#% elseif is_post() and theme.gentie_productKey %#}
-            {% elseif theme.gentie_productKey %}
+            {% elseif is_post() and theme.gentie_productKey %}
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">

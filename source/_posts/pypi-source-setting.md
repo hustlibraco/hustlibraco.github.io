@@ -2,6 +2,7 @@
 title: pip设置国内源
 date: 2016-11-28 13:26:45
 tags: [Python]
+categories: [开发, Python]
 ---
 
 {% cq %} 每次学习编程的时候都会遇到许多运维的问题。身为立志成为一名全站工程师的我，只有不断折腾了。{% endcq %}<!--more-->

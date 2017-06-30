@@ -2,6 +2,7 @@
 title: Python中try/except/else/finally的执行机制
 date: 2016-07-26 10:50:40
 tags: [Python]
+categories: [开发, Python]
 ---
 
 最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。<!-- more -->

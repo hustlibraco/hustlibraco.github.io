@@ -2,6 +2,7 @@
 title: Ngx_lua_waf搭建步骤
 date: 2016-06-30 17:38:26
 tags: [Linux, Nginx, WAF]
+categories: [安全, WAF]
 ---
 
 Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。 

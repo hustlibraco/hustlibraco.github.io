@@ -2,6 +2,7 @@
 title: 利用supervisor部署多个tornado服务
 date: 2015-12-09 21:01:15
 tags: [Supervisor, Tornado, Python]
+categories: [运维, Supervisor]
 ---
 
 单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。
