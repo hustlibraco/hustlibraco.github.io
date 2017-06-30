@@ -2,6 +2,7 @@
 title: 安全快速地导出Redis集合大数据
 date: 2017-04-05 17:59:44
 tags: [Redis]
+categories: 技术
 ---
 
 最近利用redis的集合做数据去重，共存储3e条记录到一个键。

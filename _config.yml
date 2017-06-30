@@ -75,9 +75,11 @@ deploy:
   branch: master
 
 # 多说评论
-duoshuo_shortname: hustlibraco
+# duoshuo_shortname: hustlibraco
 
 # 本地搜索
 search:
   path: search.xml
   field: post
+  format: html
+  limit: 10000
