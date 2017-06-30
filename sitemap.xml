@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</loc>
+    <loc>http://sha256.cc/404.html</loc>
     
-    <lastmod>2017-04-19T02:59:29.380Z</lastmod>
+    <lastmod>2017-06-30T09:54:08.003Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://sha256.cc/categories/index.html</loc>
+    
+    <lastmod>2017-06-30T09:31:49.301Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://sha256.cc/2017/04/05/dump-huge-redis-data/</loc>
     
-    <lastmod>2017-04-05T11:35:28.347Z</lastmod>
+    <lastmod>2017-06-30T09:29:54.753Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</loc>
+    
+    <lastmod>2017-04-19T02:59:29.380Z</lastmod>
     
   </url>
   
@@ -68,13 +82,6 @@
     <loc>http://sha256.cc/2016/08/31/gunicorn-with-flask/</loc>
     
     <lastmod>2016-09-01T09:58:23.661Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sha256.cc/404.html</loc>
-    
-    <lastmod>2016-08-04T08:50:28.919Z</lastmod>
     
   </url>
   
