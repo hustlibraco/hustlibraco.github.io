@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://sha256.cc/2015/12/03/1-Nginx配置多域名反向代理/index.html">
 <meta property="og:site_name" content="倚山观澜">
 <meta property="og:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
-<meta property="og:updated_time" content="2016-06-29T14:11:58.004Z">
+<meta property="og:updated_time" content="2017-06-30T16:08:58.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx配置多域名反向代理">
 <meta name="twitter:description" content="Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。">
@@ -349,6 +349,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -430,6 +452,7 @@
 <p>配置好以后使用命令service nginx reload使配置生效。</p>
 <h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>CentOS7引入了systemctl命令，结合了service和chkconfig的功能，一行命令设设置开机自启动:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br><span class="line">ln <span class="_">-s</span> <span class="string">'/usr/lib/systemd/system/nginx.service'</span> <span class="string">'/etc/systemd/system/multi-user.target.wants/nginx.service'</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -566,7 +589,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
