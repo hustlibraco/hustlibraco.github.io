@@ -320,13 +320,13 @@ disqus:
 #hypercomments_id:
 
 # Gentie productKey
-gentie_productKey: ac83ae2fa9714531ace1c25b23140d6c
+# gentie_productKey: ac83ae2fa9714531ace1c25b23140d6c
 
 # changyan
 changyan:
-  enable: false
-  appid:
-  appkey:
+  enable: true
+  appid: cyt73kdx3
+  appkey: 7503ff2f096d7ca907271c83dd290742
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
