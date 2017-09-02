@@ -11,7 +11,7 @@ categories: [博客, Hexo]
 于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo & Next。
 <!-- more -->
 ## Why Hexo
-~
+
 其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。
 下面是我选择她的一些理由:
 
