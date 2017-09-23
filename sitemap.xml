@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sha256.cc/2017/09/23/CVE-2017-8759-fuxian/</loc>
+    
+    <lastmod>2017-09-23T09:06:15.610Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sha256.cc/2017/09/09/linux-python-nanomsg/</loc>
     
     <lastmod>2017-09-09T03:41:30.675Z</lastmod>

